@@ -142,21 +142,21 @@
                                         <span v-else></span>
                                     </td>
                                     <td v-if="current.editRow">
-                                        <input type="text" class="form-control" v-model="current.doubleMin">
+                                        <input type="number" class="form-control" v-model="current.doubleMin">
                                     </td>
                                     <td v-if="!current.editRow">
                                         <span v-if="current.doubleMax!==null">{{Number(current.doubleMax).toFixed(4)}}</span>
                                         <span v-else></span>
                                     </td>
                                     <td v-if="current.editRow">
-                                        <input type="text" class="form-control" v-model="current.doubleMax">
+                                        <input type="number" class="form-control" v-model="current.doubleMax">
                                     </td>
                                     <td v-if="!current.editRow">
                                         <span v-if="current.doubleNum!==null">{{Number(current.doubleNum).toFixed(4)}}</span>
                                         <span v-else></span>
                                     </td>
                                     <td v-if="current.editRow">
-                                        <input type="text" class="form-control" v-model="current.doubleNum">
+                                        <input type="number" class="form-control" v-model="current.doubleNum">
                                     </td>
                                     <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.status.find(unit=>
                                         unit.id===current.status).data}}</td>
@@ -221,13 +221,13 @@
                                         <span v-if="current.doubleMin!==null">{{Number(current.doubleMin).toFixed(4)}}</span>
                                         <span v-else></span></td>
                                     <td v-if="current.editRow">
-                                        <input type="text" class="form-control" v-model="current.doubleMin">
+                                        <input type="number" class="form-control" v-model="current.doubleMin">
                                     </td>
                                     <td v-if="!current.editRow">
                                         <span v-if="current.doubleMax!==null">{{Number(current.doubleMax).toFixed(4)}}</span>
                                         <span v-else></span></td>
                                     <td v-if="current.editRow">
-                                        <input type="text" class="form-control" v-model="current.doubleMax">
+                                        <input type="number" class="form-control" v-model="current.doubleMax">
 
                                     </td>
                                     <td v-if="!current.editRow">
@@ -235,7 +235,7 @@
                                         <span v-else></span>
                                     </td>
                                     <td v-if="current.editRow">
-                                        <input type="text" class="form-control" v-model="current.doubleNum">
+                                        <input type="number" class="form-control" v-model="current.doubleNum">
 
                                     </td>
                                     <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.status.find(unit=>
@@ -422,7 +422,7 @@
 
 
                 if (ind !== null) {
-                    this.saveListParam[ind] = {
+                    this.listNewParam[ind] = {
                         id: current.id,
                         elemId: current.elemId,
                         name: current.name,
@@ -437,7 +437,7 @@
                     }
 
                 } else {
-                    this.saveListParam.push({
+                    this.listNewParam.push({
                         id: current.id,
                         elemId: current.elemId,
                         name: current.name,
@@ -483,6 +483,7 @@
                 this.listNewElem.push(this.saveElemData);
                 this.setListNewElem(this.listNewElem);
                 this.setMaxId(this.ELEMENTS_UPDATE.maxId + 1);
+
                 console.log(number)
             },
             addNewParam(number) {
@@ -549,7 +550,6 @@
                 //     listSaveParam: this.listNewParam.filter(param => (!param.editRow && param.id === 0)),
                 //     listUpdateParam: this.listNewParam.filter(param => (!param.editRow && param.id !== 0))
                 //  };
-                this.listNewParam = this.listNewParam.filter(param => (!param.editRow && param.id === 0));
                 let tempListElem = this.LISTNEWELEM;
                 this.listNewParam.forEach(param => {
                     tempListElem.push({
@@ -560,7 +560,7 @@
                 })
                 this.SAVE_DATA_ELEMENTS({
                     listElem: this.LISTNEWELEM,
-                    listSaveParam: this.listNewParam,
+                    listSaveParam: this.listNewParam.filter(param => (!param.editRow && param.id === 0)),
                     listUpdateParam: this.listNewParam.filter(param => (!param.editRow && param.id !== 0))
                 });
 
