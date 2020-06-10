@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let urlApi = 'https://enginefinal.herokuapp.com/';
+let urlApi = 'https://enginefinal.herokuapp.com/update/';
 //let urlApi = 'http://localhost:5050/update/';
 
 export default {
