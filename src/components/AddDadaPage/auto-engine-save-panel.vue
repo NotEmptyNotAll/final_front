@@ -102,7 +102,7 @@
                 </div>
                 <hr/>
 
-                <div class="savePageRow row ">
+                <div class="row ">
                     <div v-if="showErr" class="alert alert-danger" role="alert" style="text-align:center; width: 100%">
                         {{$ml.get('msg.duplicateValue')}}
                     </div>
@@ -462,6 +462,30 @@
                 'GET_ALL_ADDITIONAL_DATA'
 
             ]),
+            countDownChangedErr(dismissCountDown) {
+                this.dismissCountDownErr = dismissCountDown
+            },
+            countDownChangedSucc(dismissCountDown) {
+                this.dismissCountDownSucc = dismissCountDown
+            },
+            countDownChangedSuccUpd(dismissCountDown) {
+                this.dismissCountDownSuccUpd = dismissCountDown
+            },
+            countDownChangedErrUpd(dismissCountDown) {
+                this.dismissCountDownErrUpd = dismissCountDown
+            },
+            showAlertErr() {
+                this.dismissCountDownErr = this.dismissSecsErr
+            },
+            showAlertSucc() {
+                this.dismissCountDownSucc = this.dismissSecsSucc
+            },
+            showAlertSuccUpd() {
+                this.dismissCountDownSuccUpd = this.dismissSecsSuccUpd
+            },
+            showAlertErrUpd() {
+                this.dismissCountDownErrUpd = this.dismissSecsErrUpd
+            },
             setDataList(tempList) {
                 this.dataList = tempList;
             },
@@ -506,13 +530,21 @@
 
                 if (dupAutoM === undefined && dupAutoModel === undefined && dupEngine === undefined) {
                     this.showErr = false
-                    await this.SAVE_DATA_AUTOMOBILE_ENGINE(this.saveDataObj);
+                    await this.SAVE_DATA_AUTOMOBILE_ENGINE(this.saveDataObj)
+
                     this.showAlertSucc()
-                    this.GET_ALL_ADDITIONAL_DATA();
+                    alert('1')
+
+                    this.GET_ALL_ADDITIONAL_DATA()
+
 
                 } else {
+                    alert('1')
+
                     this.showAlertErr()
                 }
+                alert('1')
+
                 //  this.SAVE_DATA_ENGINE_NUMBER(this.saveDataEngParam);
                 console.log(number)
             },

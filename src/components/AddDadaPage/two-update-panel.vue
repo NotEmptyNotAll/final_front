@@ -55,7 +55,7 @@
 
                     </div>
                 </div>
-                <b-table class="my-table-scroll" no-border-collapse hover sticky-header="650px" :items="listForSearch.filter(elem=>{return elem.data!=='не задано'})"
+                <b-table class="my-table-scroll" no-border-collapse hover sticky-header="650px" :items="listForSearch.filter(elem=>{return elem.data!==''})"
                          @row-dblclicked="(item) => link( item)"
                          :fields="[
                 { key: 'index', label:'№' },
