@@ -271,7 +271,7 @@
                                     :update-obj="current"
                                     index="autoManufactureFk"
                                     :hide-title="true"
-                                    :holder-num=0
+                                    :holder-num="current.autoManufactureFk"
                             />
                         </td>
                         <td v-if="!current.editRow">{{ADDITIONAL_DATA.autoModel.find(elem=>
@@ -283,7 +283,7 @@
                                     :update-obj="current"
                                     index="autoModelFk"
                                     :hide-title="true"
-                                    :holder-num=0
+                                    :holder-num="current.autoModelFk"
                             />
                         </td>
                         <td v-if="!current.editRow">{{ADDITIONAL_DATA.engine.find(elem=>
@@ -295,16 +295,16 @@
                                     :update-obj="current"
                                     index="engineFk"
                                     :hide-title="true"
-                                    :holder-num=0
+                                    :holder-num="current.engineFk"
                             />
                         </td>
                         <td v-if="!current.editRow">{{current.releaseYearFrom}}</td>
                         <td v-if="current.editRow">
-                            <input type="text" class="form-control" v-model="current.releaseYearFrom">
+                            <input max="2020" min="1895" :placeholder="current.releaseYearFrom" type="number" class="form-control" v-model="current.releaseYearFrom">
                         </td>
                         <td v-if="!current.editRow">{{current.releaseYearBy}}</td>
                         <td v-if="current.editRow">
-                            <input type="text" class="form-control" v-model="current.releaseYearBy">
+                            <input max="2020" min="1895" :placeholder="current.releaseYearBy" type="number" class="form-control" v-model="current.releaseYearBy">
                         </td>
                         <td>
                             <button type="button " v-if="!current.editRow"
