@@ -531,20 +531,11 @@
                 if (dupAutoM === undefined && dupAutoModel === undefined && dupEngine === undefined) {
                     this.showErr = false
                     await this.SAVE_DATA_AUTOMOBILE_ENGINE(this.saveDataObj)
-
                     this.showAlertSucc()
-                    alert('1')
-
                     this.GET_ALL_ADDITIONAL_DATA()
-
-
                 } else {
-                    alert('1')
-
                     this.showAlertErr()
                 }
-                alert('1')
-
                 //  this.SAVE_DATA_ENGINE_NUMBER(this.saveDataEngParam);
                 console.log(number)
             },

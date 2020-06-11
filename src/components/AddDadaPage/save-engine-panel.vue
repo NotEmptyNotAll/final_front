@@ -308,7 +308,7 @@
                             @dismissed="dismissCountDownSucc=0"
                             @dismiss-count-down="countDownChangedSucc"
                     >
-                        <p> {{$ml.get('msg.dataAddSuccess')}}</p>
+                        <p> {{$ml.get('word.dataAddSuccess')}}</p>
 
                     </b-alert>
                     <div class="col-md-3"></div>
