@@ -1,13 +1,13 @@
 <template>
 
-    <ul     >
-        <li class="border-white bold list-group-item   left"
-            style="position: relative; width: 24vw;padding: 0px; display: flex;align-items: center"
+    <ul style="height: auto">
+        <li class="border-white bold list-group-item   li-hov"
+            style="position: relative; width: 24vw; display: flex;align-items: center; height: 3.5em "
 
         >
-            <div class="row" style=" padding: 0px ;width:70%;">
-                <div class="col-md-8" style="display: flex;align-items: center">
-            <span v-show="item.name!=''" @click="toggle" style="padding-left: 1vw">
+            <div class="row" style=" padding: 0px ;width:100%;">
+                <div class="col-md-9" style="display: flex;align-items: center; ">
+            <span v-show="item.name!=''" @click="toggle" style="padding-left: 0vw;">
                 {{ space+item.name }}
                 <span v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
             </span>
@@ -22,46 +22,64 @@
                         index="paramNameFk"
                         :hide-title="true"
                         :holder-num=0
-                        style="position: relative; left: 1vw;padding: 1vh"
+                        style="position: relative; top: 0.25em; width: 80%"
                 />
-                <div class="col-md-4" >
-                    <button v-show="item.name===''"
-                            type="button"
-                            class="btn  btn-success "
-                            @click="saveElem(1)"
-                            style="position: relative; left: 5vw;top:1vh"
-                    >
+                <div  class="col-md-1" v-show="item.name===''"></div>
+                <div class="col-md-3">
+                    <div class=" btn-group  " style="display: flex;">
+                        <button v-show="item.name===''"
+                                type="button"
+                                class="btn  btn-success "
+                                @click="saveElem(1)"
+                                style="position: relative; left: 5vw;top:0.5vh"
+                        >
                         <span>
                              <p class="h5 md-2"><b-icon icon="check"></b-icon></p>
                         </span>
-                    </button>
-
-                    <div class=" btn-group  "  style="display: flex;">
-                        <button v-show="changeMod==='off'" type="button"
-                                v-if=" !linkOnThisButt.isPressed && item.parametersIsExistInChild"
-                                v-on:click="pressed"
-                                class="btn posLeft  btn-posit btn-success"
-                                @click="getParamtrs(nav,item.id,linkOnThisButt)"
-                        style="max-width: 3vw">
-                            <span>
-                                <b-icon icon="chevron-bar-right"></b-icon>
-                            </span>
                         </button>
-                        <button v-show="changeMod==='off'" type="button"
-                                v-if=" linkOnThisButt.isPressed && item.parametersIsExistInChild"
-                                class="btn posLeft btn-posit btn-secondary disabled"
-                                style="max-width: 3vw">
+                        <button v-show="item.name===''"
+                                type="button"
+                                class="btn  btn-danger "
+                                @click="deleteInPatent(item.id)"
+                                style="position: relative; left: 5vw;top:0.5vh"
+                        >
+                        <span>
+                                    <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+                        </span>
+                        </button>
+                    </div>
+                    <div class=" btn-group  " style="display: flex;">
+                        <el-button circle v-show="changeMod==='off'"
+                                   v-if=" !linkOnThisButt.isPressed && item.parametersIsExistInChild"
+                                   v-on:click="pressed" type="success"
+                                   class=" posLeft  btn-posit"
+                                   @click="getParamtrs(nav,item.id,linkOnThisButt)"
+                                   style="max-width: 3vw" icon="el-icon-d-arrow-right"
+                                   size="small">
+                        </el-button>
+                        <el-button disabled v-show="changeMod==='off'"
+                                   circle size="small"
+                                   v-if=" linkOnThisButt.isPressed && item.parametersIsExistInChild"
+                                   class=" posLeft btn-posit  " type="success"
+                                   style="max-width: 3vw" icon="el-icon-d-arrow-right">
+                        </el-button>
+                    </div>
+
+                    <div class=" btn-group  " v-show="item.name!='' && changeMod==='tree'" role="group"
+                         style=" position: relative; top: 0.5vh; left: 6vw;padding: 1vh">
+                        <button  type="button"
+                                class="btn btn-group   btn-info" @click="addElement(1)" style="z-index: 999">
                             <span>
-                                  <b-icon icon="chevron-bar-right"></b-icon>
+                                <p class="h5 md-2"><b-icon icon="plus"></b-icon></p>
                             </span>
                         </button>
                     </div>
 
-
-                    <div class=" btn-group  " v-show="item.name!=''" role="group" style=" position: relative; top: 0.5vh; left: 6vw;padding: 1vh">
-                        <button v-show="changeMod==='on'" type="button " v-if=" !linkOnThisButt.isPressed "
+                    <div class=" btn-group  " v-show="item.name!='' && changeMod==='on'" role="group"
+                         style=" position: relative; top: 0.5vh; left: 6vw;padding: 1vh">
+                        <button type="button " v-if=" !linkOnThisButt.isPressed "
                                 v-on:click="pressed"
-                                class="btn btn-group  pos-left btn-warning"
+                                class="btn btn-group   btn-warning"
                                 @click="getParamtrs(nav,item.id,linkOnThisButt)"
                         >
                             <span>
@@ -69,37 +87,33 @@
 
                             </span>
                         </button>
-                        <button v-show="changeMod==='on'" type="button" v-if=" linkOnThisButt.isPressed "
-                                class="btn btn-group  pos-left btn-warning disabled">
+                        <button  type="button" v-if=" linkOnThisButt.isPressed "
+                                class="btn btn-group   btn-warning disabled">
                             <span>
                                 <b-icon icon="pencil" animation="cylon"></b-icon>
-                            </span>
-                        </button>
-                        <button v-show="changeMod==='on'" type="button"
-                                class="btn btn-group  pos-left btn-info" @click="addElement(1)" style="z-index: 999">
-                            <span>
-                                <p class="h5 md-2"><b-icon icon="plus"></b-icon></p>
                             </span>
                         </button>
                     </div>
                 </div>
             </div>
         </li>
-        <ul class="list-group border-white left" v-show="isOpen" v-if="isFolder">
-            <tree-item
-                    class="item"
-                    v-for="(child, index) in item.elementsCh"
-                    :key="index"
-                    :item="child"
-                    :choice-param="choiceParam"
-                    :nav="child.name"
-                    :id-parent-elem="item.id"
-                    :change-mod="changeMod"
-                    :space="space.concat('')"
-                    @get-paramtrs="getParamtrs"
-                    :show-edit-param="showEditParam"
-            ></tree-item>
-        </ul>
+
+            <ul class="list-group border-white left" v-show="isOpen" v-if="isFolder">
+                <tree-item
+                        class="item"
+                        v-for="(child, index) in item.elementsCh"
+                        :key="index"
+                        :item="child"
+                        :choice-param="choiceParam"
+                        :nav="child.name"
+                        :id-parent-elem="item.id"
+                        :change-mod="changeMod"
+                        :space="space.concat('')"
+                        @get-paramtrs="getParamtrs"
+                        :show-edit-param="showEditParam"
+                        @parent-delete="deleteElem"
+                ></tree-item>
+            </ul>
     </ul>
 
 </template>
@@ -147,7 +161,7 @@
                 'LISTNEWELEM',
                 'ELEMENTS_AND_MAX_ID',
                 'ELEMENTS',
-                'ELEMENTS_UPDATE',
+                'ELEMENTS_TREE',
                 'PARAM_NAME'
             ]),
             isFolder: function () {
@@ -158,12 +172,24 @@
             ...mapMutations({
                 setElements: 'SET_ELEMENTS',
                 setListNewElem: 'SET_LIST_NEW_PARAM',
-                setMaxId: 'SET_MAX_ID'
+                setMaxId: 'SET_ELEMENTS_TREE_MAXID'
             }),
+            deleteInPatent(id) {
+                this.saveElemData = {
+                    elemId: null,
+                    paramNameFk: null,
+                    parentId: null
+                },
+                    this.$emit("parent-delete", id)
+            },
+            deleteElem(id) {
+                this.item.elementsCh = this.item.elementsCh.filter(elem => elem.id !== id)
+                console.log(id)
+            },
             addElement: function (number) {
                 this.isOpen = true;
                 this.item.elementsCh.push({
-                        id: this.ELEMENTS_UPDATE.maxId,
+                        id: this.ELEMENTS_TREE.maxId,
                         elementsCh: [{
                             id: 0,
                             elementsCh: [],
@@ -177,6 +203,7 @@
                         parametersIsExistInChilda: true
                     }
                 );
+                this.setMaxId(this.ELEMENTS_TREE.maxId + 1);
                 console.log(number);
             },
             saveElem(number) {
@@ -184,14 +211,14 @@
                 this.item.name = this.PARAM_NAME.find(item => item.id === this.saveElemData.paramNameFk).data;
                 this.saveElemData.parentId = this.idParentElem;
 
-                this.saveElemData.elemId = this.ELEMENTS_UPDATE.maxId + 1;
+                this.saveElemData.elemId = this.ELEMENTS_TREE.maxId + 1;
 
-                this.item.id = this.ELEMENTS_UPDATE.maxId + 1;
+                this.item.id = this.ELEMENTS_TREE.maxId + 1;
 
                 this.listNewElem = this.LISTNEWELEM;
                 this.listNewElem.push(this.saveElemData);
                 this.setListNewElem(this.listNewElem);
-                this.setMaxId(this.ELEMENTS_UPDATE.maxId + 1);
+                this.setMaxId(this.ELEMENTS_TREE.maxId + 1);
                 this.listElem.push(this.saveElemData)
                 console.log(number);
             },
@@ -216,7 +243,7 @@
             }
         },
         mounted() {
-            this.maxId = this.ELEMENTS_UPDATE.maxId;
+            this.maxId = this.ELEMENTS_TREE.maxId;
             this.elementsCh = this.item.elementsCh;
         }
     }
@@ -225,17 +252,11 @@
 
 <style>
 
-    .btn-posit {
-        position: absolute;
-        right: 1vw;
-    }
 
-    .pos-left {
-        position: absolute;
-        right: 0px;
-        top: 0;
+    .btn-group {
+        position: relative;
+        right: 7em;
     }
-
 
     .item {
         cursor: pointer;
@@ -251,21 +272,20 @@
         list-style-type: none;
     }
 
-    .left {
-        position: relative; /* Абсолютное позиционирование */
-        left: -1px;
+    .li-hov:hover {
+
+        background: #edf5ff;
     }
 
     div {
         position: relative;;
     }
 
+
     .posLeft {
-        position: absolute;
-        right: 0px;
-        left: 8vw;
-        bottom: 5px;
-        top: 2.1vh;
+        position: relative;
+        left: 8em;
+        top: 1.4em;
     }
 
 

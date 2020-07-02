@@ -3,68 +3,73 @@
         <error-page
                 v-if="!currentUser"
         />
-        <div  v-if="currentUser" class="container-fluid">
+        <div v-if="currentUser" id="main-panel" class="container-fluid shadow-lg  bg-white rounded search-border">
             <div class="row" style="padding-top: 1vh;">
-                <div class="col-md-2 col-lg-2  navbar-container " style="height: 95vh">
-                    <nav class="navbar navbar-expand-md search-border shadow-lg   navbar-light rounded  " id="nav-panel">
+                <div class="col-md-2 col-lg-2  navbar-container " >
+                    <nav class="navbar navbar-expand-md    navbar-light   "
+                         id="nav-panel">
                         <div class="collapse navbar-collapse " id="navbar" style="width: 100%;">
                             <!-- Вертикальное меню -->
                             <ul class="nav  nav-tabs tabs-right  sideways" style="width: 100%">
-                                <li class=" act ive  nav-item"><a class="nav-link menu-item "  style="border: white;" href="#engine"
-                                                             data-toggle="tab">
+
+                                <li class=" act ive  nav-item"><a class="nav-link menu-item " style="border: white;"
+                                                                  href="#engine"
+                                                                  data-toggle="tab">
                                     <span></span>
                                     {{$ml.get('word.engine')}}</a>
                                 </li>
                                 <hr style="position: center; width: 100%;"/>
-                                <li class="nav-item"><a class="nav-link menu-item " href="#cylinders" data-toggle="tab" style="border: white;">
+                                <li class="nav-item"><a class="nav-link menu-item " href="#cylinders" data-toggle="tab"
+                                                        style="border: white;">
                                     <span></span>
                                     {{$ml.get('word.cylinders')}}</a>
                                 </li>
                                 <hr style="position: center; width: 100%;"/>
 
-                                <li class="nav-item"><a class="nav-link menu-item " href="#fuelType" data-toggle="tab"  style="border: white;">
+                                <li class="nav-item"><a class="nav-link menu-item " href="#fuelType" data-toggle="tab"
+                                                        style="border: white;">
                                     <span></span>
                                     {{$ml.get('word.fuelType')}}</a>
                                 </li>
                                 <hr style="position: center; width: 100%;"/>
                                 <li class="nav-item"><a class="nav-link menu-item " href="#superchargedType"
-                                                        data-toggle="tab"  style="border: white;">
+                                                        data-toggle="tab" style="border: white;">
                                     <span></span>
                                     {{$ml.get('word.superchargedType')}}</a>
                                 </li>
                                 <hr style="position: center; width: 100%;"/>
                                 <li class="nav-item"><a class="nav-link menu-item " href="#autoEngine"
-                                                        data-toggle="tab"  style="border: white;">
+                                                        data-toggle="tab" style="border: white;">
                                     <span></span>
                                     {{$ml.get('word.autoEngine')}}</a>
                                 </li>
                                 <hr style="position: center; width: 100%;"/>
                                 <li class="nav-item"><a class="nav-link menu-item " href="#engineManufacture"
-                                                        data-toggle="tab"  style="border: white;">
+                                                        data-toggle="tab" style="border: white;">
                                     <span></span>
                                     {{$ml.get('word.engineManufacture')}}</a>
                                 </li>
                                 <hr style="position: center; width: 100%;"/>
                                 <li class="nav-item"><a class="nav-link menu-item " href="#autoManufacturer"
-                                                        data-toggle="tab"  style="border: white;">
+                                                        data-toggle="tab" style="border: white;">
                                     <span></span>
                                     {{$ml.get('word.autoManufacturer')}}</a></li>
                                 <hr style="position: center; width: 100%;"/>
 
                                 <li class="nav-item"><a class="nav-link menu-item " href="#autoModel"
-                                                        data-toggle="tab"  style="border: white;">
+                                                        data-toggle="tab" style="border: white;">
                                     <span></span>
                                     {{$ml.get('word.autoModel')}}
                                 </a></li>
                                 <hr style="position: center; width: 100%;"/>
                                 <li class="nav-item"><a class="nav-link menu-item " href="#units"
-                                                        data-toggle="tab"  style="border: white;">
+                                                        data-toggle="tab" style="border: white;">
                                     <span></span>
                                     {{$ml.get('word.units')}}
                                 </a></li>
                                 <hr style="position: center; width: 100%;"/>
                                 <li class="nav-item"><a class="nav-link menu-item " href="#nameElements"
-                                                        data-toggle="tab"  style="border: white;">
+                                                        data-toggle="tab" style="border: white;">
                                     <span></span>
                                     {{$ml.get('word.nameElements')}}
                                 </a></li>
@@ -72,7 +77,8 @@
                         </div>
                     </nav>
                 </div>
-                <div class="col-md-10 col-lg-10 rounded search-border content-container shadow-lg bg-white" style="height: 95vh">
+                <div class="col-md-10 col-lg-10 content-container "
+                     >
                     <br/>
                     <div class="col-xs-9">
                         <!-- Tab panes -->
@@ -84,6 +90,7 @@
                                         :load-status="LOAD_SAVE.engine"
                                         @save-data-api="SAVE_DATA_ENGINE"
                                         @update-data-api="UPDATE_DATA_ENGINE"
+                                        @import-data-api="IMPORT_DATA_ENGINE"
                                         :data-list="this.ADDITIONAL_DATA.engine"
                                 />
                             </div>
@@ -94,6 +101,7 @@
                                         :load-status="LOAD_SAVE.cylinders"
                                         :data-list="ADDITIONAL_DATA.cylinders"
                                         @save-data-api="SAVE_DATA_CYLINDERS"
+                                        @import-data-api="IMPORT_DATA_CYLINDERS"
                                         @update-data-api="UPDATE_DATA_CYLINDERS"
                                 />
                             </div>
@@ -105,6 +113,7 @@
                                         :data-list="ADDITIONAL_DATA.fuelType"
                                         @save-data-api="SAVE_DATA_FUEL_TYPE"
                                         @update-data-api="UPDATE_DATA_FUEL_TYPE"
+                                        @import-data-api="IMPORT_DATA_FUEL_TYPE"
 
                                 />
                             </div>
@@ -114,8 +123,10 @@
                                         :name-panel="$ml.get('word.superchargedType')"
                                         :data-list="ADDITIONAL_DATA.superchargeType"
                                         :load-status="LOAD_SAVE.superchargedType"
+                                        @import-data-api="IMPORT_DATA_MEASUREMENT_UNITS"
                                         @save-data-api="SAVE_DATA_SUPERCHARGE_TYPE"
                                         @update-data-api="UPDATE_DATA_SUPERCHARGE_TYPE"
+
                                 />
                             </div>
                             <div class="tab-pane " id="engineManufacture">
@@ -125,6 +136,7 @@
                                         :data-list="ADDITIONAL_DATA.engineManufacture"
                                         :load-status="LOAD_SAVE.engineManufacture"
                                         @save-data-api="SAVE_ENGINE_MANUFACTURE"
+                                        @import-data-api="IMPORT_ENGINE_MANUFACTURE"
                                         @update-data-api="UPDATE_ENGINE_MANUFACTURE"
                                 />
                             </div>
@@ -134,19 +146,19 @@
                                         :name-title="$ml.get('word.autoEngine')"
                                         :data-list="ADDITIONAL_DATA.autoEng"
                                         :name-panel="$ml.get('word.autoEngine')"
+                                        @import-data-api="IMPORT_DATA_AUTOMOBILE_ENGINE"
                                         :load-status="LOAD_SAVE.automobileEngine"
                                 />
 
                             </div>
                             <div class="tab-pane" id="autoManufacturer">
                                 <save-update-panel
-
                                         :name-title="$ml.get('word.autoManufacturer')"
                                         :data-list="ADDITIONAL_DATA.autoManufacture"
                                         :load-status="LOAD_SAVE.autoManufacturer"
                                         @save-data-api="SAVE_DATA_AUTO_MANUFACTURE"
                                         @update-data-api="UPDATE_DATA_AUTO_MANUFACTURE"
-
+                                        @import-data-api="IMPORT_DATA_AUTO_MANUFACTURE"
                                 />
                             </div>
                             <div class="tab-pane " id="autoModel">
@@ -156,7 +168,7 @@
                                         :data-list="ADDITIONAL_DATA.autoModel"
                                         @save-data-api="SAVE_DATA_AUTO_MODEL"
                                         @update-data-api="UPDATE_DATA_AUTO_MODEL"
-
+                                        @import-data-api="IMPORT_DATA_AUTO_MODEL"
                                 />
 
                             </div>
@@ -167,6 +179,7 @@
                                         :title_two="$ml.get('word.mark')"
                                         :data-list="ADDITIONAL_DATA.units"
                                         :load-status="LOAD_SAVE.measurementUnits"
+                                        @import-data-api="IMPORT_DATA_MEASUREMENT_UNITS"
                                         @save-data-api="SAVE_DATA_MEASUREMENT_UNITS"
                                         @update-data-api="UPDATE_DATA_MEASUREMENT_UNITS"
                                 />
@@ -177,6 +190,7 @@
                                         :title_two="$ml.get('word.mark')"
                                         :load-status="LOAD_SAVE.paramName"
                                         :data-list="ADDITIONAL_DATA.parameterName"
+                                        @import-data-api="IMPORT_PARAM_NAME"
                                         @save-data-api="SAVE_PARAM_NAME"
                                         @update-data-api="UPDATE_PARAM_NAME"
                                 />
@@ -188,6 +202,7 @@
                 </div>
             </div>
         </div>
+        <br/>
     </div>
 </template>
 
@@ -217,9 +232,19 @@
         },
         methods: {
             ...mapMutations({
-                setAutoModel:''
+                setAutoModel: ''
             }),
-                    ...mapActions([
+            ...mapActions([
+                'IMPORT_DATA_MEASUREMENT_UNITS',
+                'IMPORT_DATA_SUPERCHARGE_TYPE',
+                'IMPORT_PARAM_NAME',
+                'IMPORT_DATA_AUTOMOBILE_ENGINE',
+                'IMPORT_DATA_ENGINE',
+                'IMPORT_DATA_CYLINDERS',
+                'IMPORT_ENGINE_MANUFACTURE',
+                'IMPORT_DATA_AUTO_MODEL',
+                'IMPORT_DATA_AUTO_MANUFACTURE',
+                'IMPORT_DATA_FUEL_TYPE',
                 'GET_START_PARAM',
                 'SAVE_ENGINE_MANUFACTURE',
                 'SAVE_DATA_AUTO_MODEL',
@@ -263,16 +288,32 @@
 </script>
 
 <style scoped>
-    .content-container{
+    .content-container {
         height: 85vh;
     }
+
     #nav-panel {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        position: relative;
+        top: 3vh;
         background: white;
+        border-style: solid;
+        border-width: 0px 1px 0px 0px;
+        border-right-color: lightgray;
     }
+
+
     .nav-item {
         color: lightgray;
         width: auto;
+        align-self: stretch;
+
     }
+
+
 
     @media (min-width: 768px) {
         .navbar-container {
@@ -280,6 +321,11 @@
             top: 0;
             height: auto;
             min-height: 85vh;
+        }
+
+        #main-panel {
+            height: 94vh;
+            width: 96vw;
         }
 
         .navbar-container .navbar {
@@ -321,7 +367,6 @@
         }
 
 
-
         .menu-item {
             border: white;
 
@@ -334,7 +379,7 @@
 
         }
 
-        li{
+        li {
             border-color: #272e38;
         }
 

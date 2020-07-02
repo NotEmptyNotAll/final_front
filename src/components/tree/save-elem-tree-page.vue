@@ -3,41 +3,26 @@
          style="width: 98vw;   border-style: solid;border-top-color: lightslategrey;border-width: 15px 0px 0px 0px;">
         <br/>
         <div class="search-logo" id="treelogo">
-            <div class="head-text deepshd ">
+            <div class="head-text deepshd " >
                  <span v-if="LOAD_SAVE_ELEMENTS"><div
                          class="lds-dual-ring " style="margin-left: 47%"></div></span>
                 <h4 v-if="!LOAD_SAVE_ELEMENTS"
-                    style="width: 60%; margin-left: 20%; margin-right: 20%;text-align: center">{{ELEMENTS_UPDATE.name}}</h4>
+                    style="width: 60%; margin-left: 20%; margin-right: 20%;text-align: center">
+                    {{ELEMENTS_UPDATE.name}}</h4>
             </div>
         </div>
         <br/>
         <br/>
-        <div class="treeRow row " style="width: 100vw">
-            <div class="col-md-1"></div>
-            <vue-datalist
-                    class="col-md-5"
-                    :title-input="$ml.get('word.newBlockText')"
-                    :items="PARAM_NAME_AND_UNITS.paramName"
-                    :update-obj="newBlock"
-                    index-item="name"
-                    index="data"
-                    :holder-num=0
-            />
-            <div class="col col-md-2">
-                <button class="btn btn-block buttonanim btn-secondary" type="button" data-toggle="collapse"
-                        v-on:click="addNewBlock(1)"
-                        @click="advanceSearch=!advanceSearch">
-                         <span>{{$ml.get('word.add')}}
-                        </span>
-                </button>
+        <div class="row" style="width: 100%;" >
+            <div class="col-md-4">
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <button v- type="submit" @click="saveElemParam(1)"
                         class="btn  btn-block btn-outline-dark">
                     <span>{{$ml.get('word.update')}}</span>
                 </button>
             </div>
-            <div class="col-md-1"></div>
+            <div class="col-md-4"></div>
 
         </div>
         <hr style="position: center; width: 100%;"/>
@@ -79,14 +64,8 @@
                                         :id-parent-elem="current.id"
                                         :show-edit-param="showEditParam"
                                         @get-paramtrs="getParamtrs"
-
+                                        @parent-delete="deleteElem"
                                 />
-                                <button type="button"
-                                        @click="addElement(current)"
-                                        class="btn btn-block btn-outline-dark"
-                                        style="width: 70%; margin-left: 15%;margin-right: 15%"
-                                >{{$ml.get('word.add')}}
-                                </button>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -94,7 +73,7 @@
                         </div>
                         <div class="col-md-8">
                             <table class="table table-hover" style="min-height: 10vh">
-                                <thead >
+                                <thead>
                                 <tr>
                                     <th>{{$ml.get('word.name')}}</th>
                                     <th>{{$ml.get('word.units')}}</th>
@@ -156,12 +135,19 @@
                                         <span v-else></span>
                                     </td>
                                     <td v-if="current.editRow">
-                                        <input type="number" class="form-control" v-model="current.doubleNum">
+                                        <input type="number" class="form-control"  v-model="current.doubleNum">
                                     </td>
                                     <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.status.find(unit=>
-                                        unit.id===current.status).data}}</td>
+                                        unit.id===current.status).data}}
+                                    </td>
                                     <td v-if="current.editRow">
-                                        <input type="text" class="form-control" v-model="current.status">
+                                        <VueDatalist
+                                                :items="PARAM_NAME_AND_UNITS.status"
+                                                :update-obj="current"
+                                                index="status"
+                                                :hide-title="true"
+                                                :holder-num=0
+                                        />
                                     </td>
                                     <td v-if="!current.editRow">{{current.source}}</td>
                                     <td v-if="current.editRow">
@@ -169,11 +155,11 @@
                                     </td>
                                     <td>
                                         <button type="button " v-if="!current.editRow"
-                                                class="btn btn-group  btn-warning"
+                                                class="btn   btn-warning"
                                                 @click="current.editRow=!current.editRow"
                                         >
                                                 <span>
-                                                  <b-icon icon="pencil" ></b-icon>
+                                                  <b-icon icon="pencil"></b-icon>
                                             </span>
                                         </button>
                                         <button v-if="current.editRow"
@@ -183,9 +169,10 @@
                                                 v-on:click="updateOldParam(current)"
                                         >
                                             <span>
-                                                <p class="h5 mb-2" ><b-icon icon="check" ></b-icon></p>
+                                                <p class="h5 mb-2"><b-icon icon="check"></b-icon></p>
                                             </span>
                                         </button>
+
                                     </td>
                                 </tr>
                                 <tr v-show="current.elemId===elemId " v-for="current in listNewParam"
@@ -257,11 +244,11 @@
                                     </td>
                                     <td>
                                         <button type="button" v-if="!current.editRow"
-                                                class="btn btn-group  btn-warning"
+                                                class="btn   btn-warning"
                                                 @click="current.editRow=!current.editRow"
                                         >
                                             <span>
-                                                  <b-icon icon="pencil" ></b-icon>
+                                                  <b-icon icon="pencil"></b-icon>
                                             </span>
                                         </button>
                                         <button v-if="current.editRow"
@@ -271,7 +258,7 @@
                                                 v-on:click="saveParam(current)"
                                         >
                                             <span>
-                                                <p class="h5 md-2" ><b-icon icon="check" ></b-icon></p>
+                                                <p class="h5 md-2"><b-icon icon="check"></b-icon></p>
                                             </span>
                                         </button>
                                     </td>
@@ -398,7 +385,18 @@
             })
             ,
             saveParam(current) {
-                this.saveListParam.push({
+                let ind = null;
+                this.saveListParam.forEach(
+                    (param, index) => {
+                        if (param.id === current.id) {
+                            ind = index;
+                        }
+                    }
+                )
+                if(ind!==null){
+
+
+                this.saveListParam[ind]={
                     id: current.id,
                     elemId: current.elemId,
                     name: current.name,
@@ -407,7 +405,19 @@
                     doubleMax: current.doubleMax,
                     doubleNum: current.doubleNum,
                     source: current.source
-                });
+                }
+                }else {
+                    this.saveListParam.push({
+                        id: current.id,
+                        elemId: current.elemId,
+                        name: current.name,
+                        units: current.units,
+                        doubleMin: current.doubleMin,
+                        doubleMax: current.doubleMax,
+                        doubleNum: current.doubleNum,
+                        source: current.source
+                    });
+                }
                 console.log(1)
             },
             updateOldParam(current) {
@@ -453,10 +463,17 @@
                 }
                 console.log(1)
             },
+            deleteElem(id) {
+                this.ELEMENTS_UPDATE.elementsCh.map(items=>{
+                    items.elementsCh= items.elementsCh.filter(elem => elem.id !== id)
+                    }
+                )
+                console.log(id)
+            },
             addElement(current) {
                 let elmTreeTemp = current;
                 elmTreeTemp.elementsCh.push({
-                        id: 0,
+                        id: this.ELEMENTS_UPDATE.maxId,
                         elementsCh: [{
                             id: 0,
                             elementsCh: [],
@@ -469,21 +486,18 @@
                         paramIsNotEmpty: true,
                         parametersIsExistInChilda: true
                     }
-                );
+            );
 
                 //this.setElemTree(elmTreeTemp);
-
+                this.setMaxId(this.ELEMENTS_UPDATE.maxId + 1)
                 //   this.setMaxId(this.ELEMENTS.maxId + 1);
                 console.log(1);
             },
             saveElem(number) {
                 this.saveElemData.parentId = this.ELEMENTS_UPDATE.id;
-                this.saveElemData.elemId = this.ELEMENTS_UPDATE.maxId;
                 this.listNewElem = this.LISTNEWELEM;
                 this.listNewElem.push(this.saveElemData);
                 this.setListNewElem(this.listNewElem);
-                this.setMaxId(this.ELEMENTS_UPDATE.maxId + 1);
-
                 console.log(number)
             },
             addNewParam(number) {
@@ -592,15 +606,15 @@
         font-weight: bold;
     }
 
-    a:hover{
-        background:lightgray;
+    a:hover {
+        background: lightgray;
     }
 
     #treelogo {
         position: absolute;
-        left: 25%;
-        right: 25%;
-        width: 50%;
+        left: 20%;
+        right: 20%;
+        width: 60%;
         top: 0px;
         height: 40px;
         background: lightslategrey;

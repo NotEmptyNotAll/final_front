@@ -21,7 +21,15 @@
     #app {
 
     }
+    .el-table .warning-row {
+        background: #fde3e3;
+    }
 
+
+
+    .el-table .success-row {
+        background: #e2f3d9;
+    }
 
     .container {
         margin-top: 10px;
@@ -102,7 +110,7 @@
     @keyframes moveInBottom {
         0% {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(-30px);
         }
 
         100% {

@@ -16,6 +16,19 @@ export default {
                 return error
             })
     },
+    GET_TREE_ELEMENTS({commit}) {
+        return axios(urlApi + 'getTreeElements', {
+            method: 'GET'
+        })
+            .then((startParam) => {
+                commit('SET_TREE_ELEMENTS', startParam.data)
+                return startParam;
+            })
+            .catch((error) => {
+                console.log(error);
+                return error
+            })
+    },
     GET_ALL_PARAM_NAME({commit}) {
         return axios(urlApi + 'getAllParamName', {
             method: 'GET'
@@ -201,6 +214,25 @@ export default {
         })
             .catch((error) => {
                 commit('SET_ELEMENTS_LOAD', false)
+                console.log(error);
+                return error
+            })
+    },
+    async GET_ELEMENTS_TREE({commit}) {
+        commit('SET_ELEMENTS_TREE_LOAD', true)
+
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'getElements',
+            data: {id: 3},
+            responseType: 'json'
+        }).then(resp => {
+            commit('SET_ELEMENTS_TREE', resp.data)
+            commit('SET_ELEMENTS_TREE_LOAD', false)
+            return resp;
+        })
+            .catch((error) => {
+                commit('SET_ELEMENTS_TREE_LOAD', false)
                 console.log(error);
                 return error
             })

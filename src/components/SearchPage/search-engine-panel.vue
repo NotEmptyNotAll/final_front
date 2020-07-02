@@ -3,6 +3,7 @@
         <!--fields for entering search data.
          Fill with the initial parameters that you get from the backend
           Use a v-model to populate data.-->
+
         <div class="savePageRow row  ">
             <vue-datalist
                     class="col-md-3"
@@ -37,14 +38,17 @@
                     index="engineType"
             />
             <input-field class="col-md-3"
+                         number
+                         min="1895"
+                         max="2020"
                          :name-input="$ml.get('word.releaseYear')"
                          :save-parameters="searchData"
                          index="produceYear"
             />
         </div>
-        <transition name="fade" >
         <!--here we enter data for an improved search, which the user measures-->
-        <div v-if="advanceSearch"  >
+            <b-collapse id="collapse-1" class="mt-2">
+
             <div class=" row  " >
                 <vue-datalist
                         class="col-md-3"
@@ -84,7 +88,7 @@
                 <div class="input-group col-md-5">
                     <param-elements-input
                             :title-input="$ml.get('word.parameter')"
-                            :items="PARAM_NAME_AND_UNITS.paramName"
+                            :items="treeElem"
                             :param-obj="param"
                             index-node-id="parameterNodeId"
                             index-child-id="parameterChildId"
@@ -126,18 +130,20 @@
                 </div>
                 <div class="col col-md-4"></div>
             </div>
-        </div>
-    </transition>
+            </b-collapse>
         <hr style="position: center; width: 70%"/>
 
         <div class="row ">
             <div class="col-md-3"></div>
             <div class="col col-md-2">
-                <button class="btn btn-block buttonanim btn-secondary" type="button" data-toggle="collapse"
+               <!-- <button class="btn btn-block buttonanim btn-secondary" type="button" data-toggle="collapse"
                         @click="advanceSearch=!advanceSearch">
                          <span>{{$ml.get('word.advancedSearch')}}
                         </span>
-                </button>
+                </button>-->
+                <b-button v-b-toggle.collapse-1 class="btn btn-block buttonanim btn-secondary" variant="secondary"><span>{{$ml.get('word.advancedSearch')}}
+                        </span></b-button>
+
             </div>
             <div class="col input-group col-md-2">
                 <button class="btn btn-block btn-danger buttonanim" v-on:click="clear(1)"
@@ -167,7 +173,7 @@
 
     export default {
         name: "search-engine-panel",
-        components: {ParamElementsInput, VueDatalist, InputField},
+        components: { ParamElementsInput, VueDatalist, InputField},
         data: () => ({
             paramtrs: [],
             choiceParam: [],
@@ -190,6 +196,7 @@
                 powerKWt: null,
                 engineCapacity: null
             },
+            treeElem:[],
             cleanField:false,
             choiceData: [],
             test: null,
@@ -197,6 +204,15 @@
         }),
         mounted() {
             this.GET_START_PARAM()
+            this.GET_TREE_ELEMENTS()
+
+        },
+        watch:{
+            // eslint-disable-next-line no-unused-vars
+            TREE_ELEMENTS:function (val) {
+                this.treeElem=this.TREE_ELEMENTS.elementsCh
+                this.mapTreeElem(this.treeElem)
+            }
         },
         computed: {
             ...mapGetters([
@@ -207,7 +223,8 @@
                 'PARAM_NAME_AND_UNITS',
                 'ELEMENTS',
                 'SEARCHDATA',
-                'LOADPARAM'
+                'LOADPARAM',
+                'TREE_ELEMENTS'
             ])
         },
         methods: {
@@ -216,6 +233,7 @@
                 'GET_AUTOENG_BY_PARAM',
                 'GET_PARAMTRS',
                 'GET_PARAM_NAME',
+                'GET_TREE_ELEMENTS',
                 'GET_ELEMENTS',
                 'GET_AUTO_BY_ENG',
                 'GET_ENGDATA_BY_PARAM'
@@ -269,6 +287,17 @@
                 });
                 console.log(number)
             },
+            mapTreeElem(treeElem){
+                treeElem.map(elem=>{
+                    if(elem.elementsCh.length===0) {
+                        delete elem.elementsCh
+                    }else {
+                        this.mapTreeElem(elem.elementsCh)
+                    }
+                }
+                )
+            }
+            ,
             async getAutoEnByNum(number) {
                 this.GET_AUTO_BY_ENG(this.searchData);
                 this.setListNewParam([])
@@ -286,9 +315,6 @@
                     this.searchData.engineType = this.SEARCHDATA.engineType;
                     this.searchData.fuelType = this.SEARCHDATA.fuelType;
                     this.searchData.engineCapacity = this.SEARCHDATA.engineCapacity;
-                } else {
-                    this.errorMessage = 'відсутній номер двигуна';
-                    document.getElementById('openModal').click();
                 }
                 console.log(number)
             }
@@ -319,6 +345,7 @@
             }
 
             ,
+
             //request for data about the auto engine
             async submitChanges(dat) {
                 // this.dataEng = [];
@@ -327,20 +354,29 @@
 
                 this.setElements(null);
                 if ((!Number.isInteger(Number(this.searchData.produceYear)) || (this.searchData.produceYear < 1885 || this.searchData.produceYear > 2020)) && !this.searchData.produceYear == 0) {
-                    this.errorMessage = "Ви некоректно ввели рік";
-                    document.getElementById('openModal').click();
+                    this.$message({
+                        showClose: true,
+                        message: this.$ml.get('word.inccYear'),
+                        type: 'error'
+                    });
                 } else {
                     this.$emit('submit-function', this.searchData);
                     // this.GET_AUTOENG_BY_PARAM(this.searchData);
 
                     if (this.ENGDATA.status == null) {
                         if (this.ENGDATA.dataEng[0] == null) {
-                            this.errorMessage = "в базі немає записів";
-                            document.getElementById('openModal').click();
+                            this.$message({
+                                showClose: true,
+                                message: this.$ml.get('word.noRecordsInDB'),
+                                type: 'error'
+                            });
                         }
                     } else {
-                        this.errorMessage = this.ENGDATA.status;
-                        document.getElementById('openModal').click();
+                        this.$message({
+                            showClose: true,
+                            message: this.$ml.get('word.noRecordsInDB'),
+                            type: 'error'
+                        });
                     }
                     console.log(dat)
                 }
@@ -354,6 +390,7 @@
         max-width: 74vw;
         min-width: 74vw;
     }
+
 
 
     .input-group-text {

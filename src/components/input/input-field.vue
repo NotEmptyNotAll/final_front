@@ -1,26 +1,32 @@
 <template>
     <div class="input-field">
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <label class="input-group-text  bg-white " for="fuelTypeFk" style="font-weight: bold">
-                    {{nameInput}}
-                    <div v-if="loadStatus" class="lds-dual-ring"></div>
-                </label>
-            </div>
-            <input id="fuelTypeFk"
-                   v-model="saveParameters[index]"
-                   autocomplete="off" type="text"
-                   class="form-control"
-                   :placeholder="$ml.get('word.data')"
-                   aria-describedby="button-addon1">
-            <div class="input-group-append">
-                <button class="btn btn-outline-danger"
-                        v-on:click="saveParameters[index]=null"
-                        type="button">
-                    <span>&#10008;</span>
-                </button>
-            </div>
+
+
+        <div  class="input-group">
+            <el-input v-show="!number"
+                    v-model="saveParameters[index]"
+                    :placeholder="$ml.get('word.data')"
+                    clearable>
+                <template   slot="prepend">   <strong class="title" style="font-size: 15px">{{nameInput}}</strong></template>
+            </el-input>
+
         </div>
+
+        <div  class="input-group">
+            <el-input v-show="number"
+                      :max="max"
+                      :min="min"
+                      type="number"
+                      v-model="saveParameters[index]"
+                      :placeholder="$ml.get('word.data')"
+                      clearable>
+                <template   slot="prepend">   <strong class="title" style="font-size: 15px">{{nameInput}}</strong></template>
+            </el-input>
+
+        </div>
+
+
+
 
     </div>
 </template>
@@ -35,7 +41,18 @@
             }
         }),
         props: {
-
+            number: {
+                type: Boolean,
+                default: false
+            },
+            min:{
+                type: Number,
+                default: 0
+            },
+            max:{
+                type: Number,
+                default: 99999999
+            },
             nameInput: String,
             dataList: [],
             loadStatus: null,
@@ -65,5 +82,7 @@
 </script>
 
 <style scoped>
-
+    .title{
+        color: dimgrey;
+    }
 </style>

@@ -5,6 +5,9 @@ export default {
     SET_ENGDATA_TREE: (state, engData) => {
         state.engdataTree = engData;
     },
+    SET_TREE_ELEMENTS: (state, treeElemets) => {
+        state.treeElemets = treeElemets;
+    },
     SET_ELEMENTS_UPDATE(state, engData) {
          state.elementsUpdate=engData;
     },
@@ -61,6 +64,15 @@ export default {
     },
     SET_ELEMENTS_LOAD: (state, elementsLoad) => {
         state.elementsLoad = elementsLoad;
+    },
+    SET_ELEMENTS_TREE: (state, elementsLoad) => {
+        state.elemTree = elementsLoad;
+    },
+    SET_ELEMENTS_TREE_MAXID: (state, maxId) => {
+        state.elemTree.maxId = maxId;
+    },
+    SET_ELEMENTS_TREE_LOAD: (state, elem_tree_load) => {
+        state.elem_tree_load = elem_tree_load;
     },
     SET_LOAD_UPDATE_PARAMETERS: (state, loadSave) => {
         state.loadUpdate.parameters = loadSave;

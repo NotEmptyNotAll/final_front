@@ -3,11 +3,12 @@ import Vuex from 'vuex'
 
 import apiRequset from './actions/api-requests'
 import apiRequsetSave from './actions/api-save-requests'
+import apiImport from './actions/api-import'
 import apiRequsetUpdate from './actions/api-update-request'
 import getters from "./getters/getters";
 import mutations from "./mutations/mutations"
 import {auth} from './auth.module';
-const actions = {...apiRequset, ...apiRequsetSave, ...apiRequsetUpdate}
+const actions = {...apiRequset, ...apiImport,...apiRequsetSave, ...apiRequsetUpdate}
 
 Vue.use(Vuex);
 let store = new Vuex.Store({
@@ -15,6 +16,7 @@ let store = new Vuex.Store({
         auth
     },
     state: {
+        treeElemets:[],
         engdataTree:[],
         elementsLoad:false,
         paramName:[],
@@ -22,7 +24,7 @@ let store = new Vuex.Store({
         engine:null,
         loadParamForTree:false,
         showLoad: false,
-        autoEngine: [],
+        autoEngine: null,
         autoEngineLoad: false,
         loadTreeUpdate: false,
         engData: [],
@@ -30,6 +32,8 @@ let store = new Vuex.Store({
         listParam: [],
         listParamUp: [],
         listNewElem: [],
+        elemTree: [],
+        elem_tree_load: false,
         elementsAndMaxId: null,
         paramNameAndUnits: [],
         elements: null,
