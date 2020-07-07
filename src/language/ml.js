@@ -118,7 +118,7 @@ export default new MLCreate({
                 save: "добавить запись",
                 update: "обновить",
                 engineCapacity: "Объем двигателя",
-                powerKwt: "мощно, kWt",
+                powerKwt: "мощн. kWt",
                 horsepower: "мощно, кон сил",
                 degreeCompression: "степень зжаття",
                 cylindersNumber: "кол-во цилиндров",
@@ -155,7 +155,7 @@ export default new MLCreate({
                 choose: 'выбрать',
                 title: 'название',
                 mark: "Обозначение",
-                newBlockText:'додати новий блок',
+                newBlockText:'добавить новый блок',
                 status:'статус',
                 shortName:'короткое назание',
                 cancel:'Отмена',
@@ -167,7 +167,7 @@ export default new MLCreate({
                 column:"столбцы",
                 inccYear:'Вы некорректно ввели год',
                 treeStruct:'структура дерева',
-                setParameter:'зміна параметрів',
+                setParameter:'изменение параметров'  ,
                 noRecordsInDB:'в базе нет записей'
             },
             msg: {
@@ -254,7 +254,7 @@ export default new MLCreate({
                 clickToUpload:"натисніть для завантаження",
                 column:"стовпці",
                 treeStruct:'структура дерева',
-                setParameter:'изменение параметров',
+                setParameter:'зміна параметрів',
                 inccYear:'Ви некоректно ввели рік',
                 noRecordsInDB:'в базі немає записів'
             },
