@@ -577,7 +577,12 @@
                     listSaveParam: this.listNewParam.filter(param => (!param.editRow && param.id === 0)),
                     listUpdateParam: this.listNewParam.filter(param => (!param.editRow && param.id !== 0))
                 });
-
+                let templist=this.LISTPARAM
+                this.listNewParam.forEach(item=>{
+                    templist.push(item)
+                })
+                this.listNewParam=[]
+                this.setListParam(templist)
                 console.log(number)
             }
             ,
