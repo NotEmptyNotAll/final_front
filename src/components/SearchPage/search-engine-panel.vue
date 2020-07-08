@@ -205,6 +205,7 @@
         mounted() {
             this.GET_START_PARAM()
             this.GET_TREE_ELEMENTS()
+            this.clear(1)
 
         },
         watch:{

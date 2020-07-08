@@ -558,6 +558,7 @@
                 console.log(number);
 
             },
+
             async saveElemParam(number) {
                 // this.saveElemParamV = {
                 //    listElem: this.LISTNEWELEM,
@@ -579,7 +580,7 @@
                 });
                 let templist = this.LISTPARAM
                 this.listNewParam.forEach(item => {
-                    if (item.id === 0)
+                    if (item.id === 0 && item.elemId===this.elemId)
                         templist.push(item)
                 })
                 this.listNewParam = []

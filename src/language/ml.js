@@ -119,7 +119,7 @@ export default new MLCreate({
                 update: "обновить",
                 engineCapacity: "Объем двигателя",
                 powerKwt: "мощн. kWt",
-                horsepower: "мощно, кон сил",
+                horsepower: "мощн. кон сил",
                 degreeCompression: "степень зжаття",
                 cylindersNumber: "кол-во цилиндров",
                 flapNumber: "кол-во клапанов",

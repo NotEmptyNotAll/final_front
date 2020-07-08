@@ -98,7 +98,7 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters, mapMutations} from 'vuex'
     import TreeItem from "./tree";
 
     export default {
@@ -131,6 +131,9 @@
             ...mapActions([
                 'GET_PARAMTRS'
             ]),
+            ...mapMutations({
+                setListParam: 'SET_LISTPARAM_ELEMENT'
+            }),
             //request for initial data
             async getParamtrs(nav, number, link) {
                 this.nowPressed.linkOnButt.isPressed = false;
