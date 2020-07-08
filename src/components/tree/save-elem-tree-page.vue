@@ -3,7 +3,7 @@
          style="width: 98vw;   border-style: solid;border-top-color: lightslategrey;border-width: 15px 0px 0px 0px;">
         <br/>
         <div class="search-logo" id="treelogo">
-            <div class="head-text deepshd " >
+            <div class="head-text deepshd ">
                  <span v-if="LOAD_SAVE_ELEMENTS"><div
                          class="lds-dual-ring " style="margin-left: 47%"></div></span>
                 <h4 v-if="!LOAD_SAVE_ELEMENTS"
@@ -13,7 +13,7 @@
         </div>
         <br/>
         <br/>
-        <div class="row" style="width: 100%;" >
+        <div class="row" style="width: 100%;">
             <div class="col-md-4">
             </div>
             <div class="col-md-4">
@@ -135,7 +135,7 @@
                                         <span v-else></span>
                                     </td>
                                     <td v-if="current.editRow">
-                                        <input type="number" class="form-control"  v-model="current.doubleNum">
+                                        <input type="number" class="form-control" v-model="current.doubleNum">
                                     </td>
                                     <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.status.find(unit=>
                                         unit.id===current.status).data}}
@@ -393,20 +393,20 @@
                         }
                     }
                 )
-                if(ind!==null){
+                if (ind !== null) {
 
 
-                this.saveListParam[ind]={
-                    id: current.id,
-                    elemId: current.elemId,
-                    name: current.name,
-                    units: current.units,
-                    doubleMin: current.doubleMin,
-                    doubleMax: current.doubleMax,
-                    doubleNum: current.doubleNum,
-                    source: current.source
-                }
-                }else {
+                    this.saveListParam[ind] = {
+                        id: current.id,
+                        elemId: current.elemId,
+                        name: current.name,
+                        units: current.units,
+                        doubleMin: current.doubleMin,
+                        doubleMax: current.doubleMax,
+                        doubleNum: current.doubleNum,
+                        source: current.source
+                    }
+                } else {
                     this.saveListParam.push({
                         id: current.id,
                         elemId: current.elemId,
@@ -422,7 +422,7 @@
             },
             updateOldParam(current) {
                 let ind = null;
-                this.saveListParam.forEach(
+                this.listNewParam.forEach(
                     (param, index) => {
                         if (param.id === current.id) {
                             ind = index;
@@ -464,8 +464,8 @@
                 console.log(1)
             },
             deleteElem(id) {
-                this.ELEMENTS_UPDATE.elementsCh.map(items=>{
-                    items.elementsCh= items.elementsCh.filter(elem => elem.id !== id)
+                this.ELEMENTS_UPDATE.elementsCh.map(items => {
+                        items.elementsCh = items.elementsCh.filter(elem => elem.id !== id)
                     }
                 )
                 console.log(id)
@@ -486,7 +486,7 @@
                         paramIsNotEmpty: true,
                         parametersIsExistInChilda: true
                     }
-            );
+                );
 
                 //this.setElemTree(elmTreeTemp);
                 this.setMaxId(this.ELEMENTS_UPDATE.maxId + 1)
@@ -577,11 +577,12 @@
                     listSaveParam: this.listNewParam.filter(param => (!param.editRow && param.id === 0)),
                     listUpdateParam: this.listNewParam.filter(param => (!param.editRow && param.id !== 0))
                 });
-                let templist=this.LISTPARAM
-                this.listNewParam.forEach(item=>{
-                    templist.push(item)
+                let templist = this.LISTPARAM
+                this.listNewParam.forEach(item => {
+                    if (item.id === 0)
+                        templist.push(item)
                 })
-                this.listNewParam=[]
+                this.listNewParam = []
                 this.setListParam(templist)
                 console.log(number)
             }
