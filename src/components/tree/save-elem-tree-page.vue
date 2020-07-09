@@ -7,7 +7,7 @@
                  <span v-if="LOAD_SAVE_ELEMENTS"><div
                          class="lds-dual-ring " style="margin-left: 47%"></div></span>
                 <h4 v-if="!LOAD_SAVE_ELEMENTS"
-                    style="width: 60%; margin-left: 20%; margin-right: 20%;text-align: center">
+                    style="width: 90%; margin-left: 5%; margin-right: 5%;text-align: center">
                     {{ELEMENTS_UPDATE.name}}</h4>
             </div>
         </div>
