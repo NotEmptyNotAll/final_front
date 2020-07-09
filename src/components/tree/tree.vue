@@ -289,7 +289,7 @@
 
     .btn-posit{
         position: relative;
-        left: 5em;
+        left: .5em;
         top: .5em;
     }
 </style>
