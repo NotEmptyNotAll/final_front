@@ -55,8 +55,6 @@
                                 <tr>
                                     <th>{{$ml.get('word.name')}}</th>
                                     <th>{{$ml.get('word.units')}}</th>
-                                    <th>{{$ml.get('word.from')}}</th>
-                                    <th>{{$ml.get('word.by')}}</th>
                                     <th>{{$ml.get('word.value')}}</th>
                                     <th>{{$ml.get('word.status')}}</th>
                                     <th>{{$ml.get('word.source')}}</th>
@@ -69,15 +67,20 @@
                                     <td>{{PARAM_NAME_AND_UNITS.units.find(unit=>
                                         unit.id===current.units).data}}</td>
                                     <td>
-                                        <span v-if="current.doubleMin!==null">{{Number(current.doubleMin).toFixed(4)}}</span>
-                                        <span v-else></span>
-                                    </td>
-                                    <td>
-                                        <span v-if="current.doubleMax!==null">{{Number(current.doubleMax).toFixed(4)}}</span>
-                                        <span v-else></span>
-                                    </td>
-                                    <td>
-                                        <span v-if="current.doubleNum!==null">{{Number(current.doubleNum).toFixed(4)}}</span>
+                                          <span v-if="current.select===3">
+                                            {{Number(current.doubleMin).toFixed(4)}}-{{Number(current.doubleMax).toFixed(4)}}
+                                        </span>
+                                        <span v-else-if="current.select===2">
+                                            <span v-if="current.doubleNum!==null">
+                                                {{Number(current.doubleNum).toFixed(4)}}
+                                            </span>
+                                              <span v-else>
+                                            </span>
+
+                                        </span>
+                                        <span v-else-if="current.select===1">
+                                            {{current.textData}}
+                                        </span>
                                         <span v-else></span>
                                     </td>
                                     <td>{{PARAM_NAME_AND_UNITS.status.find(unit=>
@@ -138,7 +141,18 @@
             async getParamtrs(nav, number, link) {
                 this.nowPressed.linkOnButt.isPressed = false;
                 this.nowPressed.linkOnButt = link;
-                this.GET_PARAMTRS({id: number, auto_id: this.auto_id});
+               await this.GET_PARAMTRS({id: number, auto_id: this.auto_id});
+                this.LISTPARAM.map(item=>{
+                    if(item.doubleNum!==null){
+                        item.select=2;
+                    }else if(item.textData!==null){
+                        item.select=1;
+                    }else if(item.doubleMin!==null){
+                        item.select=3;
+                    }else {
+                        item.select=2;
+                    }
+                })
                 console.log(number);
             }
 
