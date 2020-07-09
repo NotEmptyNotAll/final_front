@@ -93,7 +93,7 @@
                                     </td>
                                     <td v-if="current.editRow">
                                         <VueDatalist
-                                                :items="PARAM_NAME.filter(elem=>{return !elem.tree_node})"
+                                                :items="paramList"
                                                 :update-obj="current"
                                                 index="name"
                                                 :hide-title="true"
@@ -220,7 +220,7 @@
                                     </td>
                                     <td v-if="current.editRow">
                                         <VueDatalist
-                                                :items="PARAM_NAME.filter(elem=>{return !elem.tree_node})"
+                                                :items="paramList"
                                                 :update-obj="current"
                                                 index="name"
                                                 :hide-title="true"
@@ -388,6 +388,7 @@
             updateDataObj: {
                 id: null
             },
+            paramList:[],
             errorMessage: '',
             nowPressed: {
                 linkOnButt: {
@@ -640,6 +641,9 @@
                     }else {
                         item.select=2;
                     }
+                })
+                this.paramList=this.PARAM_NAME.filter(elem=>{
+                    return  !elem.tree_node && this.LISTPARAM.find(item=>elem.id===item.name)===undefined
                 })
                 this.setListParam(templist)
                 console.log(number);
