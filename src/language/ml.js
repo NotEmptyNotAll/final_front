@@ -10,7 +10,11 @@ export default new MLCreate({
         new MLanguage('english').create({
             word: {
                 table:'table',
+                text: "text",
+                number: "number",
+                range: "range",
                 engine: "engine type",
+                type: "type",
                 cylinders: "cylinders",
                 fuelType: "fuel type",
                 superchargedType: "supercharged types",
@@ -98,6 +102,10 @@ export default new MLCreate({
 
         new MLanguage('russian').create({
             word: {
+                text: "текст",
+                number: "число",
+                range: "диапазон",
+                type: "тип",
                 table:'таблица',
                 engine: "тип двигателя",
                 cylinders: "цилиндры",
@@ -186,6 +194,10 @@ export default new MLCreate({
 
         new MLanguage('ukraine').create({
             word: {
+                type: "тип",
+                text: "текст",
+                number: "число",
+                range: "діапазон",
                 table:'таблиця',
                 engine: 'тип двигуна',
                 cylinders: 'циліндри',
