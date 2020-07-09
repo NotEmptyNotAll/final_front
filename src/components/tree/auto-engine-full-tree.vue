@@ -3,7 +3,7 @@
         <div class="search-logo" id="treelogo">
             <div class="head-text deepshd ">
                 <h4
-                    style="width: 60%; margin-left: 20%; margin-right: 20%;text-align: center">{{ELEMENTS.name}}</h4>
+                    style="width: 90%; margin-left: 5%; margin-right: 5%;text-align: center">{{ELEMENTS.name}}</h4>
             </div>
         </div>
         <br/>
