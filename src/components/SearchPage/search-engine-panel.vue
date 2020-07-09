@@ -115,7 +115,7 @@
                     </button>
                 </div>
                 <div v-if="searchData.paramList.length===1" class="col col-md-3">
-                    <input v-model="param.parameterNumber" class="form-control" type="number"
+                    <input v-model="param.parameterNumber" class="form-control" type="text"
                            value="" :placeholder="$ml.get('word.data')"
                     >
                 </div>
