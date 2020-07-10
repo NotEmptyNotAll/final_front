@@ -68,7 +68,7 @@
                                         unit.id===current.units).data}}</td>
                                     <td>
                                           <span v-if="current.select===3">
-                                            {{Number(current.doubleMin).toFixed(4)}}-{{Number(current.doubleMax).toFixed(4)}}
+                                           {{$ml.get('word.from')}} {{Number(current.doubleMin).toFixed(4)}}  {{$ml.get('word.by')}} {{Number(current.doubleMax).toFixed(4)}}
                                         </span>
                                         <span v-else-if="current.select===2">
                                             <span v-if="current.doubleNum!==null">
