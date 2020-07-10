@@ -203,9 +203,9 @@
             advanceSearch: false
         }),
         mounted() {
-          //  this.GET_START_PARAM();
-            //this.GET_PARAM_NAME();
-          //  this.GET_ALL_PARAM_NAME();
+          //lo  this.GET_START_PARAM();
+           // this.GET_PARAM_NAME();
+            this.GET_ALL_PARAM_NAME();
             this.GET_ENGDATA_BY_PARAM(this.searchData);
             this.GET_TREE_ELEMENTS()
             this.clear(1)
@@ -235,6 +235,7 @@
             ...mapActions([
                 'GET_START_PARAM',
                 'GET_AUTOENG_BY_PARAM',
+                'GET_ALL_PARAM_NAME',
                 'GET_PARAMTRS',
                 'GET_PARAM_NAME',
                 'GET_TREE_ELEMENTS',
