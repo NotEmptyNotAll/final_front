@@ -203,6 +203,9 @@
             advanceSearch: false
         }),
         mounted() {
+          //  this.GET_START_PARAM();
+            //this.GET_PARAM_NAME();
+          //  this.GET_ALL_PARAM_NAME();
             this.GET_ENGDATA_BY_PARAM(this.searchData);
             this.GET_TREE_ELEMENTS()
             this.clear(1)
