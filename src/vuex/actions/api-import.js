@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//let urlApi = 'https://enginefinal.herokuapp.com/import/';
-let urlApi = 'http://localhost:5050/import/';
+let urlApi = 'https://enginefinal.herokuapp.com/import/';
+//let urlApi = 'http://localhost:5050/import/';
 
 export default {
     async IMPORT_DATA_SUPERCHARGE_TYPE({commit}, saveDataObj) {
