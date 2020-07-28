@@ -25,13 +25,14 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
-                <div class="col-md-1 param-navbar">
-                    <el-button size="medium" plain type="danger" style="width: 100%; font-size: 16px"
+                <div class="col-md-2 param-navbar">
+                    <el-button size="medium" class="fix-position" plain type="danger"
+                               style="width: 100%; font-size: 16px"
                                v-on:click="clearFilter">{{$ml.get('word.clearAllFilter')}}
                     </el-button>
                 </div>
                 <div class=" col-md-2 ">
-                    <el-dropdown id="dropdown" split-button @command="changePageSize" type="warning">
+                    <el-dropdown class="fix-position" split-button @command="changePageSize" type="warning">
                         {{$ml.get('word.numRowOnPage')}}{{pageSetting.pageSize}}
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="1"> 1</el-dropdown-item>
@@ -53,6 +54,7 @@
                         <el-button plain type="info"
                                    v-show="ALL_AUTO_ENG.length!==0"
                                    icon="el-icon-close"
+                                   @click="setCurrent()"
                                    v-on:click="setEngineParamData(null)">
                         </el-button>
                     </el-button-group>
@@ -65,7 +67,10 @@
                 <el-table
                         :empty-text="$ml.get('word.empty')"
                         border
+                        ref="paramTable"
                         :data="ALL_AUTO_ENG.engineData"
+                        highlight-current-row
+                        @current-change="handleCurrentChange"
                         style="width: 100%"
                 >
                     <el-table-column
@@ -150,25 +155,25 @@
                 engineParamData: null,
                 isIndeterminate: true,
                 pageSetting: {
-                     id: null,
-                     flapNumber: null,
-                     fuelType: null,
-                     cylindersNumber: null,
-                     autoManufacture: null,
-                     engineManufacture: null,
-                     powerKWT: null,
-                     engineCapacity: null,
-                     horsepower: null,
-                     pistonStoke: null,
-                     pistonDiameter: null,
-                     modelName: null,
-                     engineType: null,
-                     releaseYear: null,
-                     elemID: null,
-                     cylinderNum: null,
-                     cylinderPlace: null,
-                     superchargedType: null,
-                     degreeCompression: null,
+                    id: null,
+                    flapNumber: null,
+                    fuelType: null,
+                    cylindersNumber: null,
+                    autoManufacture: null,
+                    engineManufacture: null,
+                    powerKWT: null,
+                    engineCapacity: null,
+                    horsepower: null,
+                    pistonStoke: null,
+                    pistonDiameter: null,
+                    modelName: null,
+                    engineType: null,
+                    releaseYear: null,
+                    elemID: null,
+                    cylinderNum: null,
+                    cylinderPlace: null,
+                    superchargedType: null,
+                    degreeCompression: null,
                     initRecordFrom: 1,
                     pageSize: 3
                 },
@@ -188,33 +193,39 @@
                 return 'header-st';
 
             },
+            setCurrent(row) {
+                this.$refs.paramTable.setCurrentRow(row);
+            },
             clearFilter() {
-                this.pageSetting={
+                this.pageSetting = {
                     id: null,
-                        flapNumber: null,
-                        fuelType: null,
-                        cylindersNumber: null,
-                        autoManufacture: null,
-                        engineManufacture: null,
-                        powerKWT: null,
-                        engineCapacity: null,
-                        horsepower: null,
-                        pistonStoke: null,
-                        pistonDiameter: null,
-                        modelName: null,
-                        engineType: null,
-                        releaseYear: null,
-                        elemID: null,
-                        cylinderNum: null,
-                        cylinderPlace: null,
-                        superchargedType: null,
-                        degreeCompression: null,
-                        initRecordFrom:  this.pageSetting.initRecordFrom,
-                        pageSize: this.pageSetting.pageSize
+                    flapNumber: null,
+                    fuelType: null,
+                    cylindersNumber: null,
+                    autoManufacture: null,
+                    engineManufacture: null,
+                    powerKWT: null,
+                    engineCapacity: null,
+                    horsepower: null,
+                    pistonStoke: null,
+                    pistonDiameter: null,
+                    modelName: null,
+                    engineType: null,
+                    releaseYear: null,
+                    elemID: null,
+                    cylinderNum: null,
+                    cylinderPlace: null,
+                    superchargedType: null,
+                    degreeCompression: null,
+                    initRecordFrom: this.pageSetting.initRecordFrom,
+                    pageSize: this.pageSetting.pageSize
                 }
                 this.GET_ALL_AUTO(this.pageSetting);
-                },
-            getAutoEngByFilter(){
+            },
+            handleCurrentChange(val) {
+                this.currentRow = val;
+            },
+            getAutoEngByFilter() {
                 this.GET_ALL_AUTO(this.pageSetting);
 
             },
@@ -329,12 +340,11 @@
         flex-direction: column;
     }
 
-    #dropdown {
+    .fix-position {
         position: relative;
         top: 4px;
 
     }
-
 
 
     .title-bord {
