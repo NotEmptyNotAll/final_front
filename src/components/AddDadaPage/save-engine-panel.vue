@@ -180,7 +180,7 @@
                                  index="pistonStroke"
                     />
                     <input-field class="col-md-3"
-                                 :name-input="$ml.get('word.engineCapacity')"
+                                 :aria-placeholder="$ml.get('word.engineCapacity')"
                                  :save-parameters="saveDataObj"
                                  index="engineCapacity"
 
@@ -546,7 +546,7 @@
                 </div>
                 <hr/>
                 <el-table
-                        empty-text="пусто"
+                        :empty-text="$ml.get('word.empty')"
                         height="600" :data="da"
                         :row-class-name="tableRowClassName">
                     <el-table-column prop="id" label="№">
@@ -670,7 +670,7 @@
             da: null,
             dalen: 0,
             testlist: [],
-            checkedColumns: [],
+                checkedColumns: [],
             isIndeterminate: true,
             checkAll: false,
             tableColumns: [],
