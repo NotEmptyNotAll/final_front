@@ -76,6 +76,7 @@
             <div v-if="!LOAD_ALL_AUTO_ENG" class="table-cont">
                 <el-table
                         id="lol"
+                        stripe
                         :empty-text="$ml.get('word.empty')"
                         border
                         ref="paramTable"
@@ -219,7 +220,7 @@
                     initRecordFrom: 1,
                     pageSize: 3
                 },
-                inputFilds: []
+                inputFilds: [],
             }
         },
         methods: {
@@ -268,7 +269,93 @@
                 this.$refs.vueSimpleContextMenu1.showMenu(event, item)
             },
             optionClicked1(event) {
-                window.alert(JSON.stringify(event))
+                // Require library
+                let wb = new this.$xl.Workbook();
+// Add Worksheets to the workbook
+                let ws = wb.addWorksheet('Sheet 1');
+                // eslint-disable-next-line no-unused-vars
+                let ws2 = wb.addWorksheet('Sheet 2');
+
+// Create a reusable style
+                let style = wb.createStyle({
+                    font: {
+                        color: '#FF0800',
+                        size: 12,
+                    },
+                    numberFormat: '$#,##0.00; ($#,##0.00); -',
+                });
+
+// Set value of cell A1 to 100 as a number type styled with paramaters of style
+                ws.cell(1, 1)
+                    .number(100)
+                    .style(style);
+
+// Set value of cell B1 to 200 as a number type styled with paramaters of style
+                ws.cell(1, 2)
+                    .number(200)
+                    .style(style);
+
+// Set value of cell C1 to a formula styled with paramaters of style
+                ws.cell(1, 3)
+                    .formula('A1 + B1')
+                    .style(style);
+
+// Set value of cell A2 to 'string' styled with paramaters of style
+                ws.cell(2, 1)
+                    .string('string')
+                    .style(style);
+
+// Set value of cell A3 to true as a boolean type styled with paramaters of style but with an adjustment to the font size.
+                ws.cell(3, 1)
+                    .bool(true)
+                    .style(style)
+                    .style({font: {size: 14}});
+                ws.cell(1, 1).string('My simple string');
+                ws.cell(1, 2).number(5);
+                ws.cell(1, 3).formula('B1 * 10');
+                ws.cell(1, 4).date(new Date());
+                ws.cell(1, 5).link('http://iamnater.com');
+                ws.cell(1, 6).bool(true);
+
+                ws.cell(2, 1, 2, 6, true).string('One big merged cell');
+                ws.cell(3, 1, 3, 6).number(1); // All 6 cells set to number 1
+
+                var complexString = [
+                    'Workbook default font String\n',
+                    {
+                        bold: true,
+                        underline: true,
+                        italics: true,
+                        color: 'FF0000',
+                        size: 18,
+                        name: 'Courier',
+                        value: 'Hello',
+                    },
+                    ' World!',
+                    {
+                        color: '000000',
+                        underline: false,
+                        name: 'Arial',
+                        vertAlign: 'subscript',
+                    },
+                    ' All',
+                    ' these',
+                    ' strings',
+                    ' are',
+                    ' black subsript,',
+                    {
+                        color: '0000FF',
+                        value: '\nbut',
+                        vertAlign: 'baseline',
+                    },
+                    ' now are blue',
+                ];
+                ws.cell(4, 1).string(complexString);
+                ws.cell(5, 1)
+                    .string('another simple string')
+                    .style({font: {name: 'Helvetica'}});
+                wb.write(event.option.name+'.xlsx')
+                console.log(1)
             },
             handleCurrentChange(val) {
                 this.currentRow = val;
