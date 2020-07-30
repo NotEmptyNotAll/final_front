@@ -24,7 +24,7 @@
                         :holder-num=0
                         style="position: relative; top: 0.25em; width: 80%"
                 />
-                <div  class="col-md-1" v-show="item.name===''"></div>
+                <div class="col-md-1" v-show="item.name===''"></div>
                 <div class="col-md-3">
                     <div class=" btn-group  " style="display: flex;">
                         <button v-show="item.name===''"
@@ -48,30 +48,33 @@
                         </span>
                         </button>
                     </div>
-                        <el-button circle v-show="changeMod==='off'"
-                                   v-if=" !linkOnThisButt.isPressed && item.parametersIsExistInChild"
-                                   v-on:click="pressed" type="info"
-                                   class="   btn-posit"
-                                   @click="getParamtrs(nav,item.id,linkOnThisButt)"
-                                   style="max-width: 3vw" icon="el-icon-d-arrow-right"
-                                   size="small">
-                        </el-button>
-                        <el-button disabled v-show="changeMod==='off'"
-                                   circle size="small"
-                                   v-if=" linkOnThisButt.isPressed && item.parametersIsExistInChild"
-                                   class="  btn-posit  " type="info"
-                                   style="max-width: 3vw" icon="el-icon-d-arrow-right">
-                        </el-button>
+                    <el-button circle v-show="changeMod==='off'"
+                               v-if=" !linkOnThisButt.isPressed && item.parametersIsExistInChild"
+                               v-on:click="pressed" type="info"
+                               class="   btn-posit"
+                               @click="getParamtrs(nav,item.id,linkOnThisButt)"
+                               style="max-width: 3vw" icon="el-icon-d-arrow-right"
+                               size="small">
+                    </el-button>
+                    <el-button disabled v-show="changeMod==='off'"
+                               circle size="small"
+                               v-if=" linkOnThisButt.isPressed && item.parametersIsExistInChild"
+                               class="  btn-posit  " type="info"
+                               style="max-width: 3vw" icon="el-icon-d-arrow-right">
+                    </el-button>
 
 
                     <div class=" btn-group  " v-show="item.name!='' && changeMod==='tree'" role="group"
                          style=" position: relative; top: 0.5vh; left: 6vw;padding: 1vh">
-                        <button  type="button"
+                        <button type="button"
                                 class="btn btn-group   btn-info" @click="addElement(1)" style="z-index: 999">
                             <span>
                                 <p class="h5 md-2"><b-icon icon="plus"></b-icon></p>
                             </span>
                         </button>
+
+                       
+
                     </div>
 
                     <div class=" btn-group  " v-show="item.name!='' && changeMod==='on'" role="group"
@@ -86,7 +89,7 @@
 
                             </span>
                         </button>
-                        <button  type="button" v-if=" linkOnThisButt.isPressed "
+                        <button type="button" v-if=" linkOnThisButt.isPressed "
                                 class="btn btn-group   btn-warning disabled">
                             <span>
                                 <b-icon icon="pencil" animation="cylon"></b-icon>
@@ -97,22 +100,22 @@
             </div>
         </li>
 
-            <ul class="list-group border-white left" v-show="isOpen" v-if="isFolder">
-                <tree-item
-                        class="item"
-                        v-for="(child, index) in item.elementsCh"
-                        :key="index"
-                        :item="child"
-                        :choice-param="choiceParam"
-                        :nav="child.name"
-                        :id-parent-elem="item.id"
-                        :change-mod="changeMod"
-                        :space="space.concat('')"
-                        @get-paramtrs="getParamtrs"
-                        :show-edit-param="showEditParam"
-                        @parent-delete="deleteElem"
-                ></tree-item>
-            </ul>
+        <ul class="list-group border-white left" v-show="isOpen" v-if="isFolder">
+            <tree-item
+                    class="item"
+                    v-for="(child, index) in item.elementsCh"
+                    :key="index"
+                    :item="child"
+                    :choice-param="choiceParam"
+                    :nav="child.name"
+                    :id-parent-elem="item.id"
+                    :change-mod="changeMod"
+                    :space="space.concat('')"
+                    @get-paramtrs="getParamtrs"
+                    :show-edit-param="showEditParam"
+                    @parent-delete="deleteElem"
+            ></tree-item>
+        </ul>
     </ul>
 
 </template>
@@ -145,6 +148,7 @@
                     paramNameFk: null,
                     parentId: null
                 },
+                color1: null,
                 elementsCh: [],
                 listNewElem: [],
                 isOpen: false,
@@ -287,7 +291,7 @@
         top: 1.4em;
     }
 
-    .btn-posit{
+    .btn-posit {
         position: relative;
         left: .5em;
         top: .5em;

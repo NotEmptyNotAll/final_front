@@ -11,14 +11,12 @@
                     @option-clicked="optionClicked1"
             ></vue-context-menu>
 
-            <div class="row" style="padding-top: 3vh">
-                <div class=" col-md-1">
-                </div>
+            <div class="row " style="padding-top: 3vh">
                 <div class="title-bord col-md-1 param-navbar">
-                    <h4> {{$ml.get('word.parameters')}}</h4>
+                 <h4> {{$ml.get('word.parameters')}}</h4>
                 </div>
 
-                <div class="col-md-1 param-navbar">
+                <div class="col-md-2 param-navbar fix-position">
                     <el-dropdown style="width: 100%" :hide-on-click="false">
                         <el-button size="medium" type="primary" style="width: 100%; font-size: 16px">
                             {{$ml.get('word.column')}}
@@ -35,7 +33,7 @@
                     </el-dropdown>
                 </div>
                 <div class=" col-md-2 ">
-                    <el-dropdown class="fix-position" @command="changePageSize">
+                    <el-dropdown class="fix-position" @command="changePageSize" style="width: 100%;">
                         <el-button size="medium" type="warning" style="width: 100%; font-size: 16px">
                             {{$ml.get('word.numRowOnPage')}}{{pageSetting.pageSize}}
                             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -49,7 +47,7 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
-                <div class="col-md-2 param-navbar">
+                <div class="col-md-2   param-navbar">
                     <el-button size="medium" class="fix-position" plain type="danger"
                                style="width: 100%; font-size: 16px"
                                v-on:click="clearFilter">{{$ml.get('word.clearAllFilter')}}
@@ -57,7 +55,8 @@
                 </div>
 
 
-                <div class="col-md-5 param-navbar">
+                <div class="col-md-5  border-butt param-navbar">
+                    <el-divider content-position="right">
                     <el-button-group>
                         <el-button v-for="current in ALL_AUTO_ENG.columnParam" v-bind:key="current"
                                    plain type="info" v-on:click="setEngineParamData(current.columnResponseList)">
@@ -70,10 +69,10 @@
                                    v-on:click="setEngineParamData(null)">
                         </el-button>
                     </el-button-group>
-
+                    </el-divider>
                 </div>
             </div>
-            <hr style="width: 90%"/>
+            <hr />
             <br/>
             <div v-if="!LOAD_ALL_AUTO_ENG" class="table-cont">
                 <el-table
@@ -84,6 +83,7 @@
                         ref="paramTable"
                         :data="ALL_AUTO_ENG.engineData"
                         highlight-current-row
+                        max-height="600"
                         @current-change="handleCurrentChange"
                         @row-contextmenu="handleClick1"
                         style="width: 100%"
@@ -120,14 +120,13 @@
                                 v-for="column in mainColumn.columnList"
                                 v-bind:key="column"
                                 :label="column.name"
-                                min-width="270">
+                                min-width="310">
                             <template slot-scope="scope">
                                 <span v-show="column.columnList[0]===undefined" style="margin-left: 10px"><h4>{{ scope.row[column.id] }}</h4></span>
                                 <span v-show="column.columnList[0]!==undefined && scope.row[col.id]!==undefined"
                                       v-for="col in column.columnList"
-                                      v-bind:key="col"
-                                      style="margin-left: 10px"><strong>{{col.name+": "}}</strong>{{scope.row[col.id]}} <hr></span>
-
+                                      v-bind:key="col">
+                                    <h6><strong>{{col.name+": "}}</strong>{{scope.row[col.id]}}</h6><hr></span>
                             </template>
                         </el-table-column>
                     </el-table-column>
@@ -348,7 +347,7 @@
                             headNameParamClmns.map(elment => {
                                 tempHeadName.push({text: elment.text, style: 'nameElem'})
                             })
-                        }else {
+                        } else {
                             tempHeadName.push({text: "", style: 'nameElem'})
                             tempHeadName.push({text: "Значення"})
                         }
@@ -664,6 +663,7 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
+        align-items: center;
     }
 
     .fix-position {
@@ -672,13 +672,13 @@
 
     }
 
+    .border-butt {
+        border-style: solid;
+        border-color: lightgray;
+        border-width: 0px 0px 0px 2px;
+    }
 
     .title-bord {
-        text-align: center;
-        position: relative;
-        right: 1vw;
-        display: flex;
-        align-items: center;
         border-style: solid;
         border-color: lightgray;
         border-width: 0px 2px 0px 0px;
