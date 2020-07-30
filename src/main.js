@@ -3,6 +3,7 @@ import App from './App.vue'
 import store from "@/vuex/store"
 import router from "./router/router"
 import XLSX from 'xlsx'
+import * as Excel from "exceljs";
 import JsonExcel from 'vue-json-excel'
 
 import VeeValidate from 'vee-validate'
@@ -15,6 +16,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI)
 Vue.use(XLSX)
+Vue.use(Excel)
 Vue.component('downloadExcel', JsonExcel)
 // eslint-disable-next-line no-unused-vars
 //let xl = require('excel4node');

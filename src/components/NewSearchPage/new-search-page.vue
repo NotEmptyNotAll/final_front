@@ -1,6 +1,8 @@
+`
 <template>
     <div>
         <div class="container search-border tab  rounded bg-white rad">
+
 
             <vue-context-menu
                     :elementId="'myFirstMenu'"
@@ -83,7 +85,7 @@
                         :data="ALL_AUTO_ENG.engineData"
                         highlight-current-row
                         @current-change="handleCurrentChange"
-                        @row-contextmenu="handleClick1($event, row)"
+                        @row-contextmenu="handleClick1"
                         style="width: 100%"
                 >
                     <el-table-column
@@ -106,8 +108,6 @@
                                     :index="clmn.key"
                                     @on-input-action="getAutoEngByFilter"
                             />
-
-
                         </template>
                     </el-table-column>
                     <el-table-column resizable align="center"
@@ -154,6 +154,19 @@
     import FilterInput from "../input/filter-input";
     import vueSimpleContextMenu from 'vue-simple-context-menu'
     import VueContextMenu from "../ContextMenu/vue-context-menu";
+    // eslint-disable-next-line no-unused-vars
+    import xl from "excel4node";
+    // eslint-disable-next-line no-unused-vars
+    import XLSX from "xlsx";
+    // eslint-disable-next-line no-unused-vars
+    import json2xls from "json2xls";
+    // eslint-disable-next-line no-unused-vars
+    import fs from "fs";
+    // eslint-disable-next-line no-unused-vars
+    import pdfMake from "pdfmake/build/pdfmake";
+    import pdfFonts from "pdfmake/build/vfs_fonts";
+
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
     export default {
         name: "new-search-page",
@@ -161,6 +174,14 @@
         components: {VueContextMenu, FilterInput, vueSimpleContextMenu, InputField},
         data() {
             return {
+                tableData: [],
+                checkedRows: [],
+                column: [
+                    'selected',
+                    'sku',
+                ],
+
+                options: {},
                 columnOptions: [],
                 columns: [],
                 itemArray1: [
@@ -220,7 +241,10 @@
                     initRecordFrom: 1,
                     pageSize: 3
                 },
-                inputFilds: [],
+                lengHeadNameArr: 0,
+                test: null,
+                test1: null,
+                inputFilds: []
             }
         },
         methods: {
@@ -240,6 +264,7 @@
                 this.$refs.paramTable.setCurrentRow(row);
             },
             clearFilter() {
+
                 this.pageSetting = {
                     id: null,
                     flapNumber: null,
@@ -265,105 +290,260 @@
                 }
                 this.GET_ALL_AUTO(this.pageSetting);
             },
-            handleClick1(event, item) {
-                this.$refs.vueSimpleContextMenu1.showMenu(event, item)
+            handleClick1(row, column, event) {
+                this.$refs.vueSimpleContextMenu1.showMenu(event, row)
+            },
+            getGeneralName(arr) {
+                let generalIndex = 0;
+                let generalName = ''
+                arr.map(elem => {
+                    let tempName = elem.text.split(' ')[0]
+                    if ((generalName === tempName) && generalIndex < 2) {
+                        generalIndex++
+                    } else if (generalIndex < 2 && elem.text.split(' ').length > 1) {
+                        generalName = tempName
+                    }
+                })
+                arr.map(elem => {
+                    if (generalName === elem.text.split(' ')[0] && elem.text.split(' ')[1] !== undefined)
+                        elem.text = elem.text.split(' ')[1]
+                })
+                return generalName
             },
             optionClicked1(event) {
-                // Require library
-                let wb = new this.$xl.Workbook();
-// Add Worksheets to the workbook
-                let ws = wb.addWorksheet('Sheet 1');
-                // eslint-disable-next-line no-unused-vars
-                let ws2 = wb.addWorksheet('Sheet 2');
+                this.test1 = event
+                let tables = [];
 
-// Create a reusable style
-                let style = wb.createStyle({
-                    font: {
-                        color: '#FF0800',
-                        size: 12,
+                event.option.columnResponseList.map((elem, index) => {
+                        let clmns = []
+                        let tempHeadName = []
+                        let headNameParamClmns = []
+                        let widthClmns = [100];
+                        let lengHeadNameArr = 0
+                        elem.columnList.map(item => {
+                            item.columnList.map(e => {
+                                if (headNameParamClmns.find(t => t.text === e.name) === undefined && event.item[e.id] !== undefined) {
+                                    headNameParamClmns.push({text: e.name, id: e.id})
+                                    lengHeadNameArr++
+                                }
+                            })
+                        })
+                        if (lengHeadNameArr === 0) {
+                            lengHeadNameArr = 1
+                        }
+                        for (let i = 0; i < lengHeadNameArr; i++) {
+                            widthClmns.push('*')
+                        }
+                        let row = [{
+                            text: elem.name,
+                            colSpan: lengHeadNameArr + 1,
+                            style: 'headBlock'
+                        }]
+                        for (let i = 0; i < lengHeadNameArr; i++) {
+                            row.push({})
+                        }
+                        clmns.push(row)
+                        if (headNameParamClmns.length > 0) {
+                            tempHeadName.push({text: this.getGeneralName(headNameParamClmns), style: 'nameElem'})
+                            headNameParamClmns.map(elment => {
+                                tempHeadName.push({text: elment.text, style: 'nameElem'})
+                            })
+                        }else {
+                            tempHeadName.push({text: "", style: 'nameElem'})
+                            tempHeadName.push({text: "Значення"})
+                        }
+                        clmns.push(tempHeadName)
+                        elem.columnList.map(item => {
+                            let tempArr = []
+                            tempArr.push({text: item.name, style: 'nameElem'})
+                            if (item.columnList.length > 0) {
+                                headNameParamClmns.map(e => {
+                                    tempArr.push({text: event.item[e.id], bold: true})
+                                })
+                            } else {
+                                tempArr.push({text: event.item[item.id], bold: true, colSpan: lengHeadNameArr,})
+                            }
+                            clmns.push(tempArr)
+                            tempArr = []
+                        })
+                        tables.push({
+                            margin: [0, 0, 0, 0],
+                            table: {
+                                widths: widthClmns,
+                                body: clmns,
+                                headerRows: 1
+                            },
+                            layout: {
+                                hLineColor: function (i) {
+                                    if (i === 0 && index !== 0) {
+                                        return 'lightgrey';
+                                    }
+                                    return 'grey';
+                                },
+                                vLineColor: 'grey'
+                            },
+                        })
+                    }
+                )
+                this.test = tables
+                let docInfo = {
+                    info: {
+                        title: event.option.name,
+                        author: 'Vlad',
+                        subject: 'Theme',
+                        keywords: 'Ключевые слова'
                     },
-                    numberFormat: '$#,##0.00; ($#,##0.00); -',
-                });
-
-// Set value of cell A1 to 100 as a number type styled with paramaters of style
-                ws.cell(1, 1)
-                    .number(100)
-                    .style(style);
-
-// Set value of cell B1 to 200 as a number type styled with paramaters of style
-                ws.cell(1, 2)
-                    .number(200)
-                    .style(style);
-
-// Set value of cell C1 to a formula styled with paramaters of style
-                ws.cell(1, 3)
-                    .formula('A1 + B1')
-                    .style(style);
-
-// Set value of cell A2 to 'string' styled with paramaters of style
-                ws.cell(2, 1)
-                    .string('string')
-                    .style(style);
-
-// Set value of cell A3 to true as a boolean type styled with paramaters of style but with an adjustment to the font size.
-                ws.cell(3, 1)
-                    .bool(true)
-                    .style(style)
-                    .style({font: {size: 14}});
-                ws.cell(1, 1).string('My simple string');
-                ws.cell(1, 2).number(5);
-                ws.cell(1, 3).formula('B1 * 10');
-                ws.cell(1, 4).date(new Date());
-                ws.cell(1, 5).link('http://iamnater.com');
-                ws.cell(1, 6).bool(true);
-
-                ws.cell(2, 1, 2, 6, true).string('One big merged cell');
-                ws.cell(3, 1, 3, 6).number(1); // All 6 cells set to number 1
-
-                var complexString = [
-                    'Workbook default font String\n',
-                    {
-                        bold: true,
-                        underline: true,
-                        italics: true,
-                        color: 'FF0000',
-                        size: 18,
-                        name: 'Courier',
-                        value: 'Hello',
+                    pageSize: 'A4',
+                    pageOrientation: 'portrait',//'portrait'
+                    pageMargins: [15, 10, 15, 30],
+                    footer: function (currentPage, pageCount) {
+                        if (currentPage === pageCount) {
+                            return {
+                                margin: [0, 0, 0, 0],
+                                table: {
+                                    widths: [50, '*', 50, '*', 50, "*", 50],
+                                    body: [
+                                        [{text: ""}, {text: 'П.І.Б___________'}, {text: ""}, {text: "Підпис___________"}, {text: ""}, {text: "Дата___________"}, {text: ""},]
+                                    ],
+                                    headerRows: 1
+                                },
+                                layout: {
+                                    hLineColor: 'white',
+                                    vLineColor: 'white'
+                                },
+                            }
+                        } else {
+                            return {
+                                text: ''
+                            }
+                        }
                     },
-                    ' World!',
-                    {
-                        color: '000000',
-                        underline: false,
-                        name: 'Arial',
-                        vertAlign: 'subscript',
-                    },
-                    ' All',
-                    ' these',
-                    ' strings',
-                    ' are',
-                    ' black subsript,',
-                    {
-                        color: '0000FF',
-                        value: '\nbut',
-                        vertAlign: 'baseline',
-                    },
-                    ' now are blue',
-                ];
-                ws.cell(4, 1).string(complexString);
-                ws.cell(5, 1)
-                    .string('another simple string')
-                    .style({font: {name: 'Helvetica'}});
-                wb.write(event.option.name+'.xlsx')
-                console.log(1)
+
+
+                    content: [
+
+                        {
+                            text: 'Параметри обробки до замовлення №79930',
+                            fontSize: 20,
+                            bold: true,
+                            margin: [10, 15, 15, 15],
+                            alignment: 'center'
+                            //pageBreak:'after'
+                        },
+                        {
+                            text: 'Данні автомобіля',
+                            style: 'header'
+                        },
+
+                        {
+                            margin: [0, 15, 0, 10],
+
+                            table: {
+                                widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+                                body: [
+                                    [
+                                        {text: this.$ml.get('word.autoManufacturer'), style: 'headT'},
+                                        {text: this.$ml.get('word.autoModel'), style: 'headT'},
+                                        {text: this.$ml.get('word.engine'), style: 'headT'},
+                                        {text: this.$ml.get('word.releaseYear'), style: 'headT'},
+                                        {text: this.$ml.get('word.engineCapacity'), style: 'headT'},
+                                        {text: this.$ml.get('word.pistonDiameter'), style: 'headT'},
+                                        {text: this.$ml.get('word.flapNumber'), style: 'headT'}],
+                                    [
+                                        {text: event.item.autoManufacture, bold: false},
+                                        {text: event.item.engineType, bold: false},
+                                        {text: event.item.autoManufacture, bold: false},
+                                        {text: event.item.releaseYear, bold: false},
+                                        {text: event.item.engineCapacity, bold: false},
+                                        {text: event.item.pistonDiameter, bold: false},
+                                        {text: event.item.flapNumber, bold: false}
+                                    ],
+                                ],
+                                headerRows: 1
+                            },
+                            layout: {
+                                hLineColor: 'lightgrey',
+                                vLineColor: 'lightgrey'
+                            },
+                        },
+                        {
+                            margin: [0, 10, 0, 15],
+                            text: 'Параметри обробки',
+                            style: 'header'
+                        },
+                        tables,
+                        {
+                            margin: [0, 0, 0, 0],
+                            table: {
+                                widths: ['*'],
+                                body: [
+                                    [{text: 'Тестування', style: 'endHead'}],
+                                    [{
+                                        text: 'Тестування проводиться при температурі t=70*C та під тиском Р=4атм.',
+                                        alignment: 'center'
+                                    }]
+                                ],
+                                headerRows: 1
+                            },
+                            layout: {
+                                hLineColor: function (i) {
+                                    if (i === 0) {
+                                        return 'lightgrey';
+                                    }
+                                    return 'grey';
+                                },
+                                vLineColor: 'grey'
+                            },
+                        },
+                        {
+                            margin: [0, 50, 0, 30],
+                            text: 'З параметрами обробки ознайомлений та згоден',
+                            style: 'header'
+                        },
+
+                    ],
+                    styles: {
+                        endHead: {
+                            bold: true,
+                            fontSize: 13,
+                            fillColor: 'lightgrey',
+                            alignment: 'center'
+                        },
+                        nameElem: {
+                            fillColor: 'lightgrey',
+                            alignment: 'left',
+                            bold: true,
+                        },
+                        headBlock: {
+                            fillColor: 'lightgrey',
+                            alignment: 'center',
+                            bold: true,
+                        },
+                        headT: {
+                            fillColor: 'lightgrey',
+                            bold: true,
+                            alignment: 'center'
+                        },
+                        header: {
+                            fontSize: 15,
+                            bold: true,
+                            alignment: 'center'
+                        }
+                    }
+                }
+
+                pdfMake.createPdf(docInfo).download(event.option.name + '.pdf');
+                console.log(event)
             },
             handleCurrentChange(val) {
                 this.currentRow = val;
-            },
+            }
+            ,
             getAutoEngByFilter() {
                 this.GET_ALL_AUTO(this.pageSetting);
 
-            },
+            }
+            ,
             handleCheckedColumnChange(value) {
                 let checkedCount = value.length;
                 this.tableColumns = []
@@ -373,13 +553,16 @@
                 )
                 this.checkAll = checkedCount === this.columns.length;
                 this.isIndeterminate = checkedCount > 0 && checkedCount < this.columns.length;
-            },
+            }
+            ,
             deleteRow(index, rows) {
                 rows.splice(index, 1);
-            },
+            }
+            ,
             setEngineParamData(data) {
                 this.engineParamData = data
-            },
+            }
+            ,
             changePageSize(value) {
                 this.pageSetting.pageSize = value
                 this.pageSetting.initRecordFrom = 1
@@ -387,11 +570,13 @@
             }
         },
         computed: {
-            ...mapGetters([
-                'ALL_AUTO_ENG',
-                'LOAD_ALL_AUTO_ENG'
-            ])
-        },
+            ...
+                mapGetters([
+                    'ALL_AUTO_ENG',
+                    'LOAD_ALL_AUTO_ENG'
+                ])
+        }
+        ,
         mounted() {
             // eslint-disable-next-line no-unused-vars
             document.body.oncontextmenu = function () {
@@ -499,4 +684,4 @@
         border-width: 0px 2px 0px 0px;
     }
 
-</style>
+</style>`
