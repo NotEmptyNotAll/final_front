@@ -25,6 +25,7 @@
                         style="position: relative; top: 0.25em; width: 80%"
                 />
                 <div class="col-md-1" v-show="item.name===''"></div>
+
                 <div class="col-md-3">
                     <div class=" btn-group  " style="display: flex;">
                         <button v-show="item.name===''"
@@ -62,20 +63,32 @@
                                class="  btn-posit  " type="info"
                                style="max-width: 3vw" icon="el-icon-d-arrow-right">
                     </el-button>
-
-
-                    <div class=" btn-group  " v-show="item.name!='' && changeMod==='tree'" role="group"
-                         style=" position: relative; top: 0.5vh; left: 6vw;padding: 1vh">
-                        <button type="button"
-                                class="btn btn-group   btn-info" @click="addElement(1)" style="z-index: 999">
+                        <div class=" btn-group  " v-show="item.name!='' && changeMod==='tree'" role="group"
+                             style=" position: relative; top: 0.5vh; left: 6vw;padding: 1vh; width: 5vw">
+                            <button type="button"
+                                    class="btn btn-group   btn-info" @click="addElement(1)" style="z-index: 999">
                             <span>
                                 <p class="h5 md-2"><b-icon icon="plus"></b-icon></p>
                             </span>
-                        </button>
-
-                       
-
-                    </div>
+                            </button>
+                            <button type="button"
+                                    v-if=" !linkOnThisButt.isPressed "
+                                    class="btn btn-group   btn-warning"
+                                    @click="setColorElem(item.color,item.name,item.id,linkOnThisButt)"
+                                    style="z-index: 999">
+                            <span>
+                                    <i class="el-icon-brush"></i>
+                            </span>
+                            </button>
+                            <button type="button"
+                                    v-if="linkOnThisButt.isPressed "
+                                    class="btn btn-group  disabled btn-warning"
+                                    style="z-index: 999">
+                            <span>
+                                    <i class="el-icon-brush"></i>
+                            </span>
+                            </button>
+                        </div>
 
                     <div class=" btn-group  " v-show="item.name!='' && changeMod==='on'" role="group"
                          style=" position: relative; top: 0.5vh; left: 6vw;padding: 1vh">
@@ -114,6 +127,7 @@
                     @get-paramtrs="getParamtrs"
                     :show-edit-param="showEditParam"
                     @parent-delete="deleteElem"
+                    @set-color-elem="setColorElem"
             ></tree-item>
         </ul>
     </ul>
@@ -231,6 +245,11 @@
                 } else {
                     this.$emit("get-paramtrs", nav, number, link)
                     this.showEditParam.show = true;
+                }
+            },
+            setColorElem(color,name,number, link) {
+                if (!link.isPressed) {
+                    this.$emit("set-color-elem", color,name,number, link)
                 }
             },
             pressed() {

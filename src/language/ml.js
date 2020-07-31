@@ -98,6 +98,8 @@ export default new MLCreate({
             msg: {
                 passwordErr: 'password is required!',
                 usernamedErr: 'Username is required!',
+                colorAdd: "color changed",
+                chooseColor: 'select element from the tree to change the color',
                 authErr: "Authorization Error",
                 duplicateValue:'duplicate value'
             },
@@ -198,6 +200,8 @@ export default new MLCreate({
             },
             msg: {
                 passwordErr: "Пароль необходим!",
+                colorAdd: "цвет изменен",
+                chooseColor: 'для изменения цвета выберите элемент из дерева',
                 userNamedErr: "Имя пользователя необходимо!",
                 authErr: "Ошибка авторизации",
                 duplicateValue:'дублированное значение'
@@ -299,7 +303,9 @@ export default new MLCreate({
             },
             msg: {
                 passwordErr: 'Пароль необхідний!',
+                chooseColor: 'для зміни кольору виберіть елемент з дерева',
                 userNamedErr: 'Ім\'я користувача обов\'язкове!',
+                colorAdd: "колір змінений",
                 authErr: 'Помилка авторизації',
                 duplicateValue:'повторюване значення',
                 formatIsIncorrect:"Формат вкладених файлів невірний. Видаліть і повторно завантажте!"

@@ -52,6 +52,7 @@
                                style="width: 100%; font-size: 16px"
                                v-on:click="clearFilter">{{$ml.get('word.clearAllFilter')}}
                     </el-button>
+
                 </div>
 
 
@@ -179,7 +180,6 @@
                     'selected',
                     'sku',
                 ],
-
                 options: {},
                 columnOptions: [],
                 columns: [],

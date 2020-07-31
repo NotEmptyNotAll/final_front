@@ -13,11 +13,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import {Photoshop} from 'vue-color'
 
 Vue.use(ElementUI)
 Vue.use(XLSX)
 Vue.use(Excel)
 Vue.component('downloadExcel', JsonExcel)
+Vue.component('photoshop-picker', Photoshop)
 // eslint-disable-next-line no-unused-vars
 //let xl = require('excel4node');
 
