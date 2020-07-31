@@ -74,7 +74,7 @@
                             <button type="button"
                                     v-if=" !linkOnThisButt.isPressed "
                                     class="btn btn-group   btn-warning"
-                                    @click="setColorElem(item.color,item.name,item.id,linkOnThisButt)"
+                                    @click="setColorElem(item,item.color,item.name,item.id,linkOnThisButt)"
                                     style="z-index: 999">
                             <span>
                                     <i class="el-icon-brush"></i>
@@ -247,9 +247,9 @@
                     this.showEditParam.show = true;
                 }
             },
-            setColorElem(color,name,number, link) {
+            setColorElem(item,color,name,number, link) {
                 if (!link.isPressed) {
-                    this.$emit("set-color-elem", color,name,number, link)
+                    this.$emit("set-color-elem",item, color,name,number, link)
                 }
             },
             pressed() {
@@ -302,6 +302,7 @@
     div {
         position: relative;;
     }
+
 
 
     .posLeft {

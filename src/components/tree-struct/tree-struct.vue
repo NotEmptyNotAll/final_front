@@ -143,6 +143,7 @@
                     isPressed: false
                 }
             },
+            tempItem:{},
             nameElem: '',
             saveElemData: {
                 elemId: null,
@@ -338,6 +339,7 @@
                     paramNameFk:null,
                     color: this.colors.hex
                 })
+                this.tempItem.color=this.colors.hex
                 this.$message({
                     showClose: true,
                     message: this.$ml.get('msg.colorAdd'),
@@ -395,7 +397,8 @@
                 this.setMaxId(this.ELEMENTS_TREE.maxId + 1);
                 console.log(number)
             },
-            setColorElem(color, name, number, link) {
+            setColorElem(item,color, name, number, link) {
+                this.tempItem=item
                 link.isPressed = !link.isPressed
                 this.colors.hex = color
                 this.nameElem = name

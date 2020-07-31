@@ -13,7 +13,7 @@
 
             <div class="row " style="padding-top: 3vh">
                 <div class="title-bord col-md-1 param-navbar">
-                 <h4> {{$ml.get('word.parameters')}}</h4>
+                    <h4> {{$ml.get('word.parameters')}}</h4>
                 </div>
 
                 <div class="col-md-2 param-navbar fix-position">
@@ -58,22 +58,22 @@
 
                 <div class="col-md-5  border-butt param-navbar">
                     <el-divider content-position="right">
-                    <el-button-group>
-                        <el-button v-for="current in ALL_AUTO_ENG.columnParam" v-bind:key="current"
-                                   plain type="info" v-on:click="setEngineParamData(current.columnResponseList)">
-                            {{current.name}}
-                        </el-button>
-                        <el-button plain type="info"
-                                   v-show="ALL_AUTO_ENG.length!==0"
-                                   icon="el-icon-close"
-                                   @click="setCurrent()"
-                                   v-on:click="setEngineParamData(null)">
-                        </el-button>
-                    </el-button-group>
+                        <el-button-group>
+                            <el-button v-for="current in ALL_AUTO_ENG.columnParam" v-bind:key="current"
+                                       plain type="info" v-on:click="setEngineParamData(current.columnResponseList)">
+                                {{current.name}}
+                            </el-button>
+                            <el-button plain type="info"
+                                       v-show="ALL_AUTO_ENG.length!==0"
+                                       icon="el-icon-close"
+                                       @click="setCurrent()"
+                                       v-on:click="setEngineParamData(null)">
+                            </el-button>
+                        </el-button-group>
                     </el-divider>
                 </div>
             </div>
-            <hr />
+            <hr/>
             <br/>
             <div v-if="!LOAD_ALL_AUTO_ENG" class="table-cont">
                 <el-table
@@ -87,6 +87,7 @@
                         max-height="600"
                         @current-change="handleCurrentChange"
                         @row-contextmenu="handleClick1"
+                        :header-cell-style="handleHeaderStyle"
                         style="width: 100%"
                 >
                     <el-table-column
@@ -114,20 +115,29 @@
                     <el-table-column resizable align="center"
                                      v-show="engineParamData!==null"
                                      v-for="mainColumn in engineParamData"
-                                     v-bind:key="mainColumn" :label="mainColumn.name">
+                                     v-bind:key="mainColumn" :label="mainColumn.name"
+                                     :prop="mainColumn.color"
+                    >
                         <el-table-column
                                 resizable
                                 align="center"
                                 v-for="column in mainColumn.columnList"
                                 v-bind:key="column"
                                 :label="column.name"
+                                :prop="column.color"
                                 min-width="310">
+                            <template slot="header"  >
+                                <div >
+                                <h5>{{column.name}}</h5>
+                                </div>
+                            </template>
                             <template slot-scope="scope">
-                                <span v-show="column.columnList[0]===undefined" style="margin-left: 10px"><h4>{{ scope.row[column.id] }}</h4></span>
-                                <span v-show="column.columnList[0]!==undefined && scope.row[col.id]!==undefined"
-                                      v-for="col in column.columnList"
-                                      v-bind:key="col">
+                                    <span v-show="column.columnList[0]===undefined" style="margin-left: 10px"><h4>{{ scope.row[column.id] }}</h4></span>
+                                    <span v-show="column.columnList[0]!==undefined && scope.row[col.id]!==undefined"
+                                          v-for="col in column.columnList"
+                                          v-bind:key="col">
                                     <h6><strong>{{col.name+": "}}</strong>{{scope.row[col.id]}}</h6><hr></span>
+
                             </template>
                         </el-table-column>
                     </el-table-column>
@@ -259,6 +269,10 @@
                 return 'header-st';
 
             },
+            // eslint-disable-next-line no-unused-vars
+            handleHeaderStyle({row, column, rowIndex, columnIndex}){
+                    return 'background-color: '+column.property+';'
+            },
             setCurrent(row) {
                 this.$refs.paramTable.setCurrentRow(row);
             },
@@ -292,6 +306,8 @@
             handleClick1(row, column, event) {
                 this.$refs.vueSimpleContextMenu1.showMenu(event, row)
             },
+            // eslint-disable-next-line no-unused-vars
+
             getGeneralName(arr) {
                 let generalIndex = 0;
                 let generalName = ''
@@ -420,7 +436,6 @@
 
 
                     content: [
-
                         {
                             text: 'Параметри обробки до замовлення №79930',
                             fontSize: 20,
@@ -433,7 +448,6 @@
                             text: 'Данні автомобіля',
                             style: 'header'
                         },
-
                         {
                             margin: [0, 15, 0, 10],
 
@@ -665,11 +679,23 @@
         flex-direction: column;
         align-items: center;
     }
+    .warning-row {
+        background: oldlace;
+    }
 
+     .success-row {
+        background: #f0f9eb;
+    }
     .fix-position {
         position: relative;
         top: 4px;
 
+    }
+
+
+    .columnHead{
+        width: 100%;
+        height: 120%;
     }
 
     .border-butt {
