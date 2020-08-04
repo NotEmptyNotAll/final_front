@@ -19,13 +19,23 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/project/final_front" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.serve">
+    <configuration name="build" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="serve" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -36,6 +46,10 @@
       <envs />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="npm.build" />
+      <item itemvalue="npm.serve" />
+    </list>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -48,6 +62,7 @@
       <option name="presentableId" value="Default" />
       <updated>1596560012119</updated>
       <workItem from="1596560013564" duration="332000" />
+      <workItem from="1596561023065" duration="83000" />
     </task>
     <servers />
   </component>
@@ -55,10 +70,11 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="454" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596560073289">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state x="836" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596561105545">
+      <screen x="72" y="27" width="3768" height="1053" />
     </state>
     <state x="454" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1596560073289" />
+    <state x="836" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.3768.1053@72.27.3768.1053" timestamp="1596561105545" />
     <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1596560344195">
       <screen x="72" y="27" width="3768" height="1053" />
     </state>
