@@ -12,14 +12,6 @@ export default {
             responseType: 'json'
         })
             .then((resp) => {
-               /*let data=resp.data
-                let obj={}
-                data.map(elem=>{
-                    obj=elem.paramMap
-                    obj.forEach(item=>{
-                        elem.push(item)
-                    })
-                })*/
                 commit('SET_ALL_AUTO_ENG', resp.data)
                 commit('SET_LOAD_ALL_AUTO_ENG', false);
                 return resp;
@@ -27,6 +19,25 @@ export default {
             .catch((error) => {
                 console.log(error);
                 commit('SET_LOAD_ALL_AUTO_ENG', false);
+                return error
+            })
+    },
+    async GET_PARAM_SIZE_NAME({commit},response) {
+        commit('SET_LOAD_PARAM_SIZE_NAME', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'getParametersSizeName',
+            data: response,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_PARAM_SIZE_NAME', resp.data)
+                commit('SET_LOAD_PARAM_SIZE_NAME', false);
+                return resp;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_PARAM_SIZE_NAME', false);
                 return error
             })
     },

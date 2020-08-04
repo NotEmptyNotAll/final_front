@@ -60,11 +60,13 @@
                                         :nav="treeItem.name"
                                         :choice-param="choiceParam"
                                         :space="''"
+                                        :auto_id="auto_id"
                                         :nowPressed=nowPressed
                                         :id-parent-elem="current.id"
                                         :show-edit-param="showEditParam"
                                         @get-paramtrs="getParamtrs"
                                         @parent-delete="deleteElem"
+                                        @get-size-param="getParamSizeEelem"
                                 />
                             </div>
                         </div>
@@ -87,11 +89,11 @@
                                 <tbody>
                                 <tr v-for="current in LISTPARAM" v-bind:key="current">
 
-                                    <td v-if="!current.editRow">
+                                    <td >
                                         {{PARAM_NAME.find(unit=>
                                         unit.id===current.name).data}}
                                     </td>
-                                    <td v-if="current.editRow">
+                                   <!-- <td v-if="current.editRow">
                                         <VueDatalist
                                                 :items="paramList"
                                                 :update-obj="current"
@@ -100,7 +102,7 @@
                                                 :holder-num=0
 
                                         />
-                                    </td>
+                                    </td>-->
                                     <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.units.find(unit=>
                                         unit.id===current.units).data}}
                                     </td>
@@ -210,9 +212,9 @@
                                             </span>
                                         </button>
 
-                                    </td>
+                                  </td>
                                 </tr>
-                                <tr v-show="current.elemId===elemId " v-for="current in listNewParam"
+                              <!--  <tr v-show="current.elemId===elemId " v-for="current in listNewParam"
                                     v-bind:key="current ">
                                     <td v-if="!current.editRow">
                                         {{PARAM_NAME.find(unit=>
@@ -342,6 +344,8 @@
                                         </button>
                                     </td>
                                 </tr>
+                                -->
+
 
                                 </tbody>
                             </table>
@@ -350,6 +354,16 @@
                 </div>
             </div>
         </div>
+        <el-dialog width="25%" title="Shipping address" close-delay="dialog"  :visible.sync="dialogTableVisible">
+            <div  v-if="LOAD_PARAM_SIZE_NAME" class="lds-dual-ring-black" style="margin-left:44.5% "></div>
+            <el-card v-show="!LOAD_PARAM_SIZE_NAME" v-for="param in PARAM_SIZE_NAME" v-bind:key="param"
+                     class="card-st" shadow="hover">
+                {{param.name}}
+            </el-card>
+            <div slot="footer" class="dialog">
+                <el-button @click="addNewParam(1)">{{$ml.get('word.add')}}</el-button>
+            </div>
+        </el-dialog>
         <br/>
         <br/>
         <br/>
@@ -358,7 +372,7 @@
 
 <script>
     import VueDatalist from "../input/vue-datalist";
-
+    import { Loading } from 'element-ui';
     import {mapActions, mapGetters, mapMutations} from "vuex";
     import TreeItem from "./tree";
 
@@ -376,6 +390,7 @@
             newBlock: {
                 data: null
             },
+            dialogTableVisible:false,
             elemTree: null,
             updateObj: {
                 units: null
@@ -405,12 +420,14 @@
             },
             listNewElem: [],
             test: null,
-            elemId: null
+            elemId: null,
+            loading:null
         }),
         mounted() {
             document.body.oncontextmenu = function () {
                 return true;
             };
+            this.loading=Loading
             this.GET_TREE_ROOT_NAMES();
 
         },
@@ -426,6 +443,8 @@
                 'PARAM_NAME_AND_UNITS',
                 'SEARCHDATA',
                 'TREE_ROOT_NAMES',
+                'PARAM_SIZE_NAME',
+                'LOAD_PARAM_SIZE_NAME',
                 'ELEMENTS_UPDATE',
                 'ELEMENTS_AND_MAX_ID',
                 'LISTNEWELEM',
@@ -439,6 +458,7 @@
             ...mapActions([
                 'GET_PARAMTRS',
                 'GET_AUTOENG_BY_PARAM',
+                'GET_PARAM_SIZE_NAME',
                 'GET_PARAM_NAME',
                 'GET_ELEMENTS',
                 'GET_AUTO_BY_ENG',
@@ -451,12 +471,14 @@
             ])
             ,
             ...mapMutations({
+                setParamSizeName: 'SET_PARAM_SIZE_NAME',
                 setElemTree: 'SET_ELEMENTS_UPDATE',
                 setListParam: 'SET_LISTPARAM_ELEMENT',
                 setListNewElem: 'SET_LIST_NEW_PARAM',
                 setMaxId: 'SET_MAX_ID'
 
             })
+
             ,
             saveParam(current) {
                 let ind = null;
@@ -577,7 +599,6 @@
                 console.log(number)
             },
             addNewParam(number) {
-
                 this.listNewParam.push({
                     id: 0,
                     select: 1,
@@ -597,6 +618,13 @@
                 });
                 this.setMaxId(this.ELEMENTS_UPDATE.maxId + 1);
                 console.log(number)
+            },
+            async getParamSizeEelem(elemId) {
+                this.GET_PARAM_SIZE_NAME({
+                    id: elemId,
+                    auto_id: this.auto_id
+                });
+                this.dialogTableVisible = true
             },
 
             async addNewBlock(number) {
@@ -691,6 +719,10 @@
                 this.elemTree = this.ELEMENTS_AND_MAX_ID.elements.elementsCh;
                 console.log(number)
             }
+        },
+        watch:{
+
+
         }
     }
 </script>
@@ -739,6 +771,12 @@
     .inp-grp {
         display: flex;
 
+    }
+    .dialog{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
     }
 
     .rad-bottom {

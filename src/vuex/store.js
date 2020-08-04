@@ -17,6 +17,8 @@ let store = new Vuex.Store({
     },
     state: {
         allAutoEng:[],
+        paramSizeName:[],
+        loadParamSizeName:false,
         loadAllAutoEng:false,
         treeElemets:[],
         engdataTree:[],
