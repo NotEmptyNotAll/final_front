@@ -356,13 +356,6 @@
         </div>
         <el-dialog width="40%" title="Shipping address" close-delay="dialog" :visible.sync="dialogPhotoVisible">
 
-                <div class="large-12 medium-12 small-12 cell">
-                    <label>File
-                        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
-                    </label>
-                    <button v-on:click="submitFile()">Submit</button>
-                </div>
-
 
             <div slot="footer" class="dialog">
                 <el-button>ok</el-button>
@@ -485,9 +478,6 @@
                 setMaxId: 'SET_MAX_ID'
 
             }),
-            submitFile() {
-                
-            },
             handleFileUpload() {
                 this.file = this.$refs.file.files[0];
 
