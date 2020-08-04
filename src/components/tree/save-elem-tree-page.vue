@@ -370,7 +370,6 @@
 <script>
     import VueDatalist from "../input/vue-datalist";
     import {Loading} from 'element-ui';
-    import axios from "axios";
     import {mapActions, mapGetters, mapMutations} from "vuex";
     import TreeItem from "./tree";
 
