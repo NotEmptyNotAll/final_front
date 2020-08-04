@@ -118,7 +118,7 @@
                             </span>
                         </button>
                         <button type="button "
-                                class="btn btn-group   btn-warning"
+                                class="btn btn-group    btn-warning" @click="getPhoto()"
                         >
                             <span>
                                 <b-icon icon="camera" font-scale="1.5"></b-icon>
@@ -145,9 +145,10 @@
                     :show-edit-param="showEditParam"
                     @parent-delete="deleteElem"
                     @set-color-elem="setColorElem"
+                    @get-photo="getPhoto"
             ></tree-item>
         </ul>
-        <el-dialog width="25%" title="Shipping address" close-delay="dialog" :visible.sync="dialogTableVisible">
+        <el-dialog width="25%" :title="$ml.get('word.paramSizeName')" close-delay="dialog" :visible.sync="dialogTableVisible">
             <div v-if="LOAD_PARAM_SIZE_NAME" class="lds-dual-ring-black" style="margin-left:44.5% "></div>
             <el-card v-show="!LOAD_PARAM_SIZE_NAME" v-for="param in PARAM_SIZE_NAME" v-bind:key="param"
                      class="card-st" shadow="hover">
@@ -288,6 +289,9 @@
                 });
                 this.dialogTableVisible = true
             },
+            getPhoto(){
+                this.$emit("get-photo")
+            },
             addElement: function (number) {
                 this.isOpen = true;
                 this.item.elementsCh.push({
@@ -350,7 +354,7 @@
                 )
             },
             deleteParamSize(param) {
-                this.paramSizeLis.splice(this.paramSizeList.indexOf(param), 1)
+                this.paramSizeList.splice(this.paramSizeList.indexOf(param), 1)
             },
             saveParamSize(param) {
                 param.name = this.PARAM_NAME.find(item => item.id === param.paramNameFk).data;
