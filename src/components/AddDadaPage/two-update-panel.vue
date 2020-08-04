@@ -125,7 +125,7 @@
                             :update-obj="saveDataObj"
                             index="status"
                             :clean-search="cleanInputList"
-                            :holderNum="updateDataObj.objToBeChanged"
+                            :holderNum="dataList.find(elem=>elem.id===1).id"
 
                     />
 
@@ -191,7 +191,7 @@
                             :update-obj="updateDataObj"
                             :clean-search="cleanInputList"
                             index="status"
-                            :holderNum="updateDataObj.objToBeChanged"
+                            :holderNum="dataList.find(elem=>elem.id===1).id"
 
                     />
                 </div>
@@ -280,7 +280,6 @@
                 </el-table>
             </div>
 
-
         </div>
     </div>
 
@@ -294,7 +293,6 @@
 
     export default {
         name: "two-update-panel",
-        // eslint-disable-next-line vue/no-unused-components
         components: {InputField, VueDatalist},
         data: () => ({
             showErr: null,

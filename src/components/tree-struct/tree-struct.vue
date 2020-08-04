@@ -53,7 +53,6 @@
                                             :show-edit-param="showEditParam"
                                             @set-color-elem="setColorElem"
                                             @parent-delete="deleteElem"
-                                            @get-size-param="getParamSizeEelem"
                                     />
 
                                     <button type="button"
@@ -87,8 +86,8 @@
                                     {{$ml.get('word.cancel')}}
                                 </el-button>
                                 <el-button type="success" @click="addElemToUpdateList">
-                                    {{$ml.get('word.confirm')}}
-                                </el-button>
+                                {{$ml.get('word.confirm')}}
+                            </el-button>
                             </div>
                         </div>
 
@@ -97,7 +96,6 @@
                 </el-tab-pane>
 
             </el-tabs>
-
         </div>
     </div>
 </template>
@@ -130,7 +128,6 @@
             updateObj: {
                 units: null
             },
-            dialogTableVisible: false,
             saveListParam: [],
             listNewParam: [],
             listParam: [],
@@ -146,7 +143,7 @@
                     isPressed: false
                 }
             },
-            tempItem: {},
+            tempItem:{},
             nameElem: '',
             saveElemData: {
                 elemId: null,
@@ -178,8 +175,6 @@
                 'PARAM_NAME_AND_UNITS',
                 'ELEMENTS_TREE_LOAD',
                 'SEARCHDATA',
-                'PARAM_SIZE_NAME',
-                'LOAD_PARAM_SIZE_NAME',
                 'ELEMENTS_TREE',
                 'TREE_ROOT_NAMES',
                 'ELEMENTS_LOAD',
@@ -200,7 +195,6 @@
                 'GET_AUTOENG_BY_PARAM',
                 'GET_PARAM_NAME',
                 'GET_ELEMENTS_AND_MAX_ID',
-                'GET_PARAM_SIZE_NAME',
                 'GET_TREE_ELEMENTS',
                 'GET_AUTO_BY_ENG',
                 'UPDATE_All_ELEM',
@@ -216,20 +210,12 @@
             ,
             ...mapMutations({
                 setElemTree: 'SET_ELEMENTS_TREE',
-                setParamSizeName: 'SET_PARAM_SIZE_NAME',
                 setListParam: 'SET_LISTPARAM_ELEMENT',
                 setListNewElem: 'SET_LIST_NEW_PARAM',
                 setMaxId: 'SET_ELEMENTS_TREE_MAXID'
 
             })
             ,
-            async getParamSizeEelem(elemId) {
-                this.GET_PARAM_SIZE_NAME({
-                    id: elemId
-                });
-                this.dialogTableVisible = true
-            },
-
             saveParam(current) {
                 let ind = null;
                 this.saveListParam.forEach(
@@ -349,11 +335,11 @@
             addElemToUpdateList() {
                 this.listElemUpdate.push({
                     elemId: this.elemId,
-                    parentId: null,
-                    paramNameFk: null,
+                    parentId:null,
+                    paramNameFk:null,
                     color: this.colors.hex
                 })
-                this.tempItem.color = this.colors.hex
+                this.tempItem.color=this.colors.hex
                 this.$message({
                     showClose: true,
                     message: this.$ml.get('msg.colorAdd'),
@@ -411,8 +397,8 @@
                 this.setMaxId(this.ELEMENTS_TREE.maxId + 1);
                 console.log(number)
             },
-            setColorElem(item, color, name, number, link) {
-                this.tempItem = item
+            setColorElem(item,color, name, number, link) {
+                this.tempItem=item
                 link.isPressed = !link.isPressed
                 this.colors.hex = color
                 this.nameElem = name
@@ -429,7 +415,7 @@
                 //  };
                 this.SAVE_ELEM({
                     listElem: this.LISTNEWELEM,
-                    listUpdateElem: this.listElemUpdate
+                    listUpdateElem:this.listElemUpdate
                 });
                 this.$message({
                     showClose: true,
@@ -544,7 +530,6 @@
             transform: translateY(0px);
         }
     }
-
 
     @keyframes moveInTop {
         0% {

@@ -60,12 +60,10 @@
                                         :nav="treeItem.name"
                                         :choice-param="choiceParam"
                                         :space="''"
-                                        :auto_id="auto_id"
                                         :nowPressed=nowPressed
                                         :id-parent-elem="current.id"
                                         :show-edit-param="showEditParam"
                                         @get-paramtrs="getParamtrs"
-                                        @get-photo="getPhoto"
                                         @parent-delete="deleteElem"
                                 />
                             </div>
@@ -89,25 +87,24 @@
                                 <tbody>
                                 <tr v-for="current in LISTPARAM" v-bind:key="current">
 
-                                    <td>
+                                    <td v-if="!current.editRow">
                                         {{PARAM_NAME.find(unit=>
                                         unit.id===current.name).data}}
                                     </td>
+                                    <td v-if="current.editRow">
+                                        <VueDatalist
+                                                :items="paramList"
+                                                :update-obj="current"
+                                                index="name"
+                                                :hide-title="true"
+                                                :holder-num=0
 
-                                    <!-- <td v-if="current.editRow">
-                                         <VueDatalist
-                                                 :items="paramList"
-                                                 :update-obj="current"
-                                                 index="name"
-                                                 :hide-title="true"
-                                                 :holder-num=0
-
-                                         />
-                                     </td>-->
-                                    <td v-if="!current.editRow">
-                                        {{PARAM_NAME_AND_UNITS.units.find(unit=>
+                                        />
+                                    </td>
+                                    <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.units.find(unit=>
                                         unit.id===current.units).data}}
                                     </td>
+
                                     <td v-if="current.editRow">
                                         <VueDatalist
                                                 :items="PARAM_NAME_AND_UNITS.units"
@@ -118,7 +115,6 @@
 
                                         />
                                     </td>
-
                                     <td v-if="!current.editRow">
                                         <span v-if="current.select===3">
                                             {{$ml.get('word.range')}}
@@ -216,137 +212,137 @@
 
                                     </td>
                                 </tr>
-                                <!--  <tr v-show="current.elemId===elemId " v-for="current in listNewParam"
-                                      v-bind:key="current ">
-                                      <td v-if="!current.editRow">
-                                          {{PARAM_NAME.find(unit=>
-                                          unit.id===current.name).data}}
-                                      </td>
-                                      <td v-if="current.editRow">
-                                          <VueDatalist
-                                                  :items="paramList"
-                                                  :update-obj="current"
-                                                  index="name"
-                                                  :hide-title="true"
-                                                  :holder-num=0
+                                <tr v-show="current.elemId===elemId " v-for="current in listNewParam"
+                                    v-bind:key="current ">
+                                    <td v-if="!current.editRow">
+                                        {{PARAM_NAME.find(unit=>
+                                        unit.id===current.name).data}}
+                                    </td>
+                                    <td v-if="current.editRow">
+                                        <VueDatalist
+                                                :items="paramList"
+                                                :update-obj="current"
+                                                index="name"
+                                                :hide-title="true"
+                                                :holder-num=0
 
-                                          />
-                                      </td>
-                                      <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.units.find(unit=>
-                                          unit.id===current.units).data}}
-                                      </td>
-                                      <td v-if="current.editRow">
-                                          <VueDatalist
-                                                  :items="PARAM_NAME_AND_UNITS.units"
-                                                  :update-obj="current"
-                                                  index="units"
-                                                  :hide-title="true"
-                                                  :holder-num=0
+                                        />
+                                    </td>
+                                    <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.units.find(unit=>
+                                        unit.id===current.units).data}}
+                                    </td>
+                                    <td v-if="current.editRow">
+                                        <VueDatalist
+                                                :items="PARAM_NAME_AND_UNITS.units"
+                                                :update-obj="current"
+                                                index="units"
+                                                :hide-title="true"
+                                                :holder-num=0
 
-                                          />
-                                      </td>
-                                      <td v-if="!current.editRow">
-                                          <span v-if="current.select===3">
-                                              {{$ml.get('word.range')}}
-                                          </span>
-                                          <span v-else-if="current.select===2">
-                                              {{$ml.get('word.number')}}
-                                          </span>
-                                          <span v-else-if="current.select===1">
-                                              {{$ml.get('word.text')}}
-                                          </span>
-                                      </td>
-                                      <td v-if="current.editRow">
-                                          <el-select v-model="current.select"
-                                                     :placeholder="$ml.get('word.choose')">
-                                              <el-option
-                                                      :label="$ml.get('word.text')"
-                                                      :value="1">
-                                              </el-option>
-                                              <el-option
-                                                      :label="$ml.get('word.number')"
-                                                      :value="2">
-                                              </el-option>
-                                              <el-option
-                                                      :label="$ml.get('word.range')"
-                                                      :value="3">
-                                              </el-option>
-                                          </el-select>
-                                      </td>
-                                      <td v-if="!current.editRow">
-                                          <span v-if="current.select===3">
-                                              {{Number(current.doubleMin).toFixed(4)}}-{{Number(current.doubleMax).toFixed(4)}}
-                                          </span>
-                                          <span v-else-if="current.select===2">
-                                              {{Number(current.doubleNum).toFixed(4)}}
-                                          </span>
-                                          <span v-else-if="current.select===1">
-                                              {{current.textData}}
-                                          </span>
-                                          <span v-else></span>
-                                      </td>
-                                      <td v-if="current.editRow">
-                                          <span v-if="current.select===3">
-                                              <div class="inp-grp">
-                                              <input type="number" class="form-control" v-model="current.doubleMin">
-                                              <input type="number" class="form-control" v-model="current.doubleMax">
-                                          </div>
-                                          </span>
-                                          <span v-else-if="current.select===2">
-                                              <input type="number" class="form-control" v-model="current.doubleNum">
-                                          </span>
-                                          <span v-else-if="current.select===1">
-                                              <input type="text" class="form-control" v-model="current.textData">
-                                          </span>
-                                      </td>
-                                      <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.status.find(unit=>
-                                          unit.id===current.status).data}}
-                                      </td>
-                                      <td v-if="current.editRow">
-                                          <VueDatalist
-                                                  :items="PARAM_NAME_AND_UNITS.status"
-                                                  :update-obj="current"
-                                                  index="status"
-                                                  :hide-title="true"
-                                                  :holder-num=0
+                                        />
+                                    </td>
+                                    <td v-if="!current.editRow">
+                                        <span v-if="current.select===3">
+                                            {{$ml.get('word.range')}}
+                                        </span>
+                                        <span v-else-if="current.select===2">
+                                            {{$ml.get('word.number')}}
+                                        </span>
+                                        <span v-else-if="current.select===1">
+                                            {{$ml.get('word.text')}}
+                                        </span>
+                                    </td>
+                                    <td v-if="current.editRow">
+                                        <el-select v-model="current.select"
+                                                   :placeholder="$ml.get('word.choose')">
+                                            <el-option
+                                                    :label="$ml.get('word.text')"
+                                                    :value="1">
+                                            </el-option>
+                                            <el-option
+                                                    :label="$ml.get('word.number')"
+                                                    :value="2">
+                                            </el-option>
+                                            <el-option
+                                                    :label="$ml.get('word.range')"
+                                                    :value="3">
+                                            </el-option>
+                                        </el-select>
+                                    </td>
+                                    <td v-if="!current.editRow">
+                                        <span v-if="current.select===3">
+                                            {{Number(current.doubleMin).toFixed(4)}}-{{Number(current.doubleMax).toFixed(4)}}
+                                        </span>
+                                        <span v-else-if="current.select===2">
+                                            {{Number(current.doubleNum).toFixed(4)}}
+                                        </span>
+                                        <span v-else-if="current.select===1">
+                                            {{current.textData}}
+                                        </span>
+                                        <span v-else></span>
+                                    </td>
+                                    <td v-if="current.editRow">
+                                        <span v-if="current.select===3">
+                                            <div class="inp-grp">
+                                            <input type="number" class="form-control" v-model="current.doubleMin">
+                                            <input type="number" class="form-control" v-model="current.doubleMax">
+                                        </div>
+                                        </span>
+                                        <span v-else-if="current.select===2">
+                                            <input type="number" class="form-control" v-model="current.doubleNum">
+                                        </span>
+                                        <span v-else-if="current.select===1">
+                                            <input type="text" class="form-control" v-model="current.textData">
+                                        </span>
+                                    </td>
+                                    <td v-if="!current.editRow">{{PARAM_NAME_AND_UNITS.status.find(unit=>
+                                        unit.id===current.status).data}}
+                                    </td>
+                                    <td v-if="current.editRow">
+                                        <VueDatalist
+                                                :items="PARAM_NAME_AND_UNITS.status"
+                                                :update-obj="current"
+                                                index="status"
+                                                :hide-title="true"
+                                                :holder-num=0
 
-                                          />
-                                      </td>
-                                      <td v-if="!current.editRow">{{current.source}}</td>
-                                      <td v-if="current.editRow">
-                                          <input type="text" class="form-control" v-model="current.source">
-                                      </td>
-                                      <td>
-                                          <button type="button" v-if="!current.editRow"
-                                                  class="btn   btn-warning"
-                                                  @click="current.editRow=!current.editRow"
-                                          >
-                                              <span>
-                                                    <b-icon icon="pencil"></b-icon>
-                                              </span>
-                                          </button>
-                                          <button v-if="current.editRow"
-                                                  type="button"
-                                                  class="btn  btn-success "
-                                                  @click="current.editRow=!current.editRow"
-                                                  v-on:click="saveParam(current)"
-                                          >
-                                              <span>
-                                                  <p class="h5 md-2"><b-icon icon="check"></b-icon></p>
-                                              </span>
-                                          </button>
-                                      </td>
-                                  </tr>
-                                  <tr v-if="showEditParam.show">
-                                      <td colspan="8">
-                                          <button type="button"
-                                                  @click="addNewParam(1)"
-                                                  class="btn btn-block btn-outline-dark"
-                                          >{{$ml.get('word.add')}}
-                                          </button>
-                                      </td>
-                                  </tr>
-                                  -->
+                                        />
+                                    </td>
+                                    <td v-if="!current.editRow">{{current.source}}</td>
+                                    <td v-if="current.editRow">
+                                        <input type="text" class="form-control" v-model="current.source">
+                                    </td>
+                                    <td>
+                                        <button type="button" v-if="!current.editRow"
+                                                class="btn   btn-warning"
+                                                @click="current.editRow=!current.editRow"
+                                        >
+                                            <span>
+                                                  <b-icon icon="pencil"></b-icon>
+                                            </span>
+                                        </button>
+                                        <button v-if="current.editRow"
+                                                type="button"
+                                                class="btn  btn-success "
+                                                @click="current.editRow=!current.editRow"
+                                                v-on:click="saveParam(current)"
+                                        >
+                                            <span>
+                                                <p class="h5 md-2"><b-icon icon="check"></b-icon></p>
+                                            </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr v-if="showEditParam.show">
+                                    <td colspan="8">
+                                        <button type="button"
+                                                @click="addNewParam(1)"
+                                                class="btn btn-block btn-outline-dark"
+                                        >{{$ml.get('word.add')}}
+                                        </button>
+                                    </td>
+                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -354,13 +350,6 @@
                 </div>
             </div>
         </div>
-        <el-dialog width="40%" title="Shipping address" close-delay="dialog" :visible.sync="dialogPhotoVisible">
-
-
-            <div slot="footer" class="dialog">
-                <el-button>ok</el-button>
-            </div>
-        </el-dialog>
         <br/>
         <br/>
         <br/>
@@ -369,7 +358,7 @@
 
 <script>
     import VueDatalist from "../input/vue-datalist";
-    import {Loading} from 'element-ui';
+
     import {mapActions, mapGetters, mapMutations} from "vuex";
     import TreeItem from "./tree";
 
@@ -377,8 +366,8 @@
     export default {
         name: "save-elem-tree-page",
         components: {
-            // eslint-disable-next-line vue/no-unused-components
-            TreeItem, VueDatalist
+            TreeItem,
+            VueDatalist
         },
         props: {
             auto_id: Number
@@ -387,7 +376,6 @@
             newBlock: {
                 data: null
             },
-            dialogTableVisible: false,
             elemTree: null,
             updateObj: {
                 units: null
@@ -400,14 +388,13 @@
             updateDataObj: {
                 id: null
             },
-            paramList: [],
+            paramList:[],
             errorMessage: '',
             nowPressed: {
                 linkOnButt: {
                     isPressed: false
                 }
             },
-            dialogPhotoVisible: false,
             saveElemData: {
                 elemId: null,
                 paramNameFk: null,
@@ -418,15 +405,12 @@
             },
             listNewElem: [],
             test: null,
-            file: '',
-            elemId: null,
-            loading: null
+            elemId: null
         }),
         mounted() {
             document.body.oncontextmenu = function () {
                 return true;
             };
-            this.loading = Loading
             this.GET_TREE_ROOT_NAMES();
 
         },
@@ -442,8 +426,6 @@
                 'PARAM_NAME_AND_UNITS',
                 'SEARCHDATA',
                 'TREE_ROOT_NAMES',
-                'PARAM_SIZE_NAME',
-                'LOAD_PARAM_SIZE_NAME',
                 'ELEMENTS_UPDATE',
                 'ELEMENTS_AND_MAX_ID',
                 'LISTNEWELEM',
@@ -457,7 +439,6 @@
             ...mapActions([
                 'GET_PARAMTRS',
                 'GET_AUTOENG_BY_PARAM',
-                'GET_PARAM_SIZE_NAME',
                 'GET_PARAM_NAME',
                 'GET_ELEMENTS',
                 'GET_AUTO_BY_ENG',
@@ -470,17 +451,13 @@
             ])
             ,
             ...mapMutations({
-                setParamSizeName: 'SET_PARAM_SIZE_NAME',
                 setElemTree: 'SET_ELEMENTS_UPDATE',
                 setListParam: 'SET_LISTPARAM_ELEMENT',
                 setListNewElem: 'SET_LIST_NEW_PARAM',
                 setMaxId: 'SET_MAX_ID'
 
-            }),
-            handleFileUpload() {
-                this.file = this.$refs.file.files[0];
-
-            },
+            })
+            ,
             saveParam(current) {
                 let ind = null;
                 this.saveListParam.forEach(
@@ -516,9 +493,6 @@
                     });
                 }
                 console.log(1)
-            },
-            getPhoto() {
-                this.dialogPhotoVisible = true
             },
             updateOldParam(current) {
                 let ind = null;
@@ -603,6 +577,7 @@
                 console.log(number)
             },
             addNewParam(number) {
+
                 this.listNewParam.push({
                     id: 0,
                     select: 1,
@@ -622,13 +597,6 @@
                 });
                 this.setMaxId(this.ELEMENTS_UPDATE.maxId + 1);
                 console.log(number)
-            },
-            async getParamSizeEelem(elemId) {
-                this.GET_PARAM_SIZE_NAME({
-                    id: elemId,
-                    auto_id: this.auto_id
-                });
-                this.dialogTableVisible = true
             },
 
             async addNewBlock(number) {
@@ -665,20 +633,20 @@
                 this.nowPressed.linkOnButt = link;
                 this.elemId = number;
                 await this.GET_PARAMTRS({id: number, auto_id: this.auto_id});
-                let templist = this.LISTPARAM
-                templist.map(item => {
-                    if (item.doubleNum !== null) {
-                        item.select = 2;
-                    } else if (item.textData !== null) {
-                        item.select = 1;
-                    } else if (item.doubleMin !== null) {
-                        item.select = 3;
-                    } else {
-                        item.select = 2;
+                let templist =this.LISTPARAM
+                templist.map(item=>{
+                    if(item.doubleNum!==null){
+                        item.select=2;
+                    }else if(item.textData!==null){
+                        item.select=1;
+                    }else if(item.doubleMin!==null){
+                        item.select=3;
+                    }else {
+                        item.select=2;
                     }
                 })
-                this.paramList = this.PARAM_NAME.filter(elem => {
-                    return !elem.tree_node && this.LISTPARAM.find(item => elem.id === item.name) === undefined
+                this.paramList=this.PARAM_NAME.filter(elem=>{
+                    return  !elem.tree_node && this.LISTPARAM.find(item=>elem.id===item.name)===undefined
                 })
                 this.setListParam(templist)
                 console.log(number);
@@ -723,8 +691,7 @@
                 this.elemTree = this.ELEMENTS_AND_MAX_ID.elements.elementsCh;
                 console.log(number)
             }
-        },
-        watch: {}
+        }
     }
 </script>
 
@@ -772,13 +739,6 @@
     .inp-grp {
         display: flex;
 
-    }
-
-    .dialog {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
     }
 
     .rad-bottom {

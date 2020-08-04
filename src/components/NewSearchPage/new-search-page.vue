@@ -75,9 +75,8 @@
             </div>
             <hr/>
             <br/>
-            <div class="table-cont">
+            <div v-if="!LOAD_ALL_AUTO_ENG" class="table-cont">
                 <el-table
-                        v-loading="LOAD_ALL_AUTO_ENG"
                         id="lol"
                         stripe
                         :empty-text="$ml.get('word.empty')"
@@ -153,6 +152,8 @@
                 </el-pagination>
             </div>
 
+            <div v-if="LOAD_ALL_AUTO_ENG" class="lds-dual-ring-black"
+                 style="position: absolute;bottom: 0vh; right: 50%; "></div>
         </div>
     </div>
 </template>

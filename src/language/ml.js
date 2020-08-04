@@ -11,7 +11,6 @@ export default new MLCreate({
             word: {
                 table:'table',
                 text: "text",
-                paramSizeName: "repair dimensions",
                 number: "number",
                 range: "range",
                 engine: "engine type",
@@ -160,7 +159,6 @@ export default new MLCreate({
                 author: 'автор',
                 source: "источник",
                 data: "данные ...",
-                paramSizeName: "ремонтные размеры",
                 password: "пароль",
                 changeTypeOfEngine: "тип двигателя, который хотите изменить",
                 login: "войти",
@@ -224,7 +222,6 @@ export default new MLCreate({
                 number: "число",
                 numRowOnPage: 'кіл-ть рядків: ',
                 selectBlock: "выберите блок: ",
-                paramSizeName: "ремонтні розміри",
                 confirm: "підтвердження",
                 range: "діапазон",
                 table:'таблиця',
