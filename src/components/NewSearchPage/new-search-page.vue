@@ -75,8 +75,9 @@
             </div>
             <hr/>
             <br/>
-            <div v-if="!LOAD_ALL_AUTO_ENG" class="table-cont">
+            <div class="table-cont">
                 <el-table
+                        v-loading="LOAD_ALL_AUTO_ENG"
                         id="lol"
                         stripe
                         :empty-text="$ml.get('word.empty')"
@@ -126,18 +127,21 @@
                                 :label="column.name"
                                 :prop="column.color"
                                 min-width="310">
-                            <template slot="header"  >
-                                <div >
-                                <h5>{{column.name}}</h5>
+                            <template slot="header">
+                                <div>
+                                    <h5>{{column.name}}</h5>
                                 </div>
                             </template>
                             <template slot-scope="scope">
-                                    <span v-show="column.columnList[0]===undefined" style="margin-left: 10px"><h4>{{ scope.row[column.id] }}</h4></span>
-                                    <span v-show="column.columnList[0]!==undefined && scope.row[col.id]!==undefined"
-                                          v-for="col in column.columnList"
-                                          v-bind:key="col">
-                                    <h6><strong>{{col.name+": "}}</strong>{{scope.row[col.id]}}</h6><hr></span>
-
+                                <span v-show="column.columnList[0]===undefined" style="margin-left: 10px"><h4>{{ scope.row[column.id] }}</h4></span>
+                                <span v-show="column.columnList[0]!==undefined && scope.row[col.id]!==undefined"
+                                      v-for="col in column.columnList"
+                                      v-bind:key="col">
+                                    <h6><strong>{{col.name+": "}}</strong>{{scope.row[col.id]}}</h6><hr>
+                                </span>
+                                <el-button v-show="scope.row['listImage'+column.id]!==undefined"
+                                           type="text" @click="showImage(scope.row['listImage'+column.id])">{{$ml.get('word.showPhoto')}}
+                                </el-button>
                             </template>
                         </el-table-column>
                     </el-table-column>
@@ -152,9 +156,17 @@
                 </el-pagination>
             </div>
 
-            <div v-if="LOAD_ALL_AUTO_ENG" class="lds-dual-ring-black"
-                 style="position: absolute;bottom: 0vh; right: 50%; "></div>
         </div>
+        <el-dialog :title="$ml.get('word.titlePhoto')" :visible.sync="dialogFormVisible"
+                   custom-class="dialog-photo" :before-close="closeDialog">
+            <el-carousel  arrow="always"  height="60vh" style="background: lightgray">
+                <el-carousel-item v-for="item in listFileUrl" :key="item"
+                                  style="display: flex; justify-content: center;align-items: center">
+                    <el-image :src="'https://res.cloudinary.com/notempty/image/upload/'+item"></el-image>
+
+                </el-carousel-item>
+            </el-carousel>
+        </el-dialog>
     </div>
 </template>
 
@@ -191,7 +203,9 @@
                     'sku',
                 ],
                 options: {},
+                listFileUrl:[],
                 columnOptions: [],
+                dialogFormVisible: false,
                 columns: [],
                 itemArray1: [
                     {
@@ -269,9 +283,13 @@
                 return 'header-st';
 
             },
+            showImage(list){
+                this.listFileUrl=list
+                this.dialogFormVisible = true
+            },
             // eslint-disable-next-line no-unused-vars
-            handleHeaderStyle({row, column, rowIndex, columnIndex}){
-                    return 'background-color: '+column.property+';'
+            handleHeaderStyle({row, column, rowIndex, columnIndex}) {
+                return 'background-color: ' + column.property + ';'
             },
             setCurrent(row) {
                 this.$refs.paramTable.setCurrentRow(row);
@@ -307,7 +325,10 @@
                 this.$refs.vueSimpleContextMenu1.showMenu(event, row)
             },
             // eslint-disable-next-line no-unused-vars
-
+            closeDialog(){
+                this.listFileUrl=[]
+                this.dialogFormVisible=false
+            },
             getGeneralName(arr) {
                 let generalIndex = 0;
                 let generalName = ''
@@ -653,7 +674,7 @@
     }
 </script>
 
-<style>
+<style >
 
     .table-cont {
         padding-bottom: 10px;
@@ -679,13 +700,15 @@
         flex-direction: column;
         align-items: center;
     }
+
     .warning-row {
         background: oldlace;
     }
 
-     .success-row {
+    .success-row {
         background: #f0f9eb;
     }
+
     .fix-position {
         position: relative;
         top: 4px;
@@ -693,7 +716,7 @@
     }
 
 
-    .columnHead{
+    .columnHead {
         width: 100%;
         height: 120%;
     }
@@ -704,10 +727,22 @@
         border-width: 0px 0px 0px 2px;
     }
 
+    .photo {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+
     .title-bord {
         border-style: solid;
         border-color: lightgray;
         border-width: 0px 2px 0px 0px;
     }
-
+    .dialog-photo{
+        background: lightgray;
+    }
+.image{
+    width: 100%;
+height: 100%;
+}
 </style>`

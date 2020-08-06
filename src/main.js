@@ -5,7 +5,8 @@ import router from "./router/router"
 import XLSX from 'xlsx'
 import * as Excel from "exceljs";
 import JsonExcel from 'vue-json-excel'
-
+// ESM default export
+import VueTransmit from "vue-transmit";
 import VeeValidate from 'vee-validate'
 import './language/ml'
 import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
@@ -14,7 +15,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import {Photoshop} from 'vue-color'
-
+import Cloudinary from "cloudinary-vue";
+Vue.use(Cloudinary, {
+    configuration: { cloudName: "notempty" }
+});
+Vue.use(VueTransmit);
 Vue.use(ElementUI)
 Vue.use(XLSX)
 Vue.use(Excel)
