@@ -13,10 +13,11 @@
 
             <div class="row " style="padding-top: 3vh">
                 <div class="title-bord col-md-1 param-navbar">
+
                     <h4> {{$ml.get('word.parameters')}}</h4>
                 </div>
 
-                <div class="col-md-2 param-navbar fix-position">
+                <div class="col-md-1 fix-position ">
                     <el-dropdown style="width: 100%" :hide-on-click="false">
                         <el-button size="medium" type="primary" style="width: 100%; font-size: 16px">
                             {{$ml.get('word.column')}}
@@ -32,8 +33,8 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
-                <div class=" col-md-2 ">
-                    <el-dropdown class="fix-position" @command="changePageSize" style="width: 100%;">
+                <div class=" col-md-2 fix-position ">
+                    <el-dropdown  @command="changePageSize" style="width: 100%;">
                         <el-button size="medium" type="warning" style="width: 100%; font-size: 16px">
                             {{$ml.get('word.numRowOnPage')}}{{pageSetting.pageSize}}
                             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -47,7 +48,7 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
-                <div class="col-md-2   param-navbar">
+                <div class="col-md-2   ">
                     <el-button size="medium" class="fix-position" plain type="danger"
                                style="width: 100%; font-size: 16px"
                                v-on:click="clearFilter">{{$ml.get('word.clearAllFilter')}}
@@ -56,7 +57,7 @@
                 </div>
 
 
-                <div class="col-md-5  border-butt param-navbar">
+                <div class="col-md-6  border-butt param-navbar">
                     <el-divider content-position="right">
                         <el-button-group>
                             <el-button v-for="current in ALL_AUTO_ENG.columnParam" v-bind:key="current"
@@ -698,6 +699,7 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
+        align-content: center;
         align-items: center;
     }
 

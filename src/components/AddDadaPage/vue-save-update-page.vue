@@ -12,7 +12,7 @@
                             <!-- Вертикальное меню -->
                             <ul class="nav  nav-tabs tabs-right  sideways" style="width: 100%">
 
-                                <li class=" act ive  nav-item"><a class="nav-link menu-item " style="border: white;"
+                                <li class=" active  nav-item"><a class="nav-link menu-item " style="border: white;"
                                                                   href="#engine"
                                                                   data-toggle="tab">
                                     <span></span>

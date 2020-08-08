@@ -83,7 +83,7 @@
                         <button type="button"
                                 v-if=" !linkOnThisButt.isPressed "
                                 class="btn btn-group   btn-info"
-                                @click="setColorElem(item,item.color,item.name,item.id,linkOnThisButt)"
+                                @click="setColorElem(item,linkOnThisButt)"
                                 style="z-index: 999">
                             <span>
                                     <i class="el-icon-brush"></i>
@@ -99,8 +99,8 @@
                         </button>
                     </div>
 
-                    <div class=" btn-group  " v-show="item.name!='' && changeMod==='on'" role="group"
-                         style=" position: relative; top: 0.5vh; left: 3vw;padding: 1vh">
+                    <div class=" btn-group  " v-show="item.name!='' && changeMod==='on'"
+                         role="group" style=" position: relative; top: 0.5vh; left: 3vw;padding: 1vh">
                         <button type="button " v-if=" !linkOnThisButt.isPressed "
                                 v-on:click="pressed"
                                 class="btn btn-group   btn-warning"
@@ -108,7 +108,6 @@
                         >
                             <span>
                                     <b-icon icon="pencil"></b-icon>
-
                             </span>
                         </button>
                         <button type="button" v-if=" linkOnThisButt.isPressed "
@@ -339,9 +338,9 @@
                     this.showEditParam.show = true;
                 }
             },
-            setColorElem(item, color, name, number, link) {
+            setColorElem(item, link) {
                 if (!link.isPressed) {
-                    this.$emit("set-color-elem", item, color, name, number, link)
+                    this.$emit("set-color-elem", item,  link)
                 }
             },
             addNewParamSize() {
