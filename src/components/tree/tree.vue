@@ -3,7 +3,7 @@
     <ul style="height: auto">
         <li class="border-white bold list-group-item   li-hov"
             style="position: relative; width: 24vw; display: flex;align-items: center; height: 3.5em "
-
+            v-if="item.elementsCh.length>0"
         >
             <div class="row" style=" padding: 0px ;width:100%;">
                 <div class="col-md-9" style="display: flex;align-items: center; ">
@@ -257,7 +257,8 @@
                 'PARAM_NAME'
             ]),
             isFolder: function () {
-                return this.elementsCh && this.item.elementsCh.length;
+                return this.elementsCh && this.item.elementsCh.length
+                    && this.elementsCh.find(item=>item.elementsCh.length>0)!== undefined ;
             }
         },
         methods: {

@@ -376,10 +376,9 @@
                     } else {
                         temp.color = this.colors.hex
                     }
-
                     elem.color = this.colors.hex
                     if (elem.elementsCh.length > 0) {
-                        this.changeChildColor(elem.elementCh)
+                        this.changeChildColor(elem.elementsCh)
                     }
                 })
             },
