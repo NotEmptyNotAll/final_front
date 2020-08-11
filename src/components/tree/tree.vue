@@ -311,31 +311,50 @@
             getPhoto(id) {
                 this.$emit("get-photo", id)
             },
-            upSortNum(param) {
-                let index = this.listSizeParamOnDialog.indexOf(param);
-                if (index > 0) {
-                    this.swap(this.listSizeParamOnDialog[index],
-                        this.listSizeParamOnDialog[index - 1])
-                }
-            },
             swap(obj1, obj2) {
                 let obj = {
                     id: obj1.id,
-                    sortNumber: obj1.sortNumber,
                     name: obj1.name
                 };
                 obj1.name = obj2.name
                 obj1.id = obj2.id
-                obj1.sortNumber = obj2.sortNumber
                 obj2.id = obj.id
-                obj2.sortNumber = obj.sortNumber
                 obj2.name = obj.name
             },
+            upSortNum(param) {
+                let index = this.listSizeParamOnDialog.indexOf(param);
+                if (index > 0) {
+                    let obj1 = {
+                        elemId: param.id,
+                        sortNumber: this.listSizeParamOnDialog[index - 1].sortNumber,
+                    }
+                    let obj2 = {
+                        elemId:  this.listSizeParamOnDialog[index - 1].id,
+                        sortNumber: this.listSizeParamOnDialog[index].sortNumber,
+                    }
+                    this.swap(this.listSizeParamOnDialog[index],
+                        this.listSizeParamOnDialog[index - 1])
+                    this.$emit("add-elem-to-update", obj1)
+                    this.$emit("add-elem-to-update", obj2)
+                }
+
+            },
             downSortNum(param) {
+
                 let index = this.listSizeParamOnDialog.indexOf(param);
                 if (index < this.listSizeParamOnDialog.length - 1) {
+                    let obj1 = {
+                        elemId: param.id,
+                        sortNumber: this.listSizeParamOnDialog[index + 1].sortNumber,
+                    }
+                    let obj2 = {
+                        elemId:  this.listSizeParamOnDialog[index + 1].id,
+                        sortNumber: this.listSizeParamOnDialog[index].sortNumber,
+                    }
                     this.swap(this.listSizeParamOnDialog[index],
                         this.listSizeParamOnDialog[index + 1])
+                    this.$emit("add-elem-to-update", obj1)
+                    this.$emit("add-elem-to-update", obj2)
                 }
             },
             addElement: function (number) {
@@ -347,8 +366,7 @@
                             elementsCh: [],
                             name: '',
                             paramIsNotEmpty: true,
-                            parametersIsExistInChilda: true,
-
+                            parametersIsExistInChilda: true
                         }],
                         name: '',
                         paramIsNotEmpty: true,
@@ -359,14 +377,10 @@
                 console.log(number);
             },
             saveElem(number) {
-
                 this.item.name = this.PARAM_NAME.find(item => item.id === this.saveElemData.paramNameFk).data;
                 this.saveElemData.parentId = this.idParentElem;
-
                 this.saveElemData.elemId = this.ELEMENTS_TREE.maxId + 1;
-
                 this.item.id = this.ELEMENTS_TREE.maxId + 1;
-
                 this.listNewElem = this.LISTNEWELEM;
                 this.listNewElem.push(this.saveElemData);
                 this.setListNewElem(this.listNewElem);

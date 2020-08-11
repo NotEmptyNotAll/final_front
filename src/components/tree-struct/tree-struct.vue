@@ -385,6 +385,17 @@
                 })
             },
             addElemFromChildToList(elem){
+                let temp = this.listElemUpdate.find(item => item.elemId === elem.elemId)
+                if (temp === undefined) {
+                    this.listElemUpdate.push({
+                        elemId: elem.elemId,
+                        parentId: null,
+                        sortNumber:elem.sortNumber,
+                        paramNameFk: null
+                    })
+                }else {
+                    temp.sortNumber=elem.sortNumber
+                }
                 console.log(elem)
             },
             addElemToUpdateList(changeChildColor) {

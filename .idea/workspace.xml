@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6c064916-4a6b-4e88-93a1-d4463136ec2b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/auto-engine-save-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/auto-engine-save-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/save-update-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/save-update-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/two-update-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/two-update-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/vue-save-update-page.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/vue-save-update-page.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tree-struct/tree-struct.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tree-struct/tree-struct.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tree/tree.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tree/tree.vue" afterDir="false" />
     </list>
@@ -64,6 +59,8 @@
       <workItem from="1597070809277" duration="3380000" />
       <workItem from="1597078480869" duration="6592000" />
       <workItem from="1597098635776" duration="9797000" />
+      <workItem from="1597153773553" duration="2977000" />
+      <workItem from="1597167852010" duration="3251000" />
     </task>
     <servers />
   </component>
@@ -95,10 +92,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1825" height="131" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597112032834" />
-    <state x="2626" y="0" width="806" height="910" maximized="true" key="dock-window-1" timestamp="1597100238938">
+    <state x="2626" y="0" width="806" height="910" maximized="true" key="dock-window-1" timestamp="1597170449161">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2626" y="0" width="806" height="910" maximized="true" key="dock-window-1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597100238938" />
+    <state x="2626" y="0" width="806" height="910" maximized="true" key="dock-window-1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597170449161" />
     <state x="660" y="252" key="run.anything.popup" timestamp="1597109684547">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
