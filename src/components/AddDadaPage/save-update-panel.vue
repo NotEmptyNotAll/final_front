@@ -1,30 +1,7 @@
 <template>
     <div>
-        <ul class="nav nav-tabs" id="myTabengine" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="home-tabengine" data-toggle="tab" :href="'#h'+nameTitle"
-                   v-on:click="cancelSave" @click="cancel"
-                   role="tab" aria-controls="home" aria-selected="true">{{$ml.get('word.table')}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tabengine" data-toggle="tab" :href="'#p'+nameTitle"
-                   @click="cancel"
-                   role="tab" aria-controls="profile" aria-selected="false">{{$ml.get('word.save')}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tabengine" ref="updateTab" data-toggle="tab"
-                   :href="'#c'+nameTitle"
-                   role="tab" aria-controls="contact" aria-selected="false">{{$ml.get('word.update')}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="importTab" ref="importTab" data-toggle="tab"
-                   :href="'#i'+nameTitle" v-on:click="cancelSave" @click="cancel"
-                   role="tab" aria-controls="import" aria-selected="false">{{$ml.get('word.importFile')}}</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContentengine" style="border: white">
-            <div class="tab-pane fade show active" :id="'h'+nameTitle" role="tabpanel"
-                 aria-labelledby="home-tab">
+        <el-tabs v-model="activeName" @tab-click="handleTabsClick">
+            <el-tab-pane :label="$ml.get('word.table')" name="0">
                 <div class="row" style="padding-top: 3vh">
                     <div class="title-bord col-md-2">
                         <h4> {{nameTitle}}</h4>
@@ -92,10 +69,8 @@
                       </tbody>
                   </table>-->
                 <div v-if="LOAD_ADDITIONAL_DATA" class="lds-dual-ring-black" style="margin-left:47% "></div>
-
-            </div>
-            <div class="tab-pane fade" :id="'p'+nameTitle" role="tabpanel"
-                 aria-labelledby="profile-tab">
+            </el-tab-pane>
+            <el-tab-pane :label="$ml.get('word.save')" name="1">
                 <br/>
                 <div class="title-bord col-md-2">
                     <h4> {{nameTitle}}</h4>
@@ -139,14 +114,14 @@
                 </div>
                 <hr/>
 
-            </div>
-            <div class="tab-pane fade" :id="'c'+nameTitle" role="tabpanel"
-                 aria-labelledby="contact-tab">
+            </el-tab-pane>
+            <el-tab-pane :label="$ml.get('word.update')" name="2">
                 <br/>
                 <div class="title-bord col-md-2">
                     <h4> {{nameTitle}}</h4>
                 </div>
                 <hr/>
+
                 <div class=" row ">
                     <div
                             class="col-md-1"
@@ -203,9 +178,8 @@
                     <div class="col-md-3"></div>
                 </div>
 
-            </div>
-            <div class="tab-pane fade" :id="'i'+nameTitle" role="tabpanel"
-                 aria-labelledby="import-tab">
+            </el-tab-pane>
+            <el-tab-pane :label="$ml.get('word.importFile')" name="3">
                 <div class="upload-box">
                     <div class="row import-page-btn">
                         <div class="col-md-2 title-bord">
@@ -259,11 +233,10 @@
                     <el-table-column prop="status" :label="$ml.get('word.status')">
                     </el-table-column>
                 </el-table>
-            </div>
-        </div>
+            </el-tab-pane>
+        </el-tabs>
     </div>
 </template>
-
 
 <script>
     import {mapActions, mapGetters} from "vuex";
@@ -275,6 +248,7 @@
         name: "save-update-panel",
         components: {InputField, VueDatalist},
         data: () => ({
+            activeName: '0',
             showErr: false,
             listForSearch: [],
             saveDataObj: {
@@ -326,6 +300,10 @@
             ...mapActions([
                 'GET_ALL_ADDITIONAL_DATA'
             ]),
+            handleTabsClick() {
+                this.cancel()
+                this.cancelSave()
+            },
             handleCheckedColumnChange(value) {
                 let checkedCount = value.length;
                 this.tableColumns = []
@@ -540,7 +518,7 @@
             },
             async link(record) {
 
-                this.$refs.updateTab.click();
+                this.activeName = '2'
                 this.updateDataObj.objToBeChanged = record.id;
                 this.tempUpdateObj.objToBeChanged = record.id;
                 this.updateDataObj.updateData = record.data;
@@ -549,7 +527,7 @@
             },
             async importFile() {
                 let importList = [];
-                await  this.da.forEach(v => {
+                await this.da.forEach(v => {
                         let temp = this.dataList.find(item =>
                             item.data === v.data
                         );
@@ -564,7 +542,7 @@
                 )
 
                 await this.$emit("import-data-api", {list: importList});
-                 this.GET_ALL_ADDITIONAL_DATA();
+                this.GET_ALL_ADDITIONAL_DATA();
                 this.$message({
                     showClose: true,
                     message: this.$ml.get('word.dataAddSuccess'),

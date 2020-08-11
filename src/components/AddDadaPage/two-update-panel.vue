@@ -1,32 +1,8 @@
 <template>
 
     <div>
-        <ul class="nav nav-tabs" id="myTabengine" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="home-tabengine" data-toggle="tab" :href="'#h'+nameTitle"
-                   v-on:click="cancelSave" @click="cancel"
-                   role="tab" aria-controls="home" aria-selected="true">{{$ml.get('word.table')}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tabengine" data-toggle="tab" :href="'#p'+nameTitle"
-                   @click="cancel"
-
-                   role="tab" aria-controls="profile" aria-selected="false">{{$ml.get('word.save')}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tabengine" ref="updateTab" data-toggle="tab" :href="'#c'+nameTitle"
-                   role="tab" aria-controls="contact" aria-selected="false">{{$ml.get('word.update')}}</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" id="importTab" ref="importTab" data-toggle="tab"
-                   :href="'#in'+nameTitle" v-on:click="cancelSave" @click="cancel"
-                   role="tab" aria-controls="imprt" aria-selected="false">{{$ml.get('word.importFile')}}</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContentengine" style="border: white">
-            <div class="tab-pane fade show active" :id="'h'+nameTitle" role="tabpanel"
-                 aria-labelledby="home-tab">
+        <el-tabs  v-model="activeName" @tab-click="handleTabsClick">
+            <el-tab-pane :label="$ml.get('word.table')"  name="0" >
                 <div class="row" style="padding-top: 3vh">
                     <div class="title-bord col-md-2">
                         <h4> {{nameTitle}}</h4>
@@ -34,7 +10,7 @@
                     <div class="col-md-2">
                     </div>
                     <div class="col-md-2">
-                        <el-button   plain type="info" style="width: 100%; font-size: 16px" v-on:click="onexport">
+                        <el-button plain type="info" style="width: 100%; font-size: 16px" v-on:click="onexport">
                             {{$ml.get('word.exportFile')}}
                         </el-button>
                     </div>
@@ -44,9 +20,9 @@
                                 {{$ml.get('word.column')}}
                                 <i class="el-icon-arrow-down el-icon--right"></i>
                             </el-button>
-                            <el-dropdown-menu  style="width: 11vw;" slot="dropdown">
-                                <el-checkbox-group     :min="1"
-                                                       v-model="checkedColumns" @change="handleCheckedColumnChange">
+                            <el-dropdown-menu style="width: 11vw;" slot="dropdown">
+                                <el-checkbox-group :min="1"
+                                                   v-model="checkedColumns" @change="handleCheckedColumnChange">
                                     <el-checkbox v-for="column in columns" style="padding-left: 2vw" :label="column"
                                                  :key="column">{{column}}
                                     </el-checkbox>
@@ -95,11 +71,8 @@
                      </tbody>
                  </table>-->
                 <div v-if="LOAD_ADDITIONAL_DATA" class="lds-dual-ring-black" style="margin-left:47% "></div>
-
-
-            </div>
-            <div class="tab-pane fade" :id="'p'+nameTitle" role="tabpanel"
-                 aria-labelledby="profile-tab">
+            </el-tab-pane>
+            <el-tab-pane :label="$ml.get('word.save')" name="1" >
                 <br/>
                 <div class="title-bord col-md-2">
                     <h4> {{nameTitle}}</h4>
@@ -152,9 +125,8 @@
                     </div>
                 </div>
                 <div class="col-md-3"></div>
-            </div>
-            <div class="tab-pane fade" :id="'c'+nameTitle" role="tabpanel"
-                 aria-labelledby="contact-tab">
+            </el-tab-pane>
+            <el-tab-pane :label="$ml.get('word.update')" name="2" >
                 <br/>
                 <div class="title-bord col-md-2">
                     <h4> {{nameTitle}}</h4>
@@ -219,10 +191,8 @@
 
                 </div>
                 <hr/>
-
-            </div>
-            <div class="tab-pane fade" :id="'in'+nameTitle" role="tabpanel"
-                 aria-labelledby="imprt-tab">
+            </el-tab-pane>
+            <el-tab-pane :label="$ml.get('word.importFile')" name="3">
                 <div class="upload-box">
                     <div class="row import-page-btn">
                         <div class="col-md-2 title-bord">
@@ -278,10 +248,32 @@
                     <el-table-column prop="status" :label="$ml.get('word.status')">
                     </el-table-column>
                 </el-table>
-            </div>
+            </el-tab-pane>
+        </el-tabs>
+        <!-- <ul class="nav nav-tabs" id="myTabengine" role="tablist">
+          <li class="nav-item">
+              <a class="nav-link active" id="home-tabengine" data-toggle="tab" :href="'#h'+nameTitle"
+                 v-on:click="cancelSave" @click="cancel"
+                 role="tab" aria-controls="home" aria-selected="true">{{$ml.get('word.table')}}</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" id="profile-tabengine" data-toggle="tab" :href="'#p'+nameTitle"
+                 @click="cancel"
 
+                 role="tab" aria-controls="profile" aria-selected="false">{{$ml.get('word.save')}}</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" id="contact-tabengine" ref="updateTab" data-toggle="tab" :href="'#c'+nameTitle"
+                 role="tab" aria-controls="contact" aria-selected="false">{{$ml.get('word.update')}}</a>
+          </li>
 
-        </div>
+          <li class="nav-item">
+              <a class="nav-link" id="importTab" ref="importTab" data-toggle="tab"
+                 :href="'#in'+nameTitle" v-on:click="cancelSave" @click="cancel"
+                 role="tab" aria-controls="imprt" aria-selected="false">{{$ml.get('word.importFile')}}</a>
+          </li>
+      </ul>-->
+
     </div>
 
 </template>
@@ -297,6 +289,10 @@
         // eslint-disable-next-line vue/no-unused-components
         components: {InputField, VueDatalist},
         data: () => ({
+            tablePage: true,
+            savePage: false,
+            updatePage: false,
+            importPage: false,
             showErr: null,
             listForSearch: [],
             saveDataObj: {
@@ -310,7 +306,7 @@
                 saveData_secondary: null,
                 status: null
             },
-
+            activeName:'0',
             search: '',
             showDismissibleAlert: false,
             columnOptions: [],
@@ -437,8 +433,8 @@
                 this.da = null
             },
             async importFile() {
-                 let importList = [];
-                await   this.da.forEach(v => {
+                let importList = [];
+                await this.da.forEach(v => {
                         let temp = this.dataList.find(item =>
                             item.data === v.data
                         );
@@ -454,12 +450,17 @@
                 )
 
                 await this.$emit("import-data-api", {list: importList});
-                 this.GET_ALL_ADDITIONAL_DATA();
+                this.GET_ALL_ADDITIONAL_DATA();
                 this.$message({
                     showClose: true,
                     message: this.$ml.get('word.dataAddSuccess'),
                     type: 'success'
                 });
+            },
+            // eslint-disable-next-line no-unused-vars
+            handleTabsClick(tab) {
+                this.cancel()
+                this.cancelSave()
             },
             // eslint-disable-next-line no-unused-vars
             importfxx(obj) {
@@ -554,7 +555,7 @@
                 this.dataList = tempList;
             },
             async link(record) {
-                this.$refs.updateTab.click();
+                this.activeName='2'
                 this.updateDataObj.objToBeChanged = record.id;
                 this.updateDataObj.saveData_primary = record.data;
                 this.updateDataObj.saveData_secondary = record.secondary_data;

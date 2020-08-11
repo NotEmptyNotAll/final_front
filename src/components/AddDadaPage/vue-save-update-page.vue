@@ -3,225 +3,152 @@
         <error-page
                 v-if="!currentUser"
         />
-        <div v-if="currentUser" id="main-panel" class="container-fluid shadow-lg  bg-white rounded search-border">
-            <div class="row" style="padding-top: 1vh;">
-                <div class="col-md-2 col-lg-2  navbar-container " >
-                    <nav class="navbar navbar-expand-md    navbar-light   "
-                         id="nav-panel">
-                        <div class="collapse navbar-collapse " id="navbar" style="width: 100%;">
-                            <!-- Вертикальное меню -->
-                            <ul class="nav  nav-tabs tabs-right  sideways" style="width: 100%">
+        <!-- Tab panes -->
+                            <el-tabs type="border-card"  stretch class="search-border main-tab  shadow-lg rounded" tab-position="left" >
+                                <el-tab-pane :label="$ml.get('word.engine')">
+                                    <div class="tab-pane">
+                                        <save-engine-panel
+                                                :name-title="$ml.get('word.engine')"
+                                                :name-panel="$ml.get('word.engine')"
+                                                :load-status="LOAD_SAVE.engine"
+                                                @save-data-api="SAVE_DATA_ENGINE"
+                                                @update-data-api="UPDATE_DATA_ENGINE"
+                                                @import-data-api="IMPORT_DATA_ENGINE"
+                                                :data-list="this.ADDITIONAL_DATA.engine"
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.engine')">
+                                    <div class="tab-pane">
 
-                                <li class=" active  nav-item"><a class="nav-link menu-item " style="border: white;"
-                                                                  href="#engine"
-                                                                  data-toggle="tab">
-                                    <span></span>
-                                    {{$ml.get('word.engine')}}</a>
-                                </li>
-                                <hr style="position: center; width: 100%;"/>
-                                <li class="nav-item"><a class="nav-link menu-item " href="#cylinders" data-toggle="tab"
-                                                        style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.cylinders')}}</a>
-                                </li>
-                                <hr style="position: center; width: 100%;"/>
+                                        <save-update-panel
+                                                :name-title="$ml.get('word.cylinders')"
+                                                :load-status="LOAD_SAVE.cylinders"
+                                                :data-list="ADDITIONAL_DATA.cylinders"
+                                                @save-data-api="SAVE_DATA_CYLINDERS"
+                                                @import-data-api="IMPORT_DATA_CYLINDERS"
+                                                @update-data-api="UPDATE_DATA_CYLINDERS"
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.fuelType')">
+                                    <div class="tab-pane" id="fuelType">
 
-                                <li class="nav-item"><a class="nav-link menu-item " href="#fuelType" data-toggle="tab"
-                                                        style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.fuelType')}}</a>
-                                </li>
-                                <hr style="position: center; width: 100%;"/>
-                                <li class="nav-item"><a class="nav-link menu-item " href="#superchargedType"
-                                                        data-toggle="tab" style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.superchargedType')}}</a>
-                                </li>
-                                <hr style="position: center; width: 100%;"/>
-                                <li class="nav-item"><a class="nav-link menu-item " href="#autoEngine"
-                                                        data-toggle="tab" style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.autoEngine')}}</a>
-                                </li>
-                                <hr style="position: center; width: 100%;"/>
-                                <li class="nav-item"><a class="nav-link menu-item " href="#engineManufacture"
-                                                        data-toggle="tab" style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.engineManufacture')}}</a>
-                                </li>
-                                <hr style="position: center; width: 100%;"/>
-                                <li class="nav-item"><a class="nav-link menu-item " href="#autoManufacturer"
-                                                        data-toggle="tab" style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.autoManufacturer')}}</a></li>
-                                <hr style="position: center; width: 100%;"/>
+                                        <save-update-panel
+                                                :name-title="$ml.get('word.fuelType')"
+                                                :load-status="LOAD_SAVE.fuelType"
+                                                :data-list="ADDITIONAL_DATA.fuelType"
+                                                @save-data-api="SAVE_DATA_FUEL_TYPE"
+                                                @update-data-api="UPDATE_DATA_FUEL_TYPE"
+                                                @import-data-api="IMPORT_DATA_FUEL_TYPE"
 
-                                <li class="nav-item"><a class="nav-link menu-item " href="#autoModel"
-                                                        data-toggle="tab" style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.autoModel')}}
-                                </a></li>
-                                <hr style="position: center; width: 100%;"/>
-                                <li class="nav-item"><a class="nav-link menu-item " href="#units"
-                                                        data-toggle="tab" style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.units')}}
-                                </a></li>
-                                <hr style="position: center; width: 100%;"/>
-                                <li class="nav-item"><a class="nav-link menu-item " href="#nameElements"
-                                                        data-toggle="tab" style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.nameElements')}}
-                                </a></li>
-                                <hr style="position: center; width: 100%;"/>
-                                <li class="nav-item"><a class="nav-link menu-item " href="#nameElementsSize"
-                                                        data-toggle="tab" style="border: white;">
-                                    <span></span>
-                                    {{$ml.get('word.paramSizeName')}}
-                                </a></li>
-                            </ul>
-                        </div>
-                    </nav>
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.superchargedType')">
+                                    <div class="tab-pane " id="superchargedType">
+                                        <two-update-panel
+                                                :name-title="$ml.get('word.superchargedType')"
+                                                :name-panel="$ml.get('word.superchargedType')"
+                                                :data-list="ADDITIONAL_DATA.superchargeType"
+                                                :load-status="LOAD_SAVE.superchargedType"
+                                                @import-data-api="IMPORT_DATA_MEASUREMENT_UNITS"
+                                                @save-data-api="SAVE_DATA_SUPERCHARGE_TYPE"
+                                                @update-data-api="UPDATE_DATA_SUPERCHARGE_TYPE"
+
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.engineManufacture')">
+                                    <div class="tab-pane " id="engineManufacture">
+                                        <save-update-panel
+                                                :name-title="$ml.get('word.engineManufacture')"
+                                                :data-list="ADDITIONAL_DATA.engineManufacture"
+                                                :load-status="LOAD_SAVE.engineManufacture"
+                                                @save-data-api="SAVE_ENGINE_MANUFACTURE"
+                                                @import-data-api="IMPORT_ENGINE_MANUFACTURE"
+                                                @update-data-api="UPDATE_ENGINE_MANUFACTURE"
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.autoEngine')">
+                                    <div class="tab-pane" id="autoEngine">
+
+                                        <auto-engine-save-panel
+                                                :name-title="$ml.get('word.autoEngine')"
+                                                :data-list="ADDITIONAL_DATA.autoEng"
+                                                :name-panel="$ml.get('word.autoEngine')"
+                                                @import-data-api="IMPORT_DATA_AUTOMOBILE_ENGINE"
+                                                :load-status="LOAD_SAVE.automobileEngine"
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.autoManufacturer')">
+                                    <div class="tab-pane" id="autoManufacturer">
+                                        <save-update-panel
+                                                :name-title="$ml.get('word.autoManufacturer')"
+                                                :data-list="ADDITIONAL_DATA.autoManufacture"
+                                                :load-status="LOAD_SAVE.autoManufacturer"
+                                                @save-data-api="SAVE_DATA_AUTO_MANUFACTURE"
+                                                @update-data-api="UPDATE_DATA_AUTO_MANUFACTURE"
+                                                @import-data-api="IMPORT_DATA_AUTO_MANUFACTURE"
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.autoModel')">
+                                    <div class="tab-pane " id="autoModel">
+                                        <save-update-panel
+                                                :name-title="$ml.get('word.autoModel')"
+                                                :load-status="LOAD_SAVE.autoModel"
+                                                :data-list="ADDITIONAL_DATA.autoModel"
+                                                @save-data-api="SAVE_DATA_AUTO_MODEL"
+                                                @update-data-api="UPDATE_DATA_AUTO_MODEL"
+                                                @import-data-api="IMPORT_DATA_AUTO_MODEL"
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.units')">
+                                    <div class="tab-pane" id="units">
+                                        <two-update-panel
+                                                :name-title="$ml.get('word.units')"
+                                                :title_two="$ml.get('word.mark')"
+                                                :data-list="ADDITIONAL_DATA.units"
+                                                :load-status="LOAD_SAVE.measurementUnits"
+                                                @import-data-api="IMPORT_DATA_MEASUREMENT_UNITS"
+                                                @save-data-api="SAVE_DATA_MEASUREMENT_UNITS"
+                                                @update-data-api="UPDATE_DATA_MEASUREMENT_UNITS"
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.nameElements')">
+                                    <div class="tab-pane" id="nameElements">
+                                        <two-update-panel
+                                                :name-title="$ml.get('word.nameElements')"
+                                                :title_two="$ml.get('word.mark')"
+                                                :load-status="LOAD_SAVE.paramName"
+                                                :data-list="ADDITIONAL_DATA.parameterName"
+                                                @import-data-api="IMPORT_PARAM_NAME"
+                                                @save-data-api="SAVE_PARAM_NAME"
+                                                @update-data-api="UPDATE_PARAM_NAME"
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$ml.get('word.paramSizeName')">
+                                    <div class="tab-pane" id="nameElementsSize">
+                                        <two-update-panel
+                                                :name-title="$ml.get('word.paramSizeName')"
+                                                :title_two="$ml.get('word.mark')"
+                                                :load-status="LOAD_SAVE.paramName"
+                                                :data-list="ADDITIONAL_DATA.parameterSizeName"
+                                                @import-data-api="IMPORT_PARAM_NAME"
+                                                @save-data-api="SAVE_PARAM_NAME"
+                                                @update-data-api="UPDATE_PARAM_NAME"
+                                        />
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
                 </div>
-                <div class="col-md-10 col-lg-10 content-container "
-                     >
-                    <br/>
-                    <div class="col-xs-9">
-                        <!-- Tab panes -->
-                        <div class="tab-content bg-white" style="border: white">
-                            <div class="tab-pane active" id="engine">
-                                <save-engine-panel
-                                        :name-title="$ml.get('word.engine')"
-                                        :name-panel="$ml.get('word.engine')"
-                                        :load-status="LOAD_SAVE.engine"
-                                        @save-data-api="SAVE_DATA_ENGINE"
-                                        @update-data-api="UPDATE_DATA_ENGINE"
-                                        @import-data-api="IMPORT_DATA_ENGINE"
-                                        :data-list="this.ADDITIONAL_DATA.engine"
-                                />
-                            </div>
-                            <div class="tab-pane" id="cylinders">
 
-                                <save-update-panel
-                                        :name-title="$ml.get('word.cylinders')"
-                                        :load-status="LOAD_SAVE.cylinders"
-                                        :data-list="ADDITIONAL_DATA.cylinders"
-                                        @save-data-api="SAVE_DATA_CYLINDERS"
-                                        @import-data-api="IMPORT_DATA_CYLINDERS"
-                                        @update-data-api="UPDATE_DATA_CYLINDERS"
-                                />
-                            </div>
-                            <div class="tab-pane" id="fuelType">
-
-                                <save-update-panel
-                                        :name-title="$ml.get('word.fuelType')"
-                                        :load-status="LOAD_SAVE.fuelType"
-                                        :data-list="ADDITIONAL_DATA.fuelType"
-                                        @save-data-api="SAVE_DATA_FUEL_TYPE"
-                                        @update-data-api="UPDATE_DATA_FUEL_TYPE"
-                                        @import-data-api="IMPORT_DATA_FUEL_TYPE"
-
-                                />
-                            </div>
-                            <div class="tab-pane " id="superchargedType">
-                                <two-update-panel
-                                        :name-title="$ml.get('word.superchargedType')"
-                                        :name-panel="$ml.get('word.superchargedType')"
-                                        :data-list="ADDITIONAL_DATA.superchargeType"
-                                        :load-status="LOAD_SAVE.superchargedType"
-                                        @import-data-api="IMPORT_DATA_MEASUREMENT_UNITS"
-                                        @save-data-api="SAVE_DATA_SUPERCHARGE_TYPE"
-                                        @update-data-api="UPDATE_DATA_SUPERCHARGE_TYPE"
-
-                                />
-                            </div>
-                            <div class="tab-pane " id="engineManufacture">
-
-                                <save-update-panel
-                                        :name-title="$ml.get('word.engineManufacture')"
-                                        :data-list="ADDITIONAL_DATA.engineManufacture"
-                                        :load-status="LOAD_SAVE.engineManufacture"
-                                        @save-data-api="SAVE_ENGINE_MANUFACTURE"
-                                        @import-data-api="IMPORT_ENGINE_MANUFACTURE"
-                                        @update-data-api="UPDATE_ENGINE_MANUFACTURE"
-                                />
-                            </div>
-                            <div class="tab-pane" id="autoEngine">
-
-                                <auto-engine-save-panel
-                                        :name-title="$ml.get('word.autoEngine')"
-                                        :data-list="ADDITIONAL_DATA.autoEng"
-                                        :name-panel="$ml.get('word.autoEngine')"
-                                        @import-data-api="IMPORT_DATA_AUTOMOBILE_ENGINE"
-                                        :load-status="LOAD_SAVE.automobileEngine"
-                                />
-
-                            </div>
-                            <div class="tab-pane" id="autoManufacturer">
-                                <save-update-panel
-                                        :name-title="$ml.get('word.autoManufacturer')"
-                                        :data-list="ADDITIONAL_DATA.autoManufacture"
-                                        :load-status="LOAD_SAVE.autoManufacturer"
-                                        @save-data-api="SAVE_DATA_AUTO_MANUFACTURE"
-                                        @update-data-api="UPDATE_DATA_AUTO_MANUFACTURE"
-                                        @import-data-api="IMPORT_DATA_AUTO_MANUFACTURE"
-                                />
-                            </div>
-                            <div class="tab-pane " id="autoModel">
-                                <save-update-panel
-                                        :name-title="$ml.get('word.autoModel')"
-                                        :load-status="LOAD_SAVE.autoModel"
-                                        :data-list="ADDITIONAL_DATA.autoModel"
-                                        @save-data-api="SAVE_DATA_AUTO_MODEL"
-                                        @update-data-api="UPDATE_DATA_AUTO_MODEL"
-                                        @import-data-api="IMPORT_DATA_AUTO_MODEL"
-                                />
-
-                            </div>
-                            <div class="tab-pane" id="units">
-
-                                <two-update-panel
-                                        :name-title="$ml.get('word.units')"
-                                        :title_two="$ml.get('word.mark')"
-                                        :data-list="ADDITIONAL_DATA.units"
-                                        :load-status="LOAD_SAVE.measurementUnits"
-                                        @import-data-api="IMPORT_DATA_MEASUREMENT_UNITS"
-                                        @save-data-api="SAVE_DATA_MEASUREMENT_UNITS"
-                                        @update-data-api="UPDATE_DATA_MEASUREMENT_UNITS"
-                                />
-                            </div>
-                            <div class="tab-pane" id="nameElements">
-                                <two-update-panel
-                                        :name-title="$ml.get('word.nameElements')"
-                                        :title_two="$ml.get('word.mark')"
-                                        :load-status="LOAD_SAVE.paramName"
-                                        :data-list="ADDITIONAL_DATA.parameterName"
-                                        @import-data-api="IMPORT_PARAM_NAME"
-                                        @save-data-api="SAVE_PARAM_NAME"
-                                        @update-data-api="UPDATE_PARAM_NAME"
-                                />
-                            </div>
-                            <div class="tab-pane" id="nameElementsSize">
-                                <two-update-panel
-                                        :name-title="$ml.get('word.paramSizeName')"
-                                        :title_two="$ml.get('word.mark')"
-                                        :load-status="LOAD_SAVE.paramName"
-                                        :data-list="ADDITIONAL_DATA.parameterSizeName"
-                                        @import-data-api="IMPORT_PARAM_NAME"
-                                        @save-data-api="SAVE_PARAM_NAME"
-                                        @update-data-api="UPDATE_PARAM_NAME"
-                                />
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-        <br/>
-    </div>
 </template>
 
 <script>
@@ -328,12 +255,12 @@
 
 
     .nav-item {
+        height: 35px;
+        border-color: white;
         color: lightgray;
         width: auto;
-        align-self: stretch;
 
     }
-
 
 
     @media (min-width: 768px) {
@@ -361,6 +288,8 @@
             cursor: pointer;
             display: inline-block;
             position: relative;
+            border-color: white;
+
             transition: 0.5s;
         }
 
@@ -390,7 +319,6 @@
 
         .menu-item {
             border: white;
-
             width: 100%;
             display: inline-block;
             transition: all 0.5s;
@@ -398,10 +326,6 @@
             color: black;
             font-size: 1.2em;
 
-        }
-
-        li {
-            border-color: #272e38;
         }
 
 
@@ -417,6 +341,16 @@
         .navbar-container .navbar-nav {
             flex-direction: column !important;
         }
+    }
+    .main-tab{
+        margin-left:30px;
+        margin-right:30px;
+        height: 90vh;
+    }
+
+    li {
+        border-color: white;
+        background: white;
     }
 
     .search-border {

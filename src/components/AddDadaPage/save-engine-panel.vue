@@ -1,31 +1,7 @@
 <template>
     <div>
-        <ul class="nav nav-tabs" id="myTabengine" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="home-tabengine" data-toggle="tab" :href="'#h'+nameTitle"
-                   v-on:click="cancelsave" @click="cancel"
-                   role="tab" aria-controls="home" aria-selected="true">{{$ml.get('word.table')}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tabengine" data-toggle="tab" :href="'#p'+nameTitle"
-                   @click="cancel"
-
-                   role="tab" aria-controls="profile" aria-selected="false">{{$ml.get('word.save')}}</a>
-            </li>
-            <li class="nav-item">
-                <a
-                        class="nav-link" id="contact-tabengine" ref="updateTab" data-toggle="tab" :href="'#c'+nameTitle"
-                        role="tab" aria-controls="contact" aria-selected="false">{{$ml.get('word.update')}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab"
-                   :href="'#inp'+nameTitle" @click="cancel"
-                   role="tab" aria-controls="impr" aria-selected="false">{{$ml.get('word.importFile')}}</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContentengine" style="border: white">
-            <div class="tab-pane fade show active" :id="'h'+nameTitle" role="tabpanel"
-                 aria-labelledby="home-tab">
+        <el-tabs  v-model="activeName" @tab-click="handleTabsClick">
+            <el-tab-pane :label="$ml.get('word.table')"  name="0" >
                 <div class="row" style="padding-top: 3vh">
                     <div class="title-bord col-md-2">
                         <h4> {{nameTitle}}</h4>
@@ -117,10 +93,8 @@
                 </tbody>
                 </table>-->
                 <div v-if="LOAD_ADDITIONAL_DATA" class="lds-dual-ring-black" style="margin-left:47% "></div>
-
-            </div>
-            <div class="tab-pane fade" :id="'p'+nameTitle" role="tabpanel"
-                 aria-labelledby="profile-tab">
+            </el-tab-pane>
+            <el-tab-pane :label="$ml.get('word.save')" name="1" >
                 <br/>
                 <div class="title-bord col-md-2">
                     <h4> {{nameTitle}}</h4>
@@ -300,10 +274,8 @@
                     <div class="col-md-3"></div>
                 </div>
                 <hr/>
-            </div>
-            <div class="tab-pane fade" :id="'c'+nameTitle" role="tabpanel"
-                 aria-labelledby="contact-tab">
-
+            </el-tab-pane>
+            <el-tab-pane :label="$ml.get('word.update')" name="2" >
                 <br/>
                 <div class="title-bord col-md-2">
                     <h4> {{nameTitle}}</h4>
@@ -500,9 +472,8 @@
                     </div>
                 </div>
                 <hr/>
-            </div>
-            <div class="tab-pane fade" :id="'inp'+nameTitle" role="tabpanel"
-                 aria-labelledby="impr-tab">
+            </el-tab-pane>
+            <el-tab-pane :label="$ml.get('word.importFile')" name="3">
                 <div class="upload-box">
                     <div class="row import-page-btn">
                         <div class="col-md-2 title-bord">
@@ -584,8 +555,8 @@
                     <el-table-column prop="status" :label="$ml.get('word.status')">
                     </el-table-column>
                 </el-table>
-            </div>
-        </div>
+            </el-tab-pane>
+        </el-tabs>
     </div>
 </template>
 
@@ -614,6 +585,7 @@
                 engineCapacity: null,
                 powerKwt: null,
                 degreeCompression: null,
+                activeName:'0',
                 releaseYearFrom: null,
                 releaseYearBy: null,
                 horsepower: null,
@@ -702,6 +674,10 @@
             ...mapMutations({
                 cylindersPlacementFk: 'SET_UPDATE_CYLINDERS'
             }),
+            handleTabsClick() {
+                this.cancel()
+                this.cancelSave()
+            },
             // eslint-disable-next-line no-unused-vars
             tableRowClassName({row, rowIndex}) {
                 let temp = this.dataList.find(item =>
@@ -1008,7 +984,7 @@
                 console.log(id)
             },
             async link(record) {
-                this.$refs.updateTab.click();
+                this.activeName='2'
                 await this.GET_ENG({id: record.id});
                 this.tempData = this.ENGINE;
                 this.updateDataObj.objToBeChanged = this.ENGINE.id

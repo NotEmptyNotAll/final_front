@@ -52,6 +52,7 @@
                                             :show-edit-param="showEditParam"
                                             @set-color-elem="setColorElem"
                                             @parent-delete="deleteElem"
+                                            @add-elem-to-update="addElemFromChildToList"
                                             @get-size-param="getParamSizeEelem"
                                     />
 
@@ -66,9 +67,10 @@
                             </scroll-container>
                         </div>
                         <div class="col-md-6 color-pick">
-                            <h2 style="color: gray" v-show="!nowPressed.linkOnButt.isPressed">
-                                {{$ml.get('msg.chooseColor')}}
-                            </h2>
+
+                                <h2 style="color: gray" v-show="!nowPressed.linkOnButt.isPressed">
+                                    {{$ml.get('msg.chooseColor')}}
+                                </h2>
                             <h3 class="title-color"
                                 v-show="nowPressed.linkOnButt.isPressed">{{nameElem}}</h3>
                             <div class="color-item" v-show="nowPressed.linkOnButt.isPressed">
@@ -93,7 +95,7 @@
                                         placement="top"
                                         width="230"
                                         trigger="hover">
-                                    <p >
+                                    <p>
                                         {{$ml.get('msg.colorConfirmMsg')}}</p>
                                     <div>
                                         <el-button size="mini" type="danger" @click="addElemToUpdateList(false)">
@@ -107,9 +109,9 @@
                                         {{$ml.get('word.confirm')}}
                                     </el-button>
                                 </el-popover>
-
                             </div>
                         </div>
+
                     </div>
                 </el-tab-pane>
 
@@ -381,6 +383,9 @@
                         this.changeChildColor(elem.elementsCh)
                     }
                 })
+            },
+            addElemFromChildToList(elem){
+                console.log(elem)
             },
             addElemToUpdateList(changeChildColor) {
                 let temp = this.listElemUpdate.find(item => item.elemId === this.elemId)

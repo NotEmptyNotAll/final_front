@@ -74,7 +74,7 @@
 
                         <button type="button "
                                 class="btn btn-group   btn-info"
-                                @click="getParamSizeEelem(item.id)"
+                                @click="getParamSizeEelem()"
                         >
                             <span>
                                 <b-icon icon="list-ul" font-scale="1.5"></b-icon>
@@ -127,7 +127,6 @@
                 </div>
             </div>
         </li>
-
         <ul class="list-group border-white left" v-show="isOpen" v-if="isFolder">
             <tree-item
                     class="item"
@@ -147,16 +146,34 @@
                     @get-photo="getPhoto"
             ></tree-item>
         </ul>
-        <el-dialog width="25%" :title="$ml.get('word.paramSizeName')" close-delay="dialog" :visible.sync="dialogTableVisible">
+        <el-dialog width="25%" :title="$ml.get('word.paramSizeName')" close-delay="dialog"
+                   :visible.sync="dialogTableVisible">
+            <hr/>
             <div v-if="LOAD_PARAM_SIZE_NAME" class="lds-dual-ring-black" style="margin-left:44.5% "></div>
-            <el-card v-show="!LOAD_PARAM_SIZE_NAME" v-for="param in PARAM_SIZE_NAME" v-bind:key="param"
+            <el-card v-for="(param,index) in listSizeParamOnDialog" v-bind:key="param"
                      class="card-st" shadow="hover">
-                <h5>{{param.name}}</h5>
+                <div class="dialog-number">
+                    <h2>{{index+1}}</h2>
+                </div>
+                <h5 style="margin-left: 50px;">{{param.name}}</h5>
+                <div class="arrow-up" @click="upSortNum(param)">
+                    <i class="el-icon-arrow-up"></i>
+                </div>
+                <div class="arrow-down" @click="downSortNum(param)"><i class="el-icon-arrow-down"></i></div>
             </el-card>
-            <el-card v-for="param in paramSizeList" v-bind:key="param"
+            <el-card v-for="(param,index) in paramSizeList" v-bind:key="param"
                      class="card-st" shadow="hover" v-show="param.name!==''">
-                <h5>{{param.name}}</h5>
+                <div class="dialog-number">
+                    <h2>{{index+1+listSizeParamOnDialog.length}}</h2>
+                </div>
+                <h5 style="margin-left: 50px;">{{param.name}}</h5>
+
+                <div class="arrow-up">
+                    <i class="el-icon-arrow-up"></i>
+                </div>
+                <div class="arrow-down"><i class="el-icon-arrow-down"></i></div>
             </el-card>
+            <hr/>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="addNewParamSize()">{{$ml.get('word.add')}}</el-button>
             </div>
@@ -200,6 +217,7 @@
                 </div>
             </el-card>
         </el-dialog>
+
     </ul>
 
 </template>
@@ -228,6 +246,7 @@
         },
         data: function () {
             return {
+                listSizeParamOnDialog: [],
                 paramSizeList: [],
                 dialogTableVisible: false,
                 saveElemData: {
@@ -258,7 +277,7 @@
             ]),
             isFolder: function () {
                 return this.elementsCh && this.item.elementsCh.length
-                    && this.elementsCh.find(item=>item.elementsCh.length>0)!== undefined ;
+                    && this.elementsCh.find(item => item.elementsCh.length > 0) !== undefined;
             }
         },
         methods: {
@@ -283,14 +302,41 @@
                 this.item.elementsCh = this.item.elementsCh.filter(elem => elem.id !== id)
                 console.log(id)
             },
-            async getParamSizeEelem(elemId) {
-                this.GET_PARAM_SIZE_NAME({
-                    id: elemId
-                });
+            async getParamSizeEelem() {
+                this.listSizeParamOnDialog = this.item.elementsCh.filter(elem => {
+                    return !elem.parametersIsExistInChild
+                })
                 this.dialogTableVisible = true
             },
-            getPhoto(id){
-                this.$emit("get-photo",id)
+            getPhoto(id) {
+                this.$emit("get-photo", id)
+            },
+            upSortNum(param) {
+                let index = this.listSizeParamOnDialog.indexOf(param);
+                if (index > 0) {
+                    this.swap(this.listSizeParamOnDialog[index],
+                        this.listSizeParamOnDialog[index - 1])
+                }
+            },
+            swap(obj1, obj2) {
+                let obj = {
+                    id: obj1.id,
+                    sortNumber: obj1.sortNumber,
+                    name: obj1.name
+                };
+                obj1.name = obj2.name
+                obj1.id = obj2.id
+                obj1.sortNumber = obj2.sortNumber
+                obj2.id = obj.id
+                obj2.sortNumber = obj.sortNumber
+                obj2.name = obj.name
+            },
+            downSortNum(param) {
+                let index = this.listSizeParamOnDialog.indexOf(param);
+                if (index < this.listSizeParamOnDialog.length - 1) {
+                    this.swap(this.listSizeParamOnDialog[index],
+                        this.listSizeParamOnDialog[index + 1])
+                }
             },
             addElement: function (number) {
                 this.isOpen = true;
@@ -328,9 +374,6 @@
                 this.listElem.push(this.saveElemData)
                 console.log(number);
             },
-            addNewParamName() {
-                console.log(1)
-            },
             getParamtrs(nav, number, link) {
                 if (this.showEditParam.show) {
                     this.$emit("get-paramtrs", nav, number, link)
@@ -341,7 +384,7 @@
             },
             setColorElem(item, link) {
                 if (!link.isPressed) {
-                    this.$emit("set-color-elem", item,  link)
+                    this.$emit("set-color-elem", item, link)
                 }
             },
             addNewParamSize() {
@@ -363,6 +406,7 @@
                     elemId: this.ELEMENTS_TREE.maxId + 1,
                     paramNameFk: param.paramNameFk,
                     parentId: this.item.id,
+                    sortNumber: this.ELEMENTS_TREE.maxId + 1
                 });
                 this.setListNewElem(this.listNewElem);
                 this.setMaxId(this.ELEMENTS_TREE.maxId + 1);
@@ -389,6 +433,18 @@
 
 <style>
 
+    .dialog-number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0px;
+        color: white;
+        width: 50px;
+        height: 100%;
+        background: lightslategrey;
+    }
 
     .btn-group {
         position: relative;
@@ -419,7 +475,6 @@
     }
 
     .dialog-footer {
-        margin-top: 3%;
         display: flex;
         justify-content: center;
         align-content: flex-end;
@@ -437,12 +492,42 @@
         align-self: self-end;
     }
 
-    .card-st {
-
-        margin: 20px;
+    .arrow-up {
         display: flex;
-        justify-content: flex-start;
-        align-content: center;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0px;
+        right: 0%;
+        width: 50px;
+        height: 50%;
+        transition: .3s;
+    }
+
+    .arrow-down {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 0px;
+        right: 0%;
+        width: 50px;
+        height: 50%;
+        transition: .3s;
+    }
+
+    .arrow-down:hover {
+        background: #E4E7ED;
+    }
+
+    .arrow-up:hover {
+        background: #E4E7ED;
+    }
+
+    .card-st {
+        flex-direction: row;
+        margin: 20px;
+        position: relative;
     }
 
     .btn-posit {
