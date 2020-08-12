@@ -1041,8 +1041,7 @@
                         message: this.$ml.get('word.dataAddSuccess'),
                         type: 'success'
                     });
-                    this.GET_ALL_ADDITIONAL_DATA();
-
+                    this.dataList.push(this.saveDataObj)
                 } else {
                     this.$message({
                         showClose: true,

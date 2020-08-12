@@ -19,7 +19,7 @@
                         />
                     </div>
                 </el-tab-pane>
-                <el-tab-pane :label="$ml.get('word.engine')">
+                <el-tab-pane :label="$ml.get('word.cylinders')">
                     <div class="tab-pane">
 
                         <save-update-panel

@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6c064916-4a6b-4e88-93a1-d4463136ec2b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/vue-save-update-page.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/vue-save-update-page.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NewSearchPage/new-search-page.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewSearchPage/new-search-page.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchPage/search-engine-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchPage/search-engine-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/input/filter-input.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/input/filter-input.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar/navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/navbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tree-struct/tree-struct.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tree-struct/tree-struct.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tree/tree.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tree/tree.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +63,8 @@
       <workItem from="1597167852010" duration="3935000" />
       <workItem from="1597177909138" duration="2534000" />
       <workItem from="1597180856888" duration="10131000" />
-      <workItem from="1597230624502" duration="2269000" />
+      <workItem from="1597230624502" duration="5294000" />
+      <workItem from="1597252942879" duration="630000" />
     </task>
     <servers />
   </component>
@@ -84,22 +80,22 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1596884232740" />
-    <state width="1825" height="81" key="GridCell.Tab.0.bottom" timestamp="1597232469886">
+    <state width="1825" height="81" key="GridCell.Tab.0.bottom" timestamp="1597235741960">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1825" height="81" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597232469886" />
-    <state width="1825" height="81" key="GridCell.Tab.0.center" timestamp="1597232469886">
+    <state width="1825" height="81" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597235741960" />
+    <state width="1825" height="81" key="GridCell.Tab.0.center" timestamp="1597235741960">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1825" height="81" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597232469886" />
-    <state width="1825" height="81" key="GridCell.Tab.0.left" timestamp="1597232469886">
+    <state width="1825" height="81" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597235741960" />
+    <state width="1825" height="81" key="GridCell.Tab.0.left" timestamp="1597235741960">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1825" height="81" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597232469886" />
-    <state width="1825" height="81" key="GridCell.Tab.0.right" timestamp="1597232469886">
+    <state width="1825" height="81" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597235741960" />
+    <state width="1825" height="81" key="GridCell.Tab.0.right" timestamp="1597235741960">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1825" height="81" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597232469886" />
+    <state width="1825" height="81" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597235741960" />
     <state x="1092" y="332" width="742" height="900" key="dock-window-1" timestamp="1597189946363">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
