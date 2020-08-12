@@ -1,8 +1,8 @@
 <template>
 
-    <ul style="height: auto">
+    <ul style="height: auto;">
         <li class="border-white bold list-group-item   li-hov"
-            style="position: relative; width: 24vw; display: flex;align-items: center; height: 3.5em "
+            style="position: relative; width: auto; display: flex;align-items: center; height: 3.5em "
             v-if="item.elementsCh.length>0"
         >
             <div class="row" style=" padding: 0px ;width:100%;">

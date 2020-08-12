@@ -34,8 +34,7 @@
                 <el-tab-pane v-for="elem in ELEMENTS_TREE.elementsCh" v-bind:key="elem" :label="elem.name"
                              style="width: 100%">
                     <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <scroll-container>
                                 <dev class="tree-st">
                                     <tree-item

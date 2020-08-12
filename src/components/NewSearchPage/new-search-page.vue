@@ -2,21 +2,17 @@
 <template>
     <div>
         <div class="container search-border tab  rounded bg-white rad">
-
-
             <vue-context-menu
                     :elementId="'myFirstMenu'"
                     :options="ALL_AUTO_ENG.columnParam"
                     :ref="'vueSimpleContextMenu1'"
                     @option-clicked="optionClicked1"
             ></vue-context-menu>
-
             <div class="row " style="padding-top: 3vh">
                 <div class="title-bord col-md-1 param-navbar">
 
                     <h4> {{$ml.get('word.parameters')}}</h4>
                 </div>
-
                 <div class="col-md-1 fix-position ">
                     <el-dropdown style="width: 100%" :hide-on-click="false">
                         <el-button size="medium" type="primary" style="width: 100%; font-size: 16px">
@@ -34,7 +30,7 @@
                     </el-dropdown>
                 </div>
                 <div class=" col-md-2 fix-position ">
-                    <el-dropdown  @command="changePageSize" style="width: 100%;">
+                    <el-dropdown @command="changePageSize" style="width: 100%;">
                         <el-button size="medium" type="warning" style="width: 100%; font-size: 16px">
                             {{$ml.get('word.numRowOnPage')}}{{pageSetting.pageSize}}
                             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -53,10 +49,7 @@
                                style="width: 100%; font-size: 16px"
                                v-on:click="clearFilter">{{$ml.get('word.clearAllFilter')}}
                     </el-button>
-
                 </div>
-
-
                 <div class="col-md-6  border-butt param-navbar">
                     <el-divider content-position="right">
                         <el-button-group>
@@ -132,6 +125,14 @@
                                 <div>
                                     <h5>{{column.name}}</h5>
                                 </div>
+                                <filter-input
+                                        :paramListMod="true"
+                                        :param-size-list="column.columnList"
+                                        :place-hold="$ml.get('word.filter')"
+                                        :save-parameters="pageSetting"
+                                        :index="column.id"
+                                        @on-input-action="getAutoEngByFilter"
+                                />
                             </template>
                             <template slot-scope="scope">
                                 <span v-show="column.columnList[0]===undefined" style="margin-left: 10px"><h4>{{ scope.row[column.id] }}</h4></span>
@@ -141,7 +142,8 @@
                                     <h6><strong>{{col.name+": "}}</strong>{{scope.row[col.id]}}</h6><hr>
                                 </span>
                                 <el-button v-show="scope.row['listImage'+column.id]!==undefined"
-                                           type="text" @click="showImage(scope.row['listImage'+column.id])">{{$ml.get('word.showPhoto')}}
+                                           type="text" @click="showImage(scope.row['listImage'+column.id])">
+                                    {{$ml.get('word.showPhoto')}}
                                 </el-button>
                             </template>
                         </el-table-column>
@@ -156,11 +158,10 @@
                         :total="ALL_AUTO_ENG.countResults*10">
                 </el-pagination>
             </div>
-
         </div>
         <el-dialog :title="$ml.get('word.titlePhoto')" :visible.sync="dialogFormVisible"
                    custom-class="dialog-photo" :before-close="closeDialog">
-            <el-carousel  arrow="always"  height="60vh" style="background: lightgray">
+            <el-carousel arrow="always" height="60vh" style="background: lightgray">
                 <el-carousel-item v-for="item in listFileUrl" :key="item"
                                   style="display: flex; justify-content: center;align-items: center">
                     <el-image :src="'https://res.cloudinary.com/notempty/image/upload/'+item"></el-image>
@@ -204,7 +205,7 @@
                     'sku',
                 ],
                 options: {},
-                listFileUrl:[],
+                listFileUrl: [],
                 columnOptions: [],
                 dialogFormVisible: false,
                 columns: [],
@@ -263,7 +264,8 @@
                     superchargedType: null,
                     degreeCompression: null,
                     initRecordFrom: 1,
-                    pageSize: 3
+                    pageSize: 3,
+                    paramList:[]
                 },
                 lengHeadNameArr: 0,
                 test: null,
@@ -284,8 +286,8 @@
                 return 'header-st';
 
             },
-            showImage(list){
-                this.listFileUrl=list
+            showImage(list) {
+                this.listFileUrl = list
                 this.dialogFormVisible = true
             },
             // eslint-disable-next-line no-unused-vars
@@ -317,6 +319,7 @@
                     cylinderPlace: null,
                     superchargedType: null,
                     degreeCompression: null,
+                    paramList:[],
                     initRecordFrom: this.pageSetting.initRecordFrom,
                     pageSize: this.pageSetting.pageSize
                 }
@@ -326,9 +329,9 @@
                 this.$refs.vueSimpleContextMenu1.showMenu(event, row)
             },
             // eslint-disable-next-line no-unused-vars
-            closeDialog(){
-                this.listFileUrl=[]
-                this.dialogFormVisible=false
+            closeDialog() {
+                this.listFileUrl = []
+                this.dialogFormVisible = false
             },
             getGeneralName(arr) {
                 let generalIndex = 0;
@@ -350,7 +353,6 @@
             optionClicked1(event) {
                 this.test1 = event
                 let tables = [];
-
                 event.option.columnResponseList.map((elem, index) => {
                         let clmns = []
                         let tempHeadName = []
@@ -455,8 +457,6 @@
                             }
                         }
                     },
-
-
                     content: [
                         {
                             text: 'Параметри обробки до замовлення №79930',
@@ -576,7 +576,6 @@
             ,
             getAutoEngByFilter() {
                 this.GET_ALL_AUTO(this.pageSetting);
-
             }
             ,
             handleCheckedColumnChange(value) {
@@ -675,7 +674,7 @@
     }
 </script>
 
-<style >
+<style>
 
     .table-cont {
         padding-bottom: 10px;
@@ -740,11 +739,13 @@
         border-color: lightgray;
         border-width: 0px 2px 0px 0px;
     }
-    .dialog-photo{
+
+    .dialog-photo {
         background: lightgray;
     }
-.image{
-    width: 100%;
-height: 100%;
-}
+
+    .image {
+        width: 100%;
+        height: 100%;
+    }
 </style>`

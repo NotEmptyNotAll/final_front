@@ -1,5 +1,5 @@
 <template>
-    <div class="search-engine-panel" >
+    <div class="search-engine-panel">
         <!--fields for entering search data.
          Fill with the initial parameters that you get from the backend
           Use a v-model to populate data.-->
@@ -47,9 +47,9 @@
             />
         </div>
         <!--here we enter data for an improved search, which the user measures-->
-            <b-collapse id="collapse-1" class="mt-2">
+        <b-collapse id="collapse-1" class="mt-2">
 
-            <div class=" row  " >
+            <div class=" row  ">
                 <vue-datalist
                         class="col-md-3"
                         :title-input="$ml.get('word.engineNumber')"
@@ -130,18 +130,19 @@
                 </div>
                 <div class="col col-md-4"></div>
             </div>
-            </b-collapse>
+        </b-collapse>
         <hr style="position: center; width: 70%"/>
 
         <div class="row ">
             <div class="col-md-3"></div>
             <div class="col col-md-2">
-               <!-- <button class="btn btn-block buttonanim btn-secondary" type="button" data-toggle="collapse"
-                        @click="advanceSearch=!advanceSearch">
-                         <span>{{$ml.get('word.advancedSearch')}}
-                        </span>
-                </button>-->
-                <b-button v-b-toggle.collapse-1 class="btn btn-block buttonanim btn-secondary" variant="secondary"><span>{{$ml.get('word.advancedSearch')}}
+                <!-- <button class="btn btn-block buttonanim btn-secondary" type="button" data-toggle="collapse"
+                         @click="advanceSearch=!advanceSearch">
+                          <span>{{$ml.get('word.advancedSearch')}}
+                         </span>
+                 </button>-->
+                <b-button v-b-toggle.collapse-1 class="btn btn-block buttonanim btn-secondary"
+                          variant="secondary"><span>{{$ml.get('word.advancedSearch')}}
                         </span></b-button>
 
             </div>
@@ -173,7 +174,7 @@
 
     export default {
         name: "search-engine-panel",
-        components: { ParamElementsInput, VueDatalist, InputField},
+        components: {ParamElementsInput, VueDatalist, InputField},
         data: () => ({
             paramtrs: [],
             choiceParam: [],
@@ -196,8 +197,8 @@
                 powerKWt: null,
                 engineCapacity: null
             },
-            treeElem:[],
-            cleanField:false,
+            treeElem: [],
+            cleanField: false,
             choiceData: [],
             test: null,
             advanceSearch: false
@@ -207,14 +208,14 @@
             this.GET_PARAM_NAME();
             this.GET_ALL_PARAM_NAME();
             this.GET_ENGDATA_BY_PARAM(this.searchData);
-            //this.GET_TREE_ELEMENTS()
+            this.GET_TREE_ELEMENTS()
             this.clear(1)
 
         },
-        watch:{
+        watch: {
             // eslint-disable-next-line no-unused-vars
-            TREE_ELEMENTS:function (val) {
-                this.treeElem=this.TREE_ELEMENTS.elementsCh
+            TREE_ELEMENTS: function (val) {
+                this.treeElem = this.TREE_ELEMENTS.elementsCh
                 this.mapTreeElem(this.treeElem)
             }
         },
@@ -250,7 +251,7 @@
                 setTree: 'SET_LISTPARAM_ELEMENT',
                 setEngList: 'SET_ENGDATA_TREE',
                 setListNewParam: 'SET_LIST_NEW_PARAM',
-                setElemUpdate:'SET_ELEMENTS_UPDATE'
+                setElemUpdate: 'SET_ELEMENTS_UPDATE'
 
             }),
             clear(number) {
@@ -261,7 +262,7 @@
                 this.setTree(null)
                 this.setEngList(null)
                 this.setElemUpdate(null)
-                this.cleanField=!this.cleanField
+                this.cleanField = !this.cleanField
                 this.searchData = {
                     paramList: [{
                         parameterNodeId: null,
@@ -292,14 +293,14 @@
                 });
                 console.log(number)
             },
-            mapTreeElem(treeElem){
-                treeElem.map(elem=>{
-                    if(elem.elementsCh.length===0) {
-                        delete elem.elementsCh
-                    }else {
-                        this.mapTreeElem(elem.elementsCh)
+            mapTreeElem(treeElem) {
+                treeElem.map(elem => {
+                        if (elem.elementsCh.length === 0) {
+                            delete elem.elementsCh
+                        } else {
+                            this.mapTreeElem(elem.elementsCh)
+                        }
                     }
-                }
                 )
             }
             ,
@@ -395,7 +396,6 @@
         max-width: 74vw;
         min-width: 74vw;
     }
-
 
 
     .input-group-text {
