@@ -1041,7 +1041,26 @@
                         message: this.$ml.get('word.dataAddSuccess'),
                         type: 'success'
                     });
-                    this.dataList.push(this.saveDataObj)
+                    let obj={
+                        cylindersNumber:this.saveDataObj.cylindersNumber,
+                        cylindersPlacement:this.ADDITIONAL_DATA.cylinders.find(item=>item.id===this.saveDataObj.cylindersPlacementFk).data,
+                        data:this.saveDataObj.engineType,
+                        degreeCompression:this.saveDataObj.degreeCompression,
+                        engineCapacity:this.saveDataObj.engineCapacity,
+                        engineManufacturer:this.ADDITIONAL_DATA.engineManufacture.find(item=>item.id===this.saveDataObj.engineManufacturerFk).data,
+                        flapNumber:this.saveDataObj.flapNumber,
+                        fuelType:this.ADDITIONAL_DATA.fuelType.find(item=>item.id===this.saveDataObj.fuelTypeFk).data,
+                        horsepower:this.saveDataObj.horsepower,
+                        id:0,
+                        pistonDiameter:this.saveDataObj.pistonDiameter,
+                        pistonStroke:this.saveDataObj.pistonStroke,
+                        powerKwt:this.saveDataObj.powerKwt,
+                        releaseYearBy:this.saveDataObj.releaseYearBy,
+                        releaseYearFrom:this.saveDataObj.releaseYearFrom,
+                        status:this.saveDataObj.status,
+                        superchargedType:this.ADDITIONAL_DATA.superchargeType.find(item=>item.id===this.saveDataObj.superchargedTypeFk).data,
+                    }
+                    this.dataList.push(obj)
                 } else {
                     this.$message({
                         showClose: true,
