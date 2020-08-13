@@ -114,7 +114,7 @@
                                                 :update-obj="current"
                                                 index="units"
                                                 :hide-title="true"
-                                                :holder-num=0
+                                                :holder-num=current.units
 
                                         />
                                     </td>
@@ -187,7 +187,7 @@
                                                 :update-obj="current"
                                                 index="status"
                                                 :hide-title="true"
-                                                :holder-num=0
+                                                :holder-num=current.status
                                         />
                                     </td>
                                     <td v-if="!current.editRow">{{current.source}}</td>

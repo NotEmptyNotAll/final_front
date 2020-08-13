@@ -3,6 +3,7 @@
     <div v-if="!paramListMod" class="input-group">
         <el-input
                 v-model="saveParameters[index]"
+                ref="inp1"
                 :placeholder="$ml.get('word.filter')"
                 size="small"
                 prefix-icon="el-icon-search"
@@ -13,6 +14,7 @@
     </div>
     <div v-else class="input-group">
         <el-input v-if="paramSizeList.length>0"
+                  ref="inp2"
                   v-model="inputValue"
                   :disabled="paramSize===''"
                   class="input-with-select"
@@ -32,6 +34,7 @@
             </el-select>
         </el-input>
         <el-input v-else
+                  ref="inp3"
                   v-model="inputValue"
                   :placeholder="$ml.get('word.filter')"
                   size="small"
@@ -79,6 +82,9 @@
                 type: Number,
                 default: 99999999
             },
+            bus:{
+                type:Object
+            },
             nameInput: String,
             dataList: [],
             loadStatus: null,
@@ -89,6 +95,10 @@
         computed: {},
 
         methods: {
+            clear(){
+                this.inputValue = ''
+                this.saveParameters[this.index] = ''
+            },
             onInputAction() {
                 if (!this.paramListMod) {
                     this.$emit("on-input-action");
@@ -134,6 +144,7 @@
             },
         },
         mounted() {
+            this.bus.$on('clear', this.clear)
         }
     }
 </script>

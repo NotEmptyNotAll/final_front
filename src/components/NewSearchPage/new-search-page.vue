@@ -86,6 +86,7 @@
                         style="width: 100%"
                 >
                     <el-table-column
+
                             v-for="clmn in tableColumns"
                             v-bind:key="clmn"
                             label-class-name="header-st"
@@ -99,6 +100,8 @@
                         <template slot="header">
                             <h5>{{clmn.label}}</h5>
                             <filter-input
+                                    :bus="bus"
+                                    :clean-search="cleanSearch"
                                     v-show="clmn.key!=='id'"
                                     :place-hold="$ml.get('word.filter')"
                                     :save-parameters="pageSetting"
@@ -126,6 +129,8 @@
                                     <h5>{{column.name}}</h5>
                                 </div>
                                 <filter-input
+                                        :bus="bus"
+                                        :clean-search="cleanSearch"
                                         :paramListMod="true"
                                         :param-size-list="column.columnList"
                                         :place-hold="$ml.get('word.filter')"
@@ -188,6 +193,7 @@
     import fs from "fs";
     // eslint-disable-next-line no-unused-vars
     import pdfMake from "pdfmake/build/pdfmake";
+    import Vue from  "vue"
     import pdfFonts from "pdfmake/build/vfs_fonts";
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -200,6 +206,8 @@
             return {
                 tableData: [],
                 checkedRows: [],
+                // eslint-disable-next-line no-undef
+                bus: new Vue(),
                 column: [
                     'selected',
                     'sku',
@@ -207,6 +215,7 @@
                 options: {},
                 listFileUrl: [],
                 columnOptions: [],
+                cleanSearch:1,
                 dialogFormVisible: false,
                 columns: [],
                 itemArray1: [
@@ -323,6 +332,8 @@
                     initRecordFrom: this.pageSetting.initRecordFrom,
                     pageSize: this.pageSetting.pageSize
                 }
+
+                this.bus.$emit('clear')
                 this.GET_ALL_AUTO(this.pageSetting);
             },
             handleClick1(row, column, event) {
@@ -624,7 +635,8 @@
                 '№', this.$ml.get('word.engine'), this.$ml.get('word.autoManufacturer'),
                 this.$ml.get('word.autoModel'), this.$ml.get('word.releaseYear'),
                 this.$ml.get('word.fuelType'),
-                this.$ml.get('word.cylinders'), this.$ml.get('word.flapNumber'), this.$ml.get('word.pistonDiameter')
+                this.$ml.get('word.flapNumber'),
+                this.$ml.get('word.superchargedType')
             ];
             this.columns = [
                 '№', this.$ml.get('word.engine'), this.$ml.get('word.autoManufacturer'),
@@ -640,8 +652,7 @@
                 '№', this.$ml.get('word.engine'), this.$ml.get('word.autoManufacturer'),
                 this.$ml.get('word.autoModel'), this.$ml.get('word.releaseYear'),
                 this.$ml.get('word.fuelType'),
-                this.$ml.get('word.cylinders'), this.$ml.get('word.flapNumber'),
-                this.$ml.get('word.pistonDiameter'),
+                 this.$ml.get('word.flapNumber'),
                 this.$ml.get('word.pistonStroke'),
                 this.$ml.get('word.engineCapacity'), this.$ml.get('word.powerKwt'),
                 this.$ml.get('word.superchargedType')
