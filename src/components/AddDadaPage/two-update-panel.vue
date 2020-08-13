@@ -1,8 +1,8 @@
 <template>
 
     <div>
-        <el-tabs  v-model="activeName" @tab-click="handleTabsClick">
-            <el-tab-pane :label="$ml.get('word.table')"  name="0" >
+        <el-tabs v-model="activeName" @tab-click="handleTabsClick">
+            <el-tab-pane :label="$ml.get('word.table')" name="0">
                 <div class="row" style="padding-top: 3vh">
                     <div class="title-bord col-md-2">
                         <h4> {{nameTitle}}</h4>
@@ -72,7 +72,7 @@
                  </table>-->
                 <div v-if="LOAD_ADDITIONAL_DATA" class="lds-dual-ring-black" style="margin-left:47% "></div>
             </el-tab-pane>
-            <el-tab-pane :label="$ml.get('word.save')" name="1" >
+            <el-tab-pane :label="$ml.get('word.save')" name="1">
                 <br/>
                 <div class="title-bord col-md-2">
                     <h4> {{nameTitle}}</h4>
@@ -126,7 +126,7 @@
                 </div>
                 <div class="col-md-3"></div>
             </el-tab-pane>
-            <el-tab-pane :label="$ml.get('word.update')" name="2" >
+            <el-tab-pane :label="$ml.get('word.update')" name="2">
                 <br/>
                 <div class="title-bord col-md-2">
                     <h4> {{nameTitle}}</h4>
@@ -163,7 +163,7 @@
                             :update-obj="updateDataObj"
                             :clean-search="cleanInputList"
                             index="status"
-                            :holderNum="updateDataObj.objToBeChanged"
+                            :holderNum="updateDataObj.status"
 
                     />
                 </div>
@@ -306,7 +306,7 @@
                 saveData_secondary: null,
                 status: null
             },
-            activeName:'0',
+            activeName: '0',
             search: '',
             showDismissibleAlert: false,
             columnOptions: [],
@@ -555,7 +555,7 @@
                 this.dataList = tempList;
             },
             async link(record) {
-                this.activeName='2'
+                this.activeName = '2'
                 this.updateDataObj.objToBeChanged = record.id;
                 this.updateDataObj.saveData_primary = record.data;
                 this.updateDataObj.saveData_secondary = record.secondary_data;
@@ -618,7 +618,9 @@
             },
             async update(number) {
                 if (this.updateDataObj.objToBeChanged != null) {
-                    if (this.dataList.find(item => item.data === this.updateDataObj.saveData_primary) !== undefined) {
+                    if (this.dataList.find(item =>
+                        item.data === this.updateDataObj.saveData_primary &&
+                        item.status === this.updateDataObj.status) !== undefined) {
                         this.$message({
                             showClose: true,
                             message: this.$ml.get('msg.duplicateValue'),

@@ -160,8 +160,8 @@
             </div>
         </div>
         <el-dialog :title="$ml.get('word.titlePhoto')" :visible.sync="dialogFormVisible"
-                   custom-class="dialog-photo" :before-close="closeDialog">
-            <el-carousel arrow="always" height="60vh" style="background: lightgray">
+                   custom-class="dialog-photo" :before-close="closeDialog" >
+            <el-carousel arrow="always" height="60vh" class="dialog-photo">
                 <el-carousel-item v-for="item in listFileUrl" :key="item"
                                   style="display: flex; justify-content: center;align-items: center">
                     <el-image :src="'https://res.cloudinary.com/notempty/image/upload/'+item"></el-image>
@@ -647,35 +647,34 @@
                 this.$ml.get('word.superchargedType')
             ];
             this.tableColumns = [
-                {key: 'id', label: '№', widthSmall: 30, widthLarge: 40},
+                {key: 'id', label: '№', widthSmall: 40, widthLarge: 40},
                 {key: 'engineType', label: this.$ml.get('word.engine'), widthSmall: 110, widthLarge: 200},
-                {key: 'autoManufacture', label: this.$ml.get('word.autoManufacturer'), widthSmall: 80, widthLarge: 70},
-                {key: 'modelName', label: this.$ml.get('word.autoModel'), widthSmall: 80, widthLarge: 70},
-                {key: 'releaseYear', label: this.$ml.get('word.releaseYear'), widthSmall: 80, widthLarge: 60},
-                {key: 'fuelType', label: this.$ml.get('word.fuelType'), widthSmall: 80, widthLarge: 70},
+                {key: 'autoManufacture', label: this.$ml.get('word.autoManufacturer'), widthSmall: 110, widthLarge: 70},
+                {key: 'modelName', label: this.$ml.get('word.autoModel'), widthSmall: 110, widthLarge: 70},
+                {key: 'releaseYear', label: this.$ml.get('word.releaseYear'), widthSmall: 110, widthLarge: 60},
+                {key: 'fuelType', label: this.$ml.get('word.fuelType'), widthSmall: 110, widthLarge: 70},
                 {key: 'cylinderPlace', label: this.$ml.get('word.cylinders'), widthSmall: 110, widthLarge: 70},
-                {key: 'flapNumber', label: this.$ml.get('word.flapNumber'), widthSmall: 80, widthLarge: 90},
-                {key: 'superchargedType', label: this.$ml.get('word.superchargedType'), widthSmall: 80, widthLarge: 90}]
+                {key: 'flapNumber', label: this.$ml.get('word.flapNumber'), widthSmall: 110, widthLarge: 90},
+                {key: 'superchargedType', label: this.$ml.get('word.superchargedType'), widthSmall: 110, widthLarge: 90}]
             this.allTableColumns = [
                 {key: 'id', label: '№', widthSmall: 30, widthLarge: 40},
                 {key: 'engineType', label: this.$ml.get('word.engine'), widthSmall: 110, widthLarge: 200},
                 {key: 'autoManufacture', label: this.$ml.get('word.autoManufacturer'), widthSmall: 140, widthLarge: 70},
-                {key: 'modelName', label: this.$ml.get('word.autoModel'), widthSmall: 80, widthLarge: 70},
-                {key: 'releaseYear', label: this.$ml.get('word.releaseYear'), widthSmall: 80, widthLarge: 60},
-                {key: 'fuelType', label: this.$ml.get('word.fuelType'), widthSmall: 80, widthLarge: 70},
+                {key: 'modelName', label: this.$ml.get('word.autoModel'), widthSmall: 110, widthLarge: 70},
+                {key: 'releaseYear', label: this.$ml.get('word.releaseYear'), widthSmall: 110, widthLarge: 60},
+                {key: 'fuelType', label: this.$ml.get('word.fuelType'), widthSmall: 110, widthLarge: 70},
                 {key: 'cylinderPlace', label: this.$ml.get('word.cylinders'), widthSmall: 110, widthLarge: 70},
-                {key: 'flapNumber', label: this.$ml.get('word.flapNumber'), widthSmall: 80, widthLarge: 90},
-                {key: 'pistonDiameter', label: this.$ml.get('word.pistonDiameter'), widthSmall: 90, widthLarge: 70},
-                {key: 'pistonStroke', label: this.$ml.get('word.pistonStroke'), widthSmall: 80, widthLarge: 70},
-                {key: 'engineCapacity', label: this.$ml.get('word.engineCapacity'), widthSmall: 80, widthLarge: 70},
-                {key: 'powerKwt', label: this.$ml.get('word.powerKwt'), widthSmall: 80, widthLarge: 70},
-                {key: 'superchargedType', label: this.$ml.get('word.superchargedType'), widthSmall: 80, widthLarge: 90}]
+                {key: 'flapNumber', label: this.$ml.get('word.flapNumber'), widthSmall: 110, widthLarge: 90},
+                {key: 'pistonDiameter', label: this.$ml.get('word.pistonDiameter'), widthSmall: 110, widthLarge: 70},
+                {key: 'pistonStroke', label: this.$ml.get('word.pistonStroke'), widthSmall: 110, widthLarge: 70},
+                {key: 'engineCapacity', label: this.$ml.get('word.engineCapacity'), widthSmall: 110, widthLarge: 70},
+                {key: 'powerKwt', label: this.$ml.get('word.powerKwt'), widthSmall: 110, widthLarge: 70},
+                {key: 'superchargedType', label: this.$ml.get('word.superchargedType'), widthSmall: 110, widthLarge: 90}]
         }
     }
 </script>
 
 <style>
-
     .table-cont {
         padding-bottom: 10px;
         width: 100%;
@@ -741,7 +740,8 @@
     }
 
     .dialog-photo {
-        background: lightgray;
+        border-radius: 30px;
+        background: #E4E7ED;
     }
 
     .image {

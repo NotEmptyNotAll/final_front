@@ -150,7 +150,7 @@
                    :visible.sync="dialogTableVisible">
             <hr/>
             <div v-if="LOAD_PARAM_SIZE_NAME" class="lds-dual-ring-black" style="margin-left:44.5% "></div>
-            <el-card v-for="(param,index) in listSizeParamOnDialog" v-bind:key="param"
+            <el-card v-for="(param,index) in listSizeParamOnDialog" v-bind:key="param"  v-show="param.name!==''"
                      class="card-st" shadow="hover">
                 <div class="dialog-number">
                     <h2>{{index+1}}</h2>
@@ -161,23 +161,11 @@
                 </div>
                 <div class="arrow-down" @click="downSortNum(param)"><i class="el-icon-arrow-down"></i></div>
             </el-card>
-            <el-card v-for="(param,index) in paramSizeList" v-bind:key="param"
-                     class="card-st" shadow="hover" v-show="param.name!==''">
-                <div class="dialog-number">
-                    <h2>{{index+1+listSizeParamOnDialog.length}}</h2>
-                </div>
-                <h5 style="margin-left: 50px;">{{param.name}}</h5>
-
-                <div class="arrow-up">
-                    <i class="el-icon-arrow-up"></i>
-                </div>
-                <div class="arrow-down"><i class="el-icon-arrow-down"></i></div>
-            </el-card>
             <hr/>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="addNewParamSize()">{{$ml.get('word.add')}}</el-button>
             </div>
-            <el-card class="card-st" v-for="param in paramSizeList" v-bind:key="param"
+            <el-card class="card-st" v-for="param in listSizeParamOnDialog" v-bind:key="param"
                      v-show="param.name===''" shadow="hover">
                 <div class="row">
                     <inputList
@@ -402,7 +390,7 @@
                 }
             },
             addNewParamSize() {
-                this.paramSizeList.push({
+                this.listSizeParamOnDialog.push({
                         elementsCh: [],
                         paramNameFk: 0,
                         parentId: 0,
@@ -411,7 +399,7 @@
                 )
             },
             deleteParamSize(param) {
-                this.paramSizeList.splice(this.paramSizeList.indexOf(param), 1)
+                this.listSizeParamOnDialog.splice(this.listSizeParamOnDialog.indexOf(param), 1)
             },
             saveParamSize(param) {
                 param.name = this.PARAM_NAME.find(item => item.id === param.paramNameFk).data;
@@ -420,8 +408,20 @@
                     elemId: this.ELEMENTS_TREE.maxId + 1,
                     paramNameFk: param.paramNameFk,
                     parentId: this.item.id,
+                    color: this.item.color,
                     sortNumber: this.ELEMENTS_TREE.maxId + 1
                 });
+                this.item.elementsCh.push({
+                    id: this.ELEMENTS_TREE.maxId + 1,
+                    name:param.name,
+                    paramIsNotEmpty: true,
+                    color: this.item.color,
+                    sortNumber: this.ELEMENTS_TREE.maxId + 1,
+                    parametersIsExistInChilda: false
+                })
+                this.listSizeParamOnDialog = this.item.elementsCh.filter(elem => {
+                    return !elem.parametersIsExistInChild
+                })
                 this.setListNewElem(this.listNewElem);
                 this.setMaxId(this.ELEMENTS_TREE.maxId + 1);
             },

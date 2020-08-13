@@ -552,7 +552,8 @@
             async update(number) {
                 if (this.updateDataObj.objToBeChanged != null) {
                     let temp = this.dataList.find(item =>
-                        item.data === this.updateDataObj.updateData
+                        item.data === this.updateDataObj.updateData &&
+                        item.status === this.updateDataObj.status
                     );
                     if (temp === undefined) {
                         if (this.updateDataObj.status === null) {

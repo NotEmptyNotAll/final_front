@@ -13,7 +13,7 @@
             <el-menu-item class="item-menu" index="/newsearch"> <i class="el-icon-s-order"></i>{{$ml.get('word.parameters')}}</el-menu-item>
             <el-menu-item class="item-menu" index="/addData"><i class="el-icon-notebook-1"></i>{{$ml.get('word.updateData')}}</el-menu-item>
             <el-menu-item class="item-menu" index="/edittree"><i class="el-icon-edit-outline"></i>{{$ml.get('word.setParameter')}}</el-menu-item>
-            <el-menu-item class="item-menu" index="/treeStruct">{{$ml.get('word.treeStruct')}}</el-menu-item>
+            <el-menu-item class="item-menu" index="/treeStruct"> {{$ml.get('word.treeStruct')}}</el-menu-item>
             <el-submenu index="2" style="position: absolute; right: 6vw">
                 <template class="item-menu" slot="title"><span
                         style="font-size: 130%;">{{$ml.get('word.language')}}</span></template>
