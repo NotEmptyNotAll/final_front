@@ -54,7 +54,9 @@
                     <el-divider content-position="right">
                         <el-button-group>
                             <el-button v-for="current in ALL_AUTO_ENG.columnParam" v-bind:key="current"
-                                       plain type="info" v-on:click="setEngineParamData(current.columnResponseList)">
+                                       :plain="engineParamData!==current.columnResponseList"
+                                       type="info"
+                                       v-on:click="setEngineParamData(current)">
                                 {{current.name}}
                             </el-button>
                             <el-button plain type="info"
@@ -146,9 +148,9 @@
                                       v-bind:key="col">
                                     <h6><strong>{{col.name+": "}}</strong>{{scope.row[col.id]}}</h6><hr>
                                 </span>
-                                <el-button v-show="scope.row['listImage'+column.id]!==undefined"
+                                <el-button size="medium" v-show="scope.row['listImage'+column.id]!==undefined"
                                            type="text" @click="showImage(scope.row['listImage'+column.id])">
-                                    {{$ml.get('word.showPhoto')}}
+                                    <i style="font-size: 25px" class="el-icon-camera-solid"></i>
                                 </el-button>
                             </template>
                         </el-table-column>
@@ -165,7 +167,7 @@
             </div>
         </div>
         <el-dialog :title="$ml.get('word.titlePhoto')" :visible.sync="dialogFormVisible"
-                   custom-class="dialog-photo" :before-close="closeDialog" >
+                   custom-class="dialog-photo" :before-close="closeDialog">
             <el-carousel arrow="always" height="60vh" class="dialog-photo">
                 <el-carousel-item v-for="item in listFileUrl" :key="item"
                                   style="display: flex; justify-content: center;align-items: center">
@@ -193,7 +195,7 @@
     import fs from "fs";
     // eslint-disable-next-line no-unused-vars
     import pdfMake from "pdfmake/build/pdfmake";
-    import Vue from  "vue"
+    import Vue from "vue"
     import pdfFonts from "pdfmake/build/vfs_fonts";
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -215,7 +217,7 @@
                 options: {},
                 listFileUrl: [],
                 columnOptions: [],
-                cleanSearch:1,
+                cleanSearch: 1,
                 dialogFormVisible: false,
                 columns: [],
                 itemArray1: [
@@ -274,7 +276,7 @@
                     degreeCompression: null,
                     initRecordFrom: 1,
                     pageSize: 3,
-                    paramList:[]
+                    paramList: []
                 },
                 lengHeadNameArr: 0,
                 test: null,
@@ -328,7 +330,7 @@
                     cylinderPlace: null,
                     superchargedType: null,
                     degreeCompression: null,
-                    paramList:[],
+                    paramList: [],
                     initRecordFrom: this.pageSetting.initRecordFrom,
                     pageSize: this.pageSetting.pageSize
                 }
@@ -586,6 +588,10 @@
             }
             ,
             getAutoEngByFilter() {
+                if (this.pageSetting.releaseYear === '') {
+                    this.pageSetting.releaseYear = null
+                }
+                this.pageSetting.releaseYear = 2000
                 this.GET_ALL_AUTO(this.pageSetting);
             }
             ,
@@ -605,7 +611,7 @@
             }
             ,
             setEngineParamData(data) {
-                this.engineParamData = data
+                this.engineParamData = data.columnResponseList
             }
             ,
             changePageSize(value) {
@@ -652,7 +658,7 @@
                 '№', this.$ml.get('word.engine'), this.$ml.get('word.autoManufacturer'),
                 this.$ml.get('word.autoModel'), this.$ml.get('word.releaseYear'),
                 this.$ml.get('word.fuelType'),
-                 this.$ml.get('word.flapNumber'),
+                this.$ml.get('word.flapNumber'),
                 this.$ml.get('word.pistonStroke'),
                 this.$ml.get('word.engineCapacity'), this.$ml.get('word.powerKwt'),
                 this.$ml.get('word.superchargedType')
@@ -666,7 +672,12 @@
                 {key: 'fuelType', label: this.$ml.get('word.fuelType'), widthSmall: 110, widthLarge: 70},
                 {key: 'cylinderPlace', label: this.$ml.get('word.cylinders'), widthSmall: 110, widthLarge: 70},
                 {key: 'flapNumber', label: this.$ml.get('word.flapNumber'), widthSmall: 110, widthLarge: 90},
-                {key: 'superchargedType', label: this.$ml.get('word.superchargedType'), widthSmall: 110, widthLarge: 90}]
+                {
+                    key: 'superchargedType',
+                    label: this.$ml.get('word.superchargedType'),
+                    widthSmall: 110,
+                    widthLarge: 90
+                }]
             this.allTableColumns = [
                 {key: 'id', label: '№', widthSmall: 30, widthLarge: 40},
                 {key: 'engineType', label: this.$ml.get('word.engine'), widthSmall: 110, widthLarge: 200},
@@ -680,7 +691,12 @@
                 {key: 'pistonStroke', label: this.$ml.get('word.pistonStroke'), widthSmall: 110, widthLarge: 70},
                 {key: 'engineCapacity', label: this.$ml.get('word.engineCapacity'), widthSmall: 110, widthLarge: 70},
                 {key: 'powerKwt', label: this.$ml.get('word.powerKwt'), widthSmall: 110, widthLarge: 70},
-                {key: 'superchargedType', label: this.$ml.get('word.superchargedType'), widthSmall: 110, widthLarge: 90}]
+                {
+                    key: 'superchargedType',
+                    label: this.$ml.get('word.superchargedType'),
+                    widthSmall: 110,
+                    widthLarge: 90
+                }]
         }
     }
 </script>

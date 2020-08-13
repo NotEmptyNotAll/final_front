@@ -24,6 +24,7 @@
                   @change="onInputAction"
         >
             <el-select  slot="prepend" v-model="paramSize"
+                        clearable
                        :placeholder="$ml.get('word.choose')">
                 <el-option
                         v-for="item in paramSizeList"
@@ -97,6 +98,7 @@
         methods: {
             clear(){
                 this.inputValue = ''
+                this.paramSize = ''
                 this.saveParameters[this.index] = ''
             },
             onInputAction() {
