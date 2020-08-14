@@ -87,6 +87,7 @@
             <div v-for="(param,index) in searchData.paramList" v-bind:key="param" class="savePageRow row ">
                 <div class="input-group col-md-5">
                     <param-elements-input
+                            :load="ELEMENTS_TREE_FOR_SEARCH_LOAD"
                             :title-input="$ml.get('word.parameter')"
                             :items="treeElem"
                             :param-obj="param"
@@ -225,6 +226,7 @@
                 'ENGDATA',
                 'SHOW_LOAD',
                 'LISTPARAM',
+                'ELEMENTS_TREE_FOR_SEARCH_LOAD',
                 'PARAM_NAME_AND_UNITS',
                 'ELEMENTS',
                 'SEARCHDATA',

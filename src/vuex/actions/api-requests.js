@@ -1,9 +1,10 @@
 import axios from "axios";
+
 let urlApi = 'https://enginefinal.herokuapp.com/';
 //let urlApi = 'http://localhost:5050/';
 
 export default {
-    async GET_FILE_LIST_BY_URL({commit},response) {
+    async GET_FILE_LIST_BY_URL({commit}, response) {
         commit('SET_LOAD_LIST_URL', true);
         return await axios({
             method: 'POST',
@@ -21,7 +22,7 @@ export default {
                 return error
             })
     },
-    async GET_ALL_AUTO({commit},response) {
+    async GET_ALL_AUTO({commit}, response) {
         commit('SET_LOAD_ALL_AUTO_ENG', true);
         return await axios({
             method: 'POST',
@@ -40,7 +41,7 @@ export default {
                 return error
             })
     },
-    async GET_PARAM_SIZE_NAME({commit},response) {
+    async GET_PARAM_SIZE_NAME({commit}, response) {
         commit('SET_LOAD_PARAM_SIZE_NAME', true);
         return await axios({
             method: 'POST',
@@ -73,14 +74,17 @@ export default {
             })
     },
     GET_TREE_ELEMENTS({commit}) {
+        commit('ELEMENTS_TREE_FOR_SEARCH_LOAD', true)
         return axios(urlApi + 'getTreeElements', {
             method: 'GET'
         })
             .then((startParam) => {
                 commit('SET_TREE_ELEMENTS', startParam.data)
+                commit('ELEMENTS_TREE_FOR_SEARCH_LOAD', false)
                 return startParam;
             })
             .catch((error) => {
+                commit('ELEMENTS_TREE_FOR_SEARCH_LOAD', false)
                 console.log(error);
                 return error
             })
@@ -145,7 +149,7 @@ export default {
             data: searchData,
             responseType: 'json'
         }).then(engData => {
-            commit('SET_AUTO_ENGINE',  [engData.data])
+            commit('SET_AUTO_ENGINE', [engData.data])
 
             commit('SET_SHOW_LOAD', false);
             return engData;

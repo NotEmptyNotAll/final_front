@@ -107,6 +107,9 @@ export default {
     ELEMENTS_LOAD: (state) => {
         return state.elementsLoad;
     },
+    ELEMENTS_TREE_FOR_SEARCH_LOAD: (state) => {
+        return state.loadTreeElementsForSearch;
+    },
     ELEMENTS_TREE_LOAD: (state) => {
         return state.elem_tree_load;
     },

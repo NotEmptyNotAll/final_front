@@ -406,7 +406,7 @@
                 let temp = this.listElemUpdate.find(item => item.elemId === this.elemId)
                 if (temp === undefined) {
                     this.listElemUpdate.push({
-                        elemId: this.elemId,
+                        elemId:  this.tempItem.id,
                         parentId: null,
                         paramNameFk: null,
                         color: this.colors.hex

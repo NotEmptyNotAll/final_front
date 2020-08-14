@@ -19,13 +19,13 @@ export default {
         state.loadAllAutoEng = loadAllAutoEng;
     },
     SET_PARAM_SIZE_NAME: (state, loadAllAutoEng) => {
-        state.paramSizeName= loadAllAutoEng;
+        state.paramSizeName = loadAllAutoEng;
     },
     SET_LOAD_PARAM_SIZE_NAME: (state, loadAllAutoEng) => {
         state.loadParamSizeName = loadAllAutoEng;
     },
     SET_ELEMENTS_UPDATE(state, engData) {
-         state.elementsUpdate=engData;
+        state.elementsUpdate = engData;
     },
     SET_STARTPARAM: (state, startParam) => {
         state.startParam = startParam;
@@ -67,7 +67,7 @@ export default {
         state.searchData = searchData;
     },
     SET_ENGINE: (state, engine) => {
-        return  state.engine=engine;
+        return state.engine = engine;
     },
     SET_LOADPARAM: (state, loadParam) => {
         state.loadParam = loadParam;
@@ -86,6 +86,9 @@ export default {
     },
     SET_ELEMENTS_TREE_MAXID: (state, maxId) => {
         state.elemTree.maxId = maxId;
+    },
+    ELEMENTS_TREE_FOR_SEARCH_LOAD: (state, loadTreeElementsForSearch) => {
+        state.loadTreeElementsForSearch = loadTreeElementsForSearch;
     },
     SET_ELEMENTS_TREE_LOAD: (state, elem_tree_load) => {
         state.elem_tree_load = elem_tree_load;
