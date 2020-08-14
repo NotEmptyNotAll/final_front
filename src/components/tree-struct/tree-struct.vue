@@ -1,5 +1,9 @@
 <template>
     <div>
+        <div v-if="ELEMENTS_TREE_LOAD" class="load-panel">
+            <div class="lds-dual-ring-black"></div>
+        </div>
+        <div  v-else>
         <div class="row" style="width: 100%;">
             <div class="col-md-2"></div>
             <VueDataList02
@@ -116,6 +120,7 @@
 
             </el-tabs>
         </div>
+    </div>
     </div>
 </template>
 
@@ -604,6 +609,14 @@
         }
     }
 
+    .load-panel{
+        width: 100%;
+        height: 700px;
+        display: flex;
+        justify-content: center;
+
+        align-items: center;
+    }
 
     @keyframes moveInTop {
         0% {

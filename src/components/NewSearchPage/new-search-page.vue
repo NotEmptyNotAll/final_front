@@ -591,7 +591,6 @@
                 if (this.pageSetting.releaseYear === '') {
                     this.pageSetting.releaseYear = null
                 }
-                this.pageSetting.releaseYear = 2000
                 this.GET_ALL_AUTO(this.pageSetting);
             }
             ,
