@@ -150,7 +150,7 @@
                    :visible.sync="dialogTableVisible">
             <hr/>
             <div v-if="LOAD_PARAM_SIZE_NAME" class="lds-dual-ring-black" style="margin-left:44.5% "></div>
-            <el-card v-for="(param,index) in listSizeParamOnDialog" v-bind:key="param"  v-show="param.name!==''"
+            <el-card v-for="(param,index) in listSizeParamOnDialog" v-bind:key="param" v-show="param.name!==''"
                      class="card-st" shadow="hover">
                 <div class="dialog-number">
                     <h2>{{index+1}}</h2>
@@ -240,7 +240,8 @@
                 saveElemData: {
                     elemId: null,
                     paramNameFk: null,
-                    parentId: null
+                    parentId: null,
+                    sortNumber: null
                 },
                 color1: null,
                 elementsCh: [],
@@ -317,7 +318,7 @@
                         sortNumber: this.listSizeParamOnDialog[index - 1].sortNumber,
                     }
                     let obj2 = {
-                        elemId:  this.listSizeParamOnDialog[index - 1].id,
+                        elemId: this.listSizeParamOnDialog[index - 1].id,
                         sortNumber: this.listSizeParamOnDialog[index].sortNumber,
                     }
                     this.swap(this.listSizeParamOnDialog[index],
@@ -336,7 +337,7 @@
                         sortNumber: this.listSizeParamOnDialog[index + 1].sortNumber,
                     }
                     let obj2 = {
-                        elemId:  this.listSizeParamOnDialog[index + 1].id,
+                        elemId: this.listSizeParamOnDialog[index + 1].id,
                         sortNumber: this.listSizeParamOnDialog[index].sortNumber,
                     }
                     this.swap(this.listSizeParamOnDialog[index],
@@ -354,25 +355,33 @@
                             elementsCh: [],
                             name: '',
                             paramIsNotEmpty: true,
-                            parametersIsExistInChilda: true
+                            parametersIsExistInChild: true
                         }],
                         name: '',
                         paramIsNotEmpty: true,
-                        parametersIsExistInChilda: true
+                        parametersIsExistInChild: true
                     }
                 );
-                this.setMaxId(this.ELEMENTS_TREE.maxId + 1);
+                //  this.setMaxId(this.ELEMENTS_TREE.maxId + 1);
                 console.log(number);
             },
             saveElem(number) {
                 this.item.name = this.PARAM_NAME.find(item => item.id === this.saveElemData.paramNameFk).data;
                 this.saveElemData.parentId = this.idParentElem;
                 this.saveElemData.elemId = this.ELEMENTS_TREE.maxId + 1;
+                this.saveElemData.sortNumber = this.ELEMENTS_TREE.maxId + 1;
                 this.item.id = this.ELEMENTS_TREE.maxId + 1;
                 this.listNewElem = this.LISTNEWELEM;
                 this.listNewElem.push(this.saveElemData);
+                this.listNewElem.push({
+                    elemId: this.ELEMENTS_TREE.maxId + 2,
+                    paramNameFk: -1,
+                    parentId: this.ELEMENTS_TREE.maxId + 1,
+                    color: this.item.color,
+                    sortNumber: this.ELEMENTS_TREE.maxId + 2
+                });
                 this.setListNewElem(this.listNewElem);
-                this.setMaxId(this.ELEMENTS_TREE.maxId + 1);
+                this.setMaxId(this.ELEMENTS_TREE.maxId + 2);
                 this.listElem.push(this.saveElemData)
                 console.log(number);
             },
@@ -401,21 +410,33 @@
             deleteParamSize(param) {
                 this.listSizeParamOnDialog.splice(this.listSizeParamOnDialog.indexOf(param), 1)
             },
+            deleteDefaultSizeFromItem() {
+                let listNewElem = this.LISTNEWELEM;
+                let index = this.listNewElem
+                    .findIndex(item => item.parentId === this.item.id && item.paramNameFk === -1)
+                listNewElem.splice(index, 1)
+                this.setListNewElem(listNewElem);
+            },
             saveParamSize(param) {
+                if (this.item.elementsCh.length === 1) {
+                    this.item.elementsCh = []
+                    this.deleteDefaultSizeFromItem()
+                }
                 param.name = this.PARAM_NAME.find(item => item.id === param.paramNameFk).data;
                 this.listNewElem = this.LISTNEWELEM;
                 this.listNewElem.push({
                     elemId: this.ELEMENTS_TREE.maxId + 1,
                     paramNameFk: param.paramNameFk,
                     parentId: this.item.id,
-                    color: this.item.color,
+                    color: "grey",
                     sortNumber: this.ELEMENTS_TREE.maxId + 1
                 });
+
                 this.item.elementsCh.push({
                     id: this.ELEMENTS_TREE.maxId + 1,
-                    name:param.name,
+                    name: param.name,
                     paramIsNotEmpty: true,
-                    color: this.item.color,
+                    color: "gray",
                     sortNumber: this.ELEMENTS_TREE.maxId + 1,
                     parametersIsExistInChilda: false
                 })
