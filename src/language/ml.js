@@ -104,6 +104,7 @@ export default new MLCreate({
                 passwordErr: 'password is required!',
                 usernamedErr: 'Username is required!',
                 colorAdd: "color changed",
+                deleteSuccess: 'removal was successful',
                 chooseColor: 'select element from the tree to change the color',
                 authErr: "Authorization Error",
                 colorConfirmMsg:"do you want to change  the color of all child components of this element?",
@@ -112,6 +113,7 @@ export default new MLCreate({
             errPage: {
                 logoText: 'error',
                 oopsRow: 'Oops! This page Could Not Be Found!',
+                deleteErr: 'first remove dependent items',
                 SorryRow: 'Sorry bit the page you are looking for does not exist, have been removed or name changed.',
                 buttonText: 'Go to homepage'
             }
@@ -212,6 +214,7 @@ export default new MLCreate({
             msg: {
                 passwordErr: "Пароль необходим!",
                 colorAdd: "цвет изменен",
+                deleteSuccess: 'удаление прошло успешно',
                 chooseColor: 'для изменения цвета выберите элемент из дерева',
                 userNamedErr: "Имя пользователя необходимо!",
                 authErr: "Ошибка авторизации",
@@ -221,6 +224,7 @@ export default new MLCreate({
             errPage: {
                 logoText: 'ошибка',
                 oopsRow: "Ой! Эту страницу не удалось найти!",
+                deleteErr: 'вначале удалите зависимые элементы',
                 SorryRow: 'К сожалению, искомая страница не существует, была удалена или изменено имя.',
                 buttonText: 'Перейти на домашнюю страницу'
             }
@@ -324,6 +328,7 @@ export default new MLCreate({
                 userNamedErr: 'Ім\'я користувача обов\'язкове!',
                 colorAdd: "колір змінений",
                 authErr: 'Помилка авторизації',
+                deleteSuccess: 'видалення пройшло успішно',
                 colorConfirmMsg:"ви хочете змінити колір всіх дочірніх компонентів цього елемента?",
                 duplicateValue: 'повторюване значення',
                 formatIsIncorrect: "Формат вкладених файлів невірний. Видаліть і повторно завантажте!"
@@ -331,6 +336,7 @@ export default new MLCreate({
             errPage: {
                 logoText: 'помилка',
                 oopsRow: "На жаль! Цю сторінку не вдалося знайти! ",
+                deleteErr: 'спочатку видаліть залежні елементи',
                 SorryRow: "Вибачте, що сторінки, яку ви шукаєте, не існує, її видалено або змінено ім'я.",
                 buttonText: "Перейти на головну сторінку"
             }

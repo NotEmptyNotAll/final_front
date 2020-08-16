@@ -42,21 +42,20 @@
                             <scroll-container>
                                 <dev class="tree-st">
                                     <tree-item
-                                            v-for="treeItem in elem.elementsCh"
-                                            v-bind:key="treeItem"
-                                            class="item"
-                                            change-mod="tree"
-                                            :item="treeItem"
-                                            :nav="treeItem.name"
-                                            :choice-param="choiceParam"
-                                            :space="''"
-                                            :nowPressed=nowPressed
-                                            :id-parent-elem="elem.id"
-                                            :show-edit-param="showEditParam"
-                                            @set-color-elem="setColorElem"
-                                            @parent-delete="deleteElem"
-                                            @add-elem-to-update="addElemFromChildToList"
-                                            @get-size-param="getParamSizeEelem"
+                                        v-for="treeItem in elem.elementsCh"
+                                        v-bind:key="treeItem"
+                                        change-mod="tree"
+                                        :item="treeItem"
+                                        :nav="treeItem.name"
+                                        :choice-param="choiceParam"
+                                        :space="''"
+                                        :nowPressed=nowPressed
+                                        :id-parent-elem="elem.id"
+                                        :show-edit-param="showEditParam"
+                                        @set-color-elem="setColorElem"
+                                        @parent-delete="deleteElem"
+                                        @add-elem-to-update="addElemFromChildToList"
+                                        @get-size-param="getParamSizeEelem"
                                     />
 
                                     <button type="button"

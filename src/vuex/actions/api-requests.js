@@ -200,7 +200,7 @@ export default {
         commit('SET_LOAD_PARAM_FOR_TREE', true);
         return await axios({
             method: 'POST',
-            url: 'http://localhost:5050/getParameters',
+            url: urlApi + 'getParameters',
             data: number,
             responseType: 'json'
         }).then(listParam => {

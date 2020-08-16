@@ -1,16 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6c064916-4a6b-4e88-93a1-d4463136ec2b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/vuex/actions/api-delete.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/auto-engine-save-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/auto-engine-save-panel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/save-update-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/save-update-panel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/two-update-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/two-update-panel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/vue-save-update-page.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/vue-save-update-page.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchPage/searchEng.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchPage/searchEng.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navbar/navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tree-struct/tree-struct.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tree-struct/tree-struct.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tree/tree.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tree/tree.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/language/ml.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/language/ml.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vuex/actions/api-requests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vuex/actions/api-requests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vuex/actions/api-save-requests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vuex/actions/api-save-requests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vuex/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vuex/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,6 +91,7 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -72,11 +121,29 @@
       <workItem from="1597343529451" duration="4350000" />
       <workItem from="1597401705683" duration="3391000" />
       <workItem from="1597417862976" duration="12009000" />
+      <workItem from="1597505823561" duration="1228000" />
+      <workItem from="1597510592526" duration="13204000" />
+      <workItem from="1597535087556" duration="5108000" />
+      <workItem from="1597540792732" duration="3790000" />
+      <workItem from="1597579578116" duration="4851000" />
+      <workItem from="1597589594281" duration="1216000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2338" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596846759686">
@@ -87,29 +154,39 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1596884232740" />
-    <state width="1825" height="138" key="GridCell.Tab.0.bottom" timestamp="1597491528609">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1897" height="340" key="GridCell.Tab.0.bottom" timestamp="1597579309675">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state width="1897" height="340" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597579309675" />
     <state width="1825" height="138" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597491528609" />
-    <state width="1825" height="138" key="GridCell.Tab.0.center" timestamp="1597491528609">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1897" height="340" key="GridCell.Tab.0.center" timestamp="1597579309675">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state width="1897" height="340" key="GridCell.Tab.0.center/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597579309675" />
     <state width="1825" height="138" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597491528609" />
-    <state width="1825" height="138" key="GridCell.Tab.0.left" timestamp="1597491528608">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1897" height="340" key="GridCell.Tab.0.left" timestamp="1597579309674">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state width="1897" height="340" key="GridCell.Tab.0.left/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597579309674" />
     <state width="1825" height="138" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597491528608" />
-    <state width="1825" height="138" key="GridCell.Tab.0.right" timestamp="1597491528609">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1897" height="340" key="GridCell.Tab.0.right" timestamp="1597579309675">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state width="1897" height="340" key="GridCell.Tab.0.right/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597579309675" />
     <state width="1825" height="138" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597491528609" />
-    <state x="1092" y="332" width="742" height="900" key="dock-window-1" timestamp="1597189946363">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state x="2837" y="29" width="587" height="834" maximized="true" key="dock-window-1" timestamp="1597590369539">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
+    <state x="2837" y="29" width="587" height="834" maximized="true" key="dock-window-1/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597590369539" />
     <state x="1092" y="332" width="742" height="900" key="dock-window-1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597189946363" />
-    <state x="660" y="252" key="run.anything.popup" timestamp="1597270678533">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state x="611" y="252" key="run.anything.popup" timestamp="1597578991698">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="611" y="252" key="run.anything.popup/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597578991698" />
     <state x="660" y="252" key="run.anything.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597270678533" />
+    <state x="623" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1597535026092">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="623" y="259" width="672" height="678" key="search.everywhere.popup/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597535026092" />
   </component>
 </project>
