@@ -158,7 +158,7 @@
       ></tree-item>
     </ul>
 
-    <el-dialog width="25%" :title="$ml.get('word.paramSizeName')" close-delay="dialog"
+    <el-dialog width="30%" :title="$ml.get('word.paramSizeName')" close-delay="dialog"
                :visible.sync="dialogTableVisible">
       <hr/>
       <div v-if="LOAD_PARAM_SIZE_NAME" class="lds-dual-ring-black" style="margin-left:44.5% "></div>
@@ -167,7 +167,7 @@
         <div class="dialog-number">
           <h2>{{ index + 1 }}</h2>
         </div>
-        <h5 style="margin-left: 50px;">{{ param.name }}</h5>
+        <h5 style="margin-left: 50px;">{{ param.name!=='Тест'?param.name:$ml.get('word.value') }}</h5>
         <div class="arrow-up" @click="upSortNum(param)">
           <i class="el-icon-arrow-up"></i>
         </div>
@@ -762,7 +762,7 @@ export default {
 }
 
 ul {
-  color: #606266;
+  color: #303133;
   padding-left: 1em;
   line-height: 1.5em;
   list-style-type: none;
