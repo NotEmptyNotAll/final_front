@@ -101,6 +101,9 @@ export default {
     SAVE_STATUS: (state) => {
         return state.saveStatus;
     },
+    DELETE_RESPONSE: (state) => {
+        return state.deleteResponse;
+    },
     UPDATE_ENGINE: (state) => {
         return state.updateDataObj;
     },

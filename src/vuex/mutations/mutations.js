@@ -63,6 +63,9 @@ export default {
     SET_AUTO_ENGINE_LOAD: (state, autoEngineLoad) => {
         state.loadSave.automobileEngine = autoEngineLoad;
     },
+    SET_DELETE_RESPONSE: (state, deleteResponse) => {
+        state.deleteResponse = deleteResponse;
+    },
     SET_SEARCH_DATA: (state, searchData) => {
         state.searchData = searchData;
     },

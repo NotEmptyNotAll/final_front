@@ -66,14 +66,14 @@
               :label="this.$ml.get('word.deleteR')"
           >
             <template slot-scope="scope">
-            <el-button
-                :loading="deleteLoad"
-                icon="el-icon-delete-solid"
-                size="mini"
-                type="danger"
-                style="font-size: 20px"
-                @click="deleteObj(scope.$index, scope.row)"></el-button>
-          </template>
+              <el-button
+                  :loading="deleteLoadId===scope.row.id"
+                  icon="el-icon-delete-solid"
+                  size="mini"
+                  type="danger"
+                  style="font-size: 20px"
+                  @click="deleteObj(scope.$index, scope.row,$event)"></el-button>
+            </template>
           </el-table-column>
 
         </el-table>
@@ -676,7 +676,7 @@ export default {
     columns: [],
     limitUpload: 100,
     fileTemp: null,
-    deleteLoad: false,
+    deleteLoadId: -1,
     file: null,
     listFile: null,
     da: null,
@@ -698,6 +698,7 @@ export default {
     ...mapGetters([
       'ADDITIONAL_DATA',
       'UPDATE_ENGINE',
+      'DELETE_RESPONSE',
       'ENGINE',
       'PARAM_NAME_AND_UNITS',
       'LOAD_ADDITIONAL_DATA'
@@ -718,7 +719,7 @@ export default {
       this.cancel()
       this.cancelSave()
     },
-    handleDeleteRow(index, row){
+    handleDeleteRow(index, row) {
       console.log(index, row);
     },
     // eslint-disable-next-line no-unused-vars
@@ -732,27 +733,11 @@ export default {
         return 'success-row';
       }
     },
-    async deleteObj(index, row) {
-      this.deleteLoad = true
-      let resp = await this.$emit("delete-data-api", row.id);
-      if (resp) {
-        this.$message({
-          showClose: true,
-          message: this.$ml.get('msg.deleteSuccess'),
-          type: 'success'
-        });
-        this.dataList
-            .splice(this.dataList.findIndex(item => item.id === row.id), 1)
-      } else {
-        this.$message({
-          showClose: true,
-          message: this.$ml.get('errPage.deleteErr'),
-          type: 'error'
-        });
-      }
-      this.deleteLoad = false
+    // eslint-disable-next-line no-unused-vars
+    deleteObj(index, row, evt) {
+      this.deleteLoadId = row.id
+      this.$emit("delete-data-api", row.id)
       console.log(index, row);
-
     },
     onexport() { // On Click Excel download button
 
@@ -1166,7 +1151,28 @@ export default {
       console.log(number)
     }
   },
-  watch: {},
+  watch: {
+    DELETE_RESPONSE: function (val) {
+      if (this.deleteLoadId !== -1) {
+        if (val.resp) {
+          this.$message({
+            showClose: true,
+            message: this.$ml.get('msg.deleteSuccess'),
+            type: 'success'
+          });
+          this.dataList
+              .splice(this.listForSearch.findIndex(item => item.id === val.id), 1)
+        } else {
+          this.$message({
+            showClose: true,
+            message: this.$ml.get('errPage.deleteErr'),
+            type: 'error'
+          });
+        }
+        this.deleteLoadId = -1
+      }
+    }
+  },
   mounted() {
 
 
@@ -1221,7 +1227,8 @@ export default {
       {key: 'status', label: this.$ml.get('word.status'), sortable: true}];
     this.GET_ALL_PARAM_NAME();
 
-  }
+  },
+
 }
 </script>
 

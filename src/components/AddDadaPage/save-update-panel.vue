@@ -67,7 +67,7 @@
           >
             <template slot-scope="scope" >
               <el-button
-                  :loading="deleteLoad"
+                  :loading="deleteLoadId===scope.row.id"
                   icon="el-icon-delete-solid"
                   size="mini"
                   type="danger"
@@ -310,7 +310,7 @@ export default {
       status: 1
     },
     search: '',
-    deleteLoad: false,
+    deleteLoadId: -1,
     test: null,
     cleanInputList: false,
     columnOptions: [],
@@ -331,6 +331,7 @@ export default {
   computed: {
     ...mapGetters([
       'PARAM_NAME_AND_UNITS',
+      'DELETE_RESPONSE',
       'LOAD_ADDITIONAL_DATA'
     ])
   },
@@ -373,26 +374,9 @@ export default {
       }
     },
     async deleteObj(index, row) {
-      this.deleteLoad = true
-      let resp = await this.$emit("delete-data-api", row.id);
-      if (resp) {
-        this.$message({
-          showClose: true,
-          message: this.$ml.get('msg.deleteSuccess'),
-          type: 'success'
-        });
-        this.dataList
-            .splice(this.listForSearch.findIndex(item => item.id === row.id), 1)
-      } else {
-        this.$message({
-          showClose: true,
-          message: this.$ml.get('errPage.deleteErr'),
-          type: 'error'
-        });
-      }
-      this.deleteLoad = false
+      this.deleteLoadId = row.id
+      this.$emit("delete-data-api", row.id)
       console.log(index, row);
-
     },
     onChange() {
       this.filterResults();
@@ -665,6 +649,26 @@ export default {
   }
   ,
   watch: {
+    DELETE_RESPONSE: function (val) {
+          if (this.deleteLoadId !== -1) {
+        if (val.resp) {
+          this.$message({
+            showClose: true,
+            message: this.$ml.get('msg.deleteSuccess'),
+            type: 'success'
+          });
+          this.dataList
+              .splice(this.listForSearch.findIndex(item => item.id === val.id), 1)
+        } else {
+          this.$message({
+            showClose: true,
+            message: this.$ml.get('errPage.deleteErr'),
+            type: 'error'
+          });
+        }
+        this.deleteLoadId = -1
+      }
+    },
     dataList: function (val) {
       if (val !== null || val !== undefined)
         this.listForSearch = this.dataList;

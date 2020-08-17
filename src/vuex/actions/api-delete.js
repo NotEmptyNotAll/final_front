@@ -10,13 +10,13 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'elements',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+            if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
             }
 
         })
@@ -30,13 +30,13 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'paramName',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+            if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
             }
 
         })
@@ -50,7 +50,7 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'parameters',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
             if (listParam.data.listDependencyElements !== null) {
@@ -70,16 +70,14 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'autoModel',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+             if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
-            }
-
-        })
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
+            }})
             .catch((error) => {
                 console.log(error);
                 return error
@@ -87,16 +85,16 @@ export default {
     },
     // eslint-disable-next-line no-unused-vars
     async DELETE_ENGINE({commit}, number) {
-        return await axios({
+         axios({
             method: 'POST',
             url: urlApi + 'engine',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+            if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
             }
 
         })
@@ -110,16 +108,14 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'autoEngine',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+             if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
-            }
-
-        })
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
+            }})
             .catch((error) => {
                 console.log(error);
                 return error
@@ -130,16 +126,14 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'measurementUnits',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+             if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
-            }
-
-        })
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
+            }})
             .catch((error) => {
                 console.log(error);
                 return error
@@ -150,16 +144,14 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'cylinders',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+             if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
-            }
-
-        })
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
+            }})
             .catch((error) => {
                 console.log(error);
                 return error
@@ -170,16 +162,14 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'fuelType',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+             if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
-            }
-
-        })
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
+            }})
             .catch((error) => {
                 console.log(error);
                 return error
@@ -190,16 +180,14 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'engineManufacture',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+             if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
-            }
-
-        })
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
+            }})
             .catch((error) => {
                 console.log(error);
                 return error
@@ -210,16 +198,14 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'autoManufacture',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+             if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
-            }
-
-        })
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
+            }})
             .catch((error) => {
                 console.log(error);
                 return error
@@ -230,16 +216,14 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'fileStorage',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+             if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
-            }
-
-        })
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
+            }})
             .catch((error) => {
                 console.log(error);
                 return error
@@ -250,16 +234,14 @@ export default {
         return await axios({
             method: 'POST',
             url: urlApi + 'supercharged',
-            data: {id:number},
+            data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements !== null) {
-                return false; //Exception from backend
+             if (listParam.data.listDependencyElements.length > 0) {
+                commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
-                return true; //All data successfully deleted
-            }
-
-        })
+                commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
+            }})
             .catch((error) => {
                 console.log(error);
                 return error

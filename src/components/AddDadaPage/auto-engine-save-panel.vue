@@ -67,7 +67,7 @@
           >
             <template slot-scope="scope">
               <el-button
-                  :loading="deleteLoad"
+                  :loading="deleteLoadId===scope.row.id"
                   icon="el-icon-delete-solid"
                   size="mini"
                   type="danger"
@@ -465,7 +465,7 @@ export default {
       editRow: null,
     },
     cleanInputList: false,
-    deleteLoad: false,
+    deleteLoadId: -1,
     tempObj: null,
     columnOptions: [],
     columns: [],
@@ -493,6 +493,7 @@ export default {
     ...mapGetters([
       'ADDITIONAL_DATA',
       'AUTO_ENGINE_LOAD',
+      'DELETE_RESPONSE',
       'AUTO_ENGINE',
       'LOAD_SAVE_AUTOMOBILE_ENGINE',
       'LOAD_ADDITIONAL_DATA',
@@ -635,26 +636,9 @@ export default {
       });
     },
     async deleteObj(index, row) {
-      this.deleteLoad = true
-      let resp = await this.$emit("delete-data-api", row.id);
-      if (resp) {
-        this.$message({
-          showClose: true,
-          message: this.$ml.get('msg.deleteSuccess'),
-          type: 'success'
-        });
-        this.dataList
-            .splice(this.dataList.findIndex(item => item.id === row.id), 1)
-      } else {
-        this.$message({
-          showClose: true,
-          message: this.$ml.get('errPage.deleteErr'),
-          type: 'error'
-        });
-      }
-      this.deleteLoad = false
+      this.deleteLoadId = row.id
+      this.$emit("delete-data-api", row.id)
       console.log(index, row);
-
     },
     // eslint-disable-next-line no-unused-vars
     importfxx(obj) {
@@ -846,7 +830,28 @@ export default {
       console.log(1)
     }
   },
-  watch: {},
+  watch: {
+    DELETE_RESPONSE: function (val) {
+      if (this.deleteLoadId !== -1) {
+        if (val.resp) {
+          this.$message({
+            showClose: true,
+            message: this.$ml.get('msg.deleteSuccess'),
+            type: 'success'
+          });
+          this.dataList
+              .splice(this.listForSearch.findIndex(item => item.id === val.id), 1)
+        } else {
+          this.$message({
+            showClose: true,
+            message: this.$ml.get('errPage.deleteErr'),
+            type: 'error'
+          });
+        }
+        this.deleteLoadId = -1
+      }
+    }
+  },
   mounted() {
     this.checkedColumns = ['№', this.$ml.get('word.engine'), this.$ml.get('word.autoManufacturer'),
       this.$ml.get('word.autoModel'), this.$ml.get('word.releaseYearFrom'), this.$ml.get('word.releaseYearBy')];
