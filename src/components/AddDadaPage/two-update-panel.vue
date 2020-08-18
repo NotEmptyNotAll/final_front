@@ -66,13 +66,25 @@
               :label="this.$ml.get('word.deleteR')"
           >
             <template slot-scope="scope">
-              <el-button
-                  :loading="deleteLoadId===scope.row.id"
-                  icon="el-icon-delete-solid"
-                  size="mini"
-                  type="danger"
-                  style="font-size: 20px"
-                  @click="deleteObj(scope.$index, scope.row)"></el-button>
+              <el-popconfirm
+                  :confirmButtonText='confirmOk'
+                  :cancelButtonText='confirmNo'
+                  icon="el-icon-info"
+                  cancelButtonType="danger"
+                  iconColor="red"
+                  @onConfirm="deleteObj(scope.$index, scope.row,$event)"
+                  :title="confirmText"
+              >
+                <el-button
+                    slot="reference"
+                    :loading="deleteLoadId===scope.row.id"
+                    icon="el-icon-delete-solid"
+                    size="mini"
+                    type="danger"
+                    @click="setConfirmText"
+                    style="font-size: 20px"
+                ></el-button>
+              </el-popconfirm>
             </template>
           </el-table-column>
 
@@ -355,6 +367,9 @@ export default {
     columns: [],
     cleanInputList: false,
     limitUpload: 100,
+    confirmText: '',
+    confirmOk: '',
+    confirmNo: '',
     fileTemp: null,
     file: null,
     listFile: null,
@@ -657,6 +672,11 @@ export default {
       this.updateDataObj.status = 1;
       this.tempUpdateObj.objToBeChanged = 0
       this.updateDataObj.saveData_secondary = null;
+    },
+    setConfirmText() {
+      this.confirmText=  this.$ml.get('msg.deleteConfirm')
+      this.confirmOk=  this.$ml.get('word.confirm')
+      this.confirmNo=  this.$ml.get('word.cancel')
     },
     cancelSave() {
       this.cleanInputList = !this.cleanInputList;

@@ -66,13 +66,25 @@
               :label="this.$ml.get('word.deleteR')"
           >
             <template slot-scope="scope" >
-              <el-button
-                  :loading="deleteLoadId===scope.row.id"
-                  icon="el-icon-delete-solid"
-                  size="mini"
-                  type="danger"
-                  style="font-size: 20px"
-                  @click="deleteObj(scope.$index, scope.row)"></el-button>
+              <el-popconfirm
+                  :confirmButtonText='confirmOk'
+                  :cancelButtonText='confirmNo'
+                  icon="el-icon-info"
+                  cancelButtonType="danger"
+                  iconColor="red"
+                  @onConfirm="deleteObj(scope.$index, scope.row,$event)"
+                  :title="confirmText"
+              >
+                <el-button
+                    slot="reference"
+                    :loading="deleteLoadId===scope.row.id"
+                    icon="el-icon-delete-solid"
+                    size="mini"
+                    type="danger"
+                    @click="setConfirmText"
+                    style="font-size: 20px"
+                ></el-button>
+              </el-popconfirm>
             </template>
           </el-table-column>
 
@@ -302,7 +314,9 @@ export default {
       updateData: null,
       status: 1
     },
-
+    confirmText: '',
+    confirmOk: '',
+    confirmNo: '',
     showDismissibleAlert: false,
     tempUpdateObj: {
       objToBeChanged: 0,
@@ -385,6 +399,11 @@ export default {
       this.listForSearch = this.dataList.filter((item) => {
         return item.data.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });
+    },
+    setConfirmText() {
+      this.confirmText=  this.$ml.get('msg.deleteConfirm')
+      this.confirmOk=  this.$ml.get('word.confirm')
+      this.confirmNo=  this.$ml.get('word.cancel')
     },
     setDataList(tempList) {
       this.dataList = tempList;

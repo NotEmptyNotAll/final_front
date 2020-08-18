@@ -38,9 +38,9 @@
                 <el-tab-pane v-for="elem in ELEMENTS_TREE.elementsCh" v-bind:key="elem" :label="elem.name"
                              style="width: 100%">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6"  >
                             <scroll-container>
-                                <dev class="tree-st">
+                                <dev class="tree-st" >
                                     <tree-item
                                         v-for="treeItem in elem.elementsCh"
                                         v-bind:key="treeItem"
@@ -83,7 +83,7 @@
                             <slider-picker class="color-footer" v-show="nowPressed.linkOnButt.isPressed"
                                            v-model="colors"/>
                             <div class="btn-color-panel" v-show="nowPressed.linkOnButt.isPressed">
-                                <h4>color:</h4>
+                                <h4>{{$ml.get('word.color')+':'}}</h4>
                                 <div class="colorExmp" :style='{background:colors.hex}'>
                                     <h4>{{$ml.get('word.text')}}</h4>
                                 </div>
@@ -528,9 +528,10 @@
 
     scroll-container {
         display: block;
-        width: 650px;
+        width: 700px;
         height: 500px;
-        overflow-y: scroll;
+        overflow-y: auto;
+      overflow-x: hidden;
         scroll-behavior: smooth;
     }
 

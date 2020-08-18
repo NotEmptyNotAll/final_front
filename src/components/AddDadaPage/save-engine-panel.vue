@@ -66,13 +66,25 @@
               :label="this.$ml.get('word.deleteR')"
           >
             <template slot-scope="scope">
-              <el-button
-                  :loading="deleteLoadId===scope.row.id"
-                  icon="el-icon-delete-solid"
-                  size="mini"
-                  type="danger"
-                  style="font-size: 20px"
-                  @click="deleteObj(scope.$index, scope.row,$event)"></el-button>
+              <el-popconfirm
+                  :confirmButtonText='confirmOk'
+                  :cancelButtonText='confirmNo'
+                  icon="el-icon-info"
+                  cancelButtonType="danger"
+                  iconColor="red"
+                  @onConfirm="deleteObj(scope.$index, scope.row,$event)"
+                  :title="confirmText"
+              >
+                <el-button
+                    slot="reference"
+                    :loading="deleteLoadId===scope.row.id"
+                    icon="el-icon-delete-solid"
+                    size="mini"
+                    type="danger"
+                    @click="setConfirmText"
+                    style="font-size: 20px"
+                ></el-button>
+              </el-popconfirm>
             </template>
           </el-table-column>
 
@@ -611,6 +623,9 @@ export default {
   components: {VueDatalist, InputField},
   data: () => ({
     showErr: false,
+    confirmText: '',
+    confirmOk: '',
+    confirmNo: '',
     saveDataObj: {
       engineType: null,
       engineManufacturerFk: null,
@@ -722,6 +737,11 @@ export default {
     handleDeleteRow(index, row) {
       console.log(index, row);
     },
+    setConfirmText() {
+     this.confirmText=  this.$ml.get('msg.deleteConfirm')
+     this.confirmOk=  this.$ml.get('word.confirm')
+     this.confirmNo=  this.$ml.get('word.cancel')
+    },
     // eslint-disable-next-line no-unused-vars
     tableRowClassName({row, rowIndex}) {
       let temp = this.dataList.find(item =>
@@ -733,6 +753,7 @@ export default {
         return 'success-row';
       }
     },
+
     // eslint-disable-next-line no-unused-vars
     deleteObj(index, row, evt) {
       this.deleteLoadId = row.id

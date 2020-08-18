@@ -97,17 +97,31 @@
                                       <i class="el-icon-brush"></i>
                               </span>
             </button>
-            <button type="button"
-                    @click="deleteElements(item.id)"
-                    class="btn btn-group   btn-info"
-                    style="z-index: 999">
-                              <span v-if="!deleteLoad">
+
+            <el-popconfirm
+                :confirmButtonText='confirmOk'
+                :cancelButtonText='confirmNo'
+                icon="el-icon-info"
+                cancelButtonType="danger"
+                iconColor="red"
+                @onConfirm="deleteElements(item.id)"
+                :title="confirmText"
+                style="width: 0px"
+            >
+              <button type="button"
+                      @click="setConfirmText()"
+                      slot="reference"
+
+                      class="btn btn-group   btn-info"
+                      style="z-index: 999;border-bottom-left-radius: 0px;border-top-left-radius: 0px">
+                              <span v-if="deleteLoadId!==item.id">
                                       <i class="el-icon-delete-solid"></i>
                               </span>
-              <span v-else>
+                <span v-else>
                                       <i class="el-icon-loading"></i>
                               </span>
-            </button>
+              </button>
+            </el-popconfirm>
           </div>
 
           <div class=" btn-group  " v-show="item.name!='' && changeMod==='on'"
@@ -172,14 +186,24 @@
           <i class="el-icon-arrow-up"></i>
         </div>
         <div class="arrow-down" @click="downSortNum(param)"><i class="el-icon-arrow-down"></i></div>
-        <div class="dialog-delete" @click="deleteElementsSize(param.id)">
-          <span v-if="!deleteLoad">
+        <el-popconfirm
+            :confirmButtonText='confirmOk'
+            :cancelButtonText='confirmNo'
+            icon="el-icon-info"
+            cancelButtonType="danger"
+            iconColor="red"
+            @onConfirm="deleteElementsSize(param.id)"
+            :title="confirmText"
+        >
+          <div    slot="reference" class="dialog-delete" @click="setConfirmText()">
+          <span v-if="deleteLoadId!==param.id">
             <i class="el-icon-delete-solid"></i>
           </span>
-          <span v-else>
+            <span v-else>
             <i class="el-icon-loading"></i>
           </span>
-        </div>
+          </div>
+        </el-popconfirm>
       </el-card>
       <hr/>
       <div slot="footer" class="dialog-footer">
@@ -452,6 +476,9 @@ export default {
   },
   data: function () {
     return {
+      confirmText: '',
+      confirmOk: '',
+      confirmNo: '',
       listSizeParamOnDialog: [],
       paramSizeList: [],
       dialogTableVisible: false,
@@ -462,7 +489,7 @@ export default {
         sortNumber: null
       },
       color1: null,
-      deleteLoad: false,
+      deleteLoadId: -1,
       elementsCh: [],
       listNewElem: [],
       isOpen: false,
@@ -527,6 +554,11 @@ export default {
     getPhoto(id) {
       this.$emit("get-photo", id)
     },
+    setConfirmText() {
+      this.confirmText=  this.$ml.get('msg.deleteConfirm')
+      this.confirmOk=  this.$ml.get('word.confirm')
+      this.confirmNo=  this.$ml.get('word.cancel')
+    },
     swap(obj1, obj2) {
       let obj = {
         id: obj1.id,
@@ -574,7 +606,7 @@ export default {
       }
     },
     async deleteElementsSize(id) {
-      this.deleteLoad = true
+      this.deleteLoadId = id
       let index = this.LISTNEWELEM.findIndex(item => item.elemid === id)
       if (index !== -1) {
         this.listNewElem = this.LISTNEWELEM;
@@ -587,10 +619,15 @@ export default {
           this.listSizeParamOnDialog.splice(this.listSizeParamOnDialog.findIndex(item => item.id === id), 1);
         }
       }
-      this.deleteLoad = false
+      this.$message({
+        showClose: true,
+        message: this.$ml.get('msg.deleteSuccess'),
+        type: 'success'
+      });
+      this.deleteLoadId = -1
     },
     async deleteElements(id) {
-      this.deleteLoad = true
+      this.deleteLoadId = id
       let index = this.LISTNEWELEM.findIndex(item => item.elemid === id)
       if (index !== -1) {
         this.$message({
@@ -612,7 +649,7 @@ export default {
           this.item.elementsCh = []
         }
       }
-      this.deleteLoad = false
+      this.deleteLoadId = -1
     },
     addElement: function (number) {
       this.isOpen = true;

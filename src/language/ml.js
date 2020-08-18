@@ -53,6 +53,7 @@ export default new MLCreate({
                 units: "ed.",
                 min: "min",
                 max: "max",
+                color:'color',
                 value: "value",
                 author: 'author',
                 source: "source",
@@ -107,6 +108,7 @@ export default new MLCreate({
                 deleteSuccess: 'removal was successful',
                 chooseColor: 'select element from the tree to change the color',
                 authErr: "Authorization Error",
+                deleteConfirm: "Are you sure to delete this?",
                 colorConfirmMsg:"do you want to change  the color of all child components of this element?",
                 duplicateValue: 'duplicate value'
             },
@@ -209,7 +211,8 @@ export default new MLCreate({
                 inccYear: 'Вы некорректно ввели год',
                 treeStruct: 'структура дерева',
                 setParameter: 'изменение параметров',
-                noRecordsInDB: 'в базе нет записей'
+                noRecordsInDB: 'в базе нет записей',
+                color:'цвет'
             },
             msg: {
                 passwordErr: "Пароль необходим!",
@@ -218,6 +221,7 @@ export default new MLCreate({
                 chooseColor: 'для изменения цвета выберите элемент из дерева',
                 userNamedErr: "Имя пользователя необходимо!",
                 authErr: "Ошибка авторизации",
+                deleteConfirm: "Вы действительно хотите удалить это?",
                 colorConfirmMsg:"вы хотите изменить цвет всех дочерних компонентов этого элемента?",
                 duplicateValue: 'дублированное значение'
             },
@@ -239,6 +243,7 @@ export default new MLCreate({
                 yes:'так',
                 no:'ні',
                 number: "число",
+                color:'колір',
                 numRowOnPage: 'к-cть рядків: ',
                 selectBlock: "выберите блок: ",
                 paramSizeName: "ремонтні розміри",
@@ -328,6 +333,7 @@ export default new MLCreate({
                 userNamedErr: 'Ім\'я користувача обов\'язкове!',
                 colorAdd: "колір змінений",
                 authErr: 'Помилка авторизації',
+                deleteConfirm: "Ви впевнені, що хочете видалити це?",
                 deleteSuccess: 'видалення пройшло успішно',
                 colorConfirmMsg:"ви хочете змінити колір всіх дочірніх компонентів цього елемента?",
                 duplicateValue: 'повторюване значення',
