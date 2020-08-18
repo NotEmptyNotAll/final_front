@@ -174,6 +174,7 @@ export default {
   components: {AutoEngineSavePanel, SaveEnginePanel, TwoUpdatePanel, SaveUpdatePanel},
   computed: {
     currentUser() {
+      alert(JSON.stringify(this.$store.state.auth.user))
       return this.$store.state.auth.user;
     },
     ...mapGetters([
