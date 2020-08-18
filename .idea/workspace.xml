@@ -34,13 +34,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6c064916-4a6b-4e88-93a1-d4463136ec2b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/auto-engine-save-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/auto-engine-save-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/save-update-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/save-update-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/two-update-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/two-update-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tree-struct/tree-struct.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tree-struct/tree-struct.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tree/tree.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tree/tree.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/language/ml.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/language/ml.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navbar/navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/navbar.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +117,7 @@
       <workItem from="1597589594281" duration="5054000" />
       <workItem from="1597619472726" duration="4688000" />
       <workItem from="1597674103612" duration="9841000" />
-      <workItem from="1597695843413" duration="10649000" />
+      <workItem from="1597695843413" duration="11710000" />
     </task>
     <servers />
   </component>
