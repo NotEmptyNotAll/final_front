@@ -1,10 +1,10 @@
 <template>
   <div id="vue-save-update-page">
     <error-page
-        v-if="!currentUser"
+        v-if="!currentUser.roles.indexOf('MODERATOR')!==-1"
     />
     <!-- Tab panes -->
-    <div class="search-border rounded main-tab">
+    <div  v-if="currentUser.roles.indexOf('MODERATOR')!==-1" class="search-border rounded main-tab">
       <el-tabs type="border-card" class="  shadow-lg page" style=" height: 85vh;" tab-position="left">
         <el-tab-pane :label="$ml.get('word.engine')">
           <div class="tab-pane">
@@ -174,6 +174,7 @@ export default {
   components: {AutoEngineSavePanel, SaveEnginePanel, TwoUpdatePanel, SaveUpdatePanel},
   computed: {
     currentUser() {
+
       return this.$store.state.auth.user;
     },
     ...mapGetters([
