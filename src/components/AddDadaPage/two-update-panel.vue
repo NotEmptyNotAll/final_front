@@ -732,7 +732,7 @@ export default {
             message: this.$ml.get('msg.deleteSuccess'),
             type: 'success'
           });
-          this.dataList
+          this.listForSearch
               .splice(this.listForSearch.findIndex(item => item.id === val.id), 1)
         } else {
           this.$message({

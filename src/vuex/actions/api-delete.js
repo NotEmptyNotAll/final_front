@@ -13,7 +13,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements.length > 0) {
+            if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -33,7 +33,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements.length > 0) {
+            if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -73,7 +73,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-             if (listParam.data.listDependencyElements.length > 0) {
+             if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -91,7 +91,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-            if (listParam.data.listDependencyElements.length > 0) {
+            if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -111,7 +111,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-             if (listParam.data.listDependencyElements.length > 0) {
+             if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -129,7 +129,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-             if (listParam.data.listDependencyElements.length > 0) {
+             if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -147,7 +147,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-             if (listParam.data.listDependencyElements.length > 0) {
+             if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -165,7 +165,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-             if (listParam.data.listDependencyElements.length > 0) {
+             if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -183,7 +183,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-             if (listParam.data.listDependencyElements.length > 0) {
+             if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -201,7 +201,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-             if (listParam.data.listDependencyElements.length > 0) {
+             if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -219,7 +219,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-             if (listParam.data.listDependencyElements.length > 0) {
+             if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted
@@ -237,7 +237,7 @@ export default {
             data: {id: number},
             responseType: 'json'
         }).then(listParam => {
-             if (listParam.data.listDependencyElements.length > 0) {
+             if (listParam.data.listDependencyElements!==null) {
                 commit('SET_DELETE_RESPONSE', {resp:false, id:number})//Exception from backend
             } else {
                 commit('SET_DELETE_RESPONSE', {resp:true, id:number})//All data successfully deleted

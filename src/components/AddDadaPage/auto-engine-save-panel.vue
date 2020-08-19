@@ -860,7 +860,7 @@ export default {
             type: 'success'
           });
           this.dataList
-              .splice(this.listForSearch.findIndex(item => item.id === val.id), 1)
+              .splice(this.dataList.findIndex(item => item.id === val.id), 1)
         } else {
           this.$message({
             showClose: true,
