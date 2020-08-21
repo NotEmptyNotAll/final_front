@@ -63,7 +63,7 @@
                                        v-show="ALL_AUTO_ENG.length!==0"
                                        icon="el-icon-close"
                                        @click="setCurrent()"
-                                       v-on:click="setEngineParamData(null)">
+                                       v-on:click="setEngineParamData({columnResponseList:null})">
                             </el-button>
                         </el-button-group>
                     </el-divider>
@@ -610,6 +610,7 @@
             }
             ,
             setEngineParamData(data) {
+
                 this.engineParamData = data.columnResponseList
             }
             ,
