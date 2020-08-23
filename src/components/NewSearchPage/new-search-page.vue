@@ -591,7 +591,8 @@
                 if (this.pageSetting.releaseYear === '') {
                     this.pageSetting.releaseYear = null
                 }
-                this.GET_ALL_AUTO(this.pageSetting);
+              this.pageSetting.initRecordFrom = 1
+              this.GET_ALL_AUTO(this.pageSetting);
             }
             ,
             handleCheckedColumnChange(value) {
@@ -690,7 +691,7 @@
                 {key: 'pistonDiameter', label: this.$ml.get('word.pistonDiameter'), widthSmall: 110, widthLarge: 70},
                 {key: 'pistonStroke', label: this.$ml.get('word.pistonStroke'), widthSmall: 110, widthLarge: 70},
                 {key: 'engineCapacity', label: this.$ml.get('word.engineCapacity'), widthSmall: 110, widthLarge: 70},
-                {key: 'powerKwt', label: this.$ml.get('word.powerKwt'), widthSmall: 110, widthLarge: 70},
+                {key: 'powerKWT', label: this.$ml.get('word.powerKwt'), widthSmall: 110, widthLarge: 70},
                 {
                     key: 'superchargedType',
                     label: this.$ml.get('word.superchargedType'),
