@@ -375,6 +375,7 @@ export default {
 
 .el-tabs__item {
   font-size: 20px !important;
+
 }
 
 .page .el-tabs__item {

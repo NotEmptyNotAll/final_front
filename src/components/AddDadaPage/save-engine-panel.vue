@@ -305,23 +305,17 @@
           <div class="col-md-3">
           </div>
           <div class="  col-md-3">
-
-            <button type="submit" @click="cancelsave()"
-                    class="btn  btn-outline-danger btn-block ">
+            <el-button type="danger" @click="cancelsave()" plain style="width: 100%">
               <span>{{ $ml.get('word.cancel') }}</span>
-            </button>
+            </el-button>
           </div>
           <div class="col-md-3">
-            <button v-if="!loadStatus && !LOAD_ADDITIONAL_DATA" type="submit" @click="saveEngManufacture(1)"
-                    class="btn btn-outline-dark btn-block ">
-              <span>{{ $ml.get('word.save') }}</span>
-            </button>
-            <button v-if="loadStatus || LOAD_ADDITIONAL_DATA" type="submit"
-                    class="btn  btn-block btn-dark" disabled>
-              <span><div class="lds-dual-ring" style="position: relative; bottom: 1.2vh"></div></span>
-            </button>
+            <el-button :loading="loadStatus && LOAD_ADDITIONAL_DATA"
+                       @click="saveEngManufacture(1)" plain
+                       style="width: 100%"
+                       type="success"><span>{{ $ml.get('word.save') }}</span>
+            </el-button>
           </div>
-
           <div class="col-md-3"></div>
         </div>
         <hr/>
@@ -344,35 +338,23 @@
 
           />
           <div class="col-md-2">
-            <button v-if="!loadStatus"
-                    type="submit"
-                    class="btn btn-outline-dark btn-block "
-                    @click="getEng(1)"
-            >
-              <span>{{ $ml.get('word.choose') }}</span>
-            </button>
-            <button v-if="loadStatus" type="submit"
-                    class="btn  btn-block btn-dark" disabled>
-              <span><div class="lds-dual-ring" style="position: relative; bottom: 1.2vh"></div></span>
-            </button>
+            <el-button type="primary" :loading="loadStatus"
+                       plain @click="getEng(1)" style="width: 100%">
+              {{ $ml.get('word.choose') }}
+            </el-button>
 
           </div>
           <div class="col-md-2">
-            <button v-if="loadStatus" type="submit"
-                    class="btn  btn-block btn-dark" disabled>
-              <span><div class="lds-dual-ring" style="position: relative; bottom: 1.2vh"></div></span>
-            </button>
-            <button v-if="!loadStatus" type="submit" @click="update(1)"
-                    class="btn  btn-block btn-outline-dark">
-              <span>{{ $ml.get('word.update') }}</span>
-            </button>
+            <el-button type="success" :loading="loadStatus"
+                       plain @click="update(1)" style="width: 100%">
+              {{ $ml.get('word.update') }}
+            </el-button>
           </div>
           <div class="  col-md-2">
-
-            <button type="submit" @click="cancel()"
-                    class="btn  btn-outline-danger btn-block ">
-              <span>{{ $ml.get('word.cancel') }}</span>
-            </button>
+            <el-button type="danger"
+                       plain @click="cancel()" style="width: 100%">
+              {{ $ml.get('word.cancel') }}
+            </el-button>
           </div>
         </div>
         <hr style="color: lightgray"/>
@@ -542,9 +524,9 @@
                   :limit="limitUpload"
                   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                   :auto-upload="false">
-                <button class="btn  btn-block   btn-outline-dark" style="width: 20vw">
-                  {{ $ml.get('word.clickToUpload') }}
-                </button>
+                <el-button type="warning" style="width: 20vw;" plain>
+                  <strong>{{ $ml.get('word.clickToUpload') }}</strong>
+                </el-button>
               </el-upload>
             </div>
             <div class="col-md-2">
@@ -738,9 +720,9 @@ export default {
       console.log(index, row);
     },
     setConfirmText() {
-     this.confirmText=  this.$ml.get('msg.deleteConfirm')
-     this.confirmOk=  this.$ml.get('word.confirm')
-     this.confirmNo=  this.$ml.get('word.cancel')
+      this.confirmText = this.$ml.get('msg.deleteConfirm')
+      this.confirmOk = this.$ml.get('word.confirm')
+      this.confirmNo = this.$ml.get('word.cancel')
     },
     // eslint-disable-next-line no-unused-vars
     tableRowClassName({row, rowIndex}) {
