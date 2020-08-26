@@ -34,12 +34,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6c064916-4a6b-4e88-93a1-d4463136ec2b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/auto-engine-save-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/auto-engine-save-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/save-engine-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/save-update-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/save-update-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/two-update-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/two-update-panel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDadaPage/vue-save-update-page.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddDadaPage/vue-save-update-page.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchPage/search-engine-panel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchPage/search-engine-panel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewSearchPage/new-search-page.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewSearchPage/new-search-page.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +139,8 @@
       <workItem from="1598288410427" duration="1884000" />
       <workItem from="1598307504723" duration="1118000" />
       <workItem from="1598390010041" duration="3621000" />
-      <workItem from="1598397307130" duration="1071000" />
+      <workItem from="1598397307130" duration="2385000" />
+      <workItem from="1598445299072" duration="754000" />
     </task>
     <servers />
   </component>

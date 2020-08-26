@@ -644,8 +644,9 @@ export default {
       '№', this.$ml.get('word.engine'), this.$ml.get('word.autoManufacturer'),
       this.$ml.get('word.autoModel'), this.$ml.get('word.releaseYear'),
       this.$ml.get('word.fuelType'),
-      this.$ml.get('word.flapNumber'),
-      this.$ml.get('word.superchargedType')
+      this.$ml.get('word.diamAndStroke'),
+      this.$ml.get('word.powerKwt'),
+      this.$ml.get('word.engineCapacity')
     ];
     this.columns = [
       '№', this.$ml.get('word.engine'), this.$ml.get('word.autoManufacturer'),
@@ -671,14 +672,15 @@ export default {
       {key: 'modelName', label: this.$ml.get('word.autoModel'), widthSmall: 110, widthLarge: 70},
       {key: 'releaseYear', label: this.$ml.get('word.releaseYear'), widthSmall: 110, widthLarge: 60},
       {key: 'fuelType', label: this.$ml.get('word.fuelType'), widthSmall: 110, widthLarge: 70},
-      {key: 'cylinderPlace', label: this.$ml.get('word.cylinders'), widthSmall: 110, widthLarge: 70},
-      {key: 'flapNumber', label: this.$ml.get('word.flapNumber'), widthSmall: 110, widthLarge: 90},
       {
-        key: 'superchargedType',
-        label: this.$ml.get('word.superchargedType'),
-        widthSmall: 110,
-        widthLarge: 90
-      }]
+        key: 'pistonDiameterAndStoke',
+        label: this.$ml.get('word.diamAndStroke') ,
+        widthSmall: 130,
+        widthLarge: 70
+      },
+      {key: 'engineCapacity', label: this.$ml.get('word.engineCapacity'), widthSmall: 110, widthLarge: 70},
+      {key: 'powerKWT', label: this.$ml.get('word.powerKwt'), widthSmall: 110, widthLarge: 70}
+     ]
     this.allTableColumns = [
       {key: 'id', label: '№', widthSmall: 30, widthLarge: 40},
       {key: 'engineType', label: this.$ml.get('word.engine'), widthSmall: 110, widthLarge: 200},
