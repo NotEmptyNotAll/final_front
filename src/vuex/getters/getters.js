@@ -17,6 +17,9 @@ export default {
     PARAM_SIZE_NAME: (state) => {
       return   state.paramSizeName;
     },
+    DATA_PAGE: (state) => {
+        return state.addPageData
+    },
     LOAD_LIST_URL: (state) => {
        return  state.loadListUrl ;
     },

@@ -4,7 +4,217 @@ let urlApi = 'https://enginefinal.herokuapp.com/';
 //let urlApi = 'http://localhost:5050/';
 
 export default {
+    async GET_AUTO_ENG_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'autoEngPagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_AUTO_ENGINE', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_ENG_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'enginePagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_ENGINE', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_PARAM_NAME_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'parameterNamePagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_PARAM_NAME', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_PARAM_NAME_SIZE_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'parameterNameSizePagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_PARAM_NAME_SIZE', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_CYLINDERS_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'cylindersPagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_CYLINDERS', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_SUPERCHARGE_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'superchargedTypePagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_SUPERCHARGE', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_FUEL_TYPE_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'fuelTypePagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_FUEL_TYPE', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_MEASUREMENT_UNITS_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'measurementUnitsPagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_MEASUREMENT_UNITS', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_AUTO_MODEL_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'autoModelPagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_AUTO_MODEL', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_AUTO_MANUF_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'autoManufacturePagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_AUTO_MANUF', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
+    async GET_ENGINE_MANUF_PAGINATION({commit}, request) {
+        commit('SET_LOAD_ADDITIONAL_DATA', true);
+        return await axios({
+            method: 'POST',
+            url: urlApi + 'engineManufacturePagination',
+            data: request,
+            responseType: 'json'
+        })
+            .then((resp) => {
+                commit('SET_DATA_PAGE_ENGINE_MANUF', resp.data)
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return resp.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('SET_LOAD_ADDITIONAL_DATA', false);
+                return error
+            })
+    },
     async GET_FILE_LIST_BY_URL({commit}, response) {
+
         commit('SET_LOAD_LIST_URL', true);
         return await axios({
             method: 'POST',

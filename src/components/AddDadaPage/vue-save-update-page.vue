@@ -4,7 +4,7 @@
         v-if="!currentUser.roles.indexOf('MODERATOR')!==-1"
     />
     <!-- Tab panes -->
-    <div  v-if="currentUser.roles.indexOf('MODERATOR')!==-1" class="search-border rounded main-tab">
+    <div v-if="currentUser.roles.indexOf('MODERATOR')!==-1" class="search-border rounded main-tab">
       <el-tabs type="border-card" class="  shadow-lg page" style=" height: 85vh;" tab-position="left">
         <el-tab-pane :label="$ml.get('word.engine')">
           <div class="tab-pane">
@@ -16,7 +16,7 @@
                 @update-data-api="UPDATE_DATA_ENGINE"
                 @import-data-api="IMPORT_DATA_ENGINE"
                 @delete-data-api="DELETE_ENGINE"
-                :data-list="this.ADDITIONAL_DATA.engine"
+                :data-list="DATA_PAGE.engine"
             />
           </div>
         </el-tab-pane>
@@ -26,7 +26,8 @@
             <save-update-panel
                 :name-title="$ml.get('word.cylinders')"
                 :load-status="LOAD_SAVE.cylinders"
-                :data-list="ADDITIONAL_DATA.cylinders"
+                @load-data="GET_CYLINDERS_PAGINATION"
+                :data-list="DATA_PAGE.cylinders"
                 @save-data-api="SAVE_DATA_CYLINDERS"
                 @delete-data-api="DELETE_CYLINDERS"
                 @import-data-api="IMPORT_DATA_CYLINDERS"
@@ -39,8 +40,9 @@
 
             <save-update-panel
                 :name-title="$ml.get('word.fuelType')"
+                @load-data="GET_FUEL_TYPE_PAGINATION"
                 :load-status="LOAD_SAVE.fuelType"
-                :data-list="ADDITIONAL_DATA.fuelType"
+                :data-list="DATA_PAGE.fuelType"
                 @save-data-api="SAVE_DATA_FUEL_TYPE"
                 @update-data-api="UPDATE_DATA_FUEL_TYPE"
                 @import-data-api="IMPORT_DATA_FUEL_TYPE"
@@ -53,8 +55,9 @@
             <two-update-panel
                 :name-title="$ml.get('word.superchargedType')"
                 :name-panel="$ml.get('word.superchargedType')"
-                :data-list="ADDITIONAL_DATA.superchargeType"
+                :data-list="DATA_PAGE.superchargedType"
                 :load-status="LOAD_SAVE.superchargedType"
+                @load-data="GET_SUPERCHARGE_PAGINATION"
                 @import-data-api="IMPORT_DATA_MEASUREMENT_UNITS"
                 @save-data-api="SAVE_DATA_SUPERCHARGE_TYPE"
                 @update-data-api="UPDATE_DATA_SUPERCHARGE_TYPE"
@@ -66,8 +69,9 @@
           <div class="tab-pane " id="engineManufacture">
             <save-update-panel
                 :name-title="$ml.get('word.engineManufacture')"
-                :data-list="ADDITIONAL_DATA.engineManufacture"
+                :data-list="DATA_PAGE.engineManufacture"
                 :load-status="LOAD_SAVE.engineManufacture"
+                @load-data="GET_ENGINE_MANUF_PAGINATION"
                 @save-data-api="SAVE_ENGINE_MANUFACTURE"
                 @import-data-api="IMPORT_ENGINE_MANUFACTURE"
                 @update-data-api="UPDATE_ENGINE_MANUFACTURE"
@@ -80,7 +84,7 @@
 
             <auto-engine-save-panel
                 :name-title="$ml.get('word.autoEngine')"
-                :data-list="ADDITIONAL_DATA.autoEng"
+                :data-list="DATA_PAGE.automobileEngine"
                 :name-panel="$ml.get('word.autoEngine')"
                 @import-data-api="IMPORT_DATA_AUTOMOBILE_ENGINE"
                 :load-status="LOAD_SAVE.automobileEngine"
@@ -92,8 +96,9 @@
           <div class="tab-pane" id="autoManufacturer">
             <save-update-panel
                 :name-title="$ml.get('word.autoManufacturer')"
-                :data-list="ADDITIONAL_DATA.autoManufacture"
+                :data-list="DATA_PAGE.autoManufacturer"
                 :load-status="LOAD_SAVE.autoManufacturer"
+                @load-data="GET_AUTO_MANUF_PAGINATION"
                 @save-data-api="SAVE_DATA_AUTO_MANUFACTURE"
                 @update-data-api="UPDATE_DATA_AUTO_MANUFACTURE"
                 @import-data-api="IMPORT_DATA_AUTO_MANUFACTURE"
@@ -106,8 +111,9 @@
             <save-update-panel
                 :name-title="$ml.get('word.autoModel')"
                 :load-status="LOAD_SAVE.autoModel"
-                :data-list="ADDITIONAL_DATA.autoModel"
+                :data-list="DATA_PAGE.autoModel"
                 @save-data-api="SAVE_DATA_AUTO_MODEL"
+                @load-data="GET_AUTO_MODEL_PAGINATION"
                 @update-data-api="UPDATE_DATA_AUTO_MODEL"
                 @import-data-api="IMPORT_DATA_AUTO_MODEL"
                 @delete-data-api="DELETE_AUTO_MODEL"
@@ -119,8 +125,9 @@
             <two-update-panel
                 :name-title="$ml.get('word.units')"
                 :title_two="$ml.get('word.mark')"
-                :data-list="ADDITIONAL_DATA.units"
+                :data-list="DATA_PAGE.measurementUnits"
                 :load-status="LOAD_SAVE.measurementUnits"
+                @load-data="GET_MEASUREMENT_UNITS_PAGINATION"
                 @import-data-api="IMPORT_DATA_MEASUREMENT_UNITS"
                 @save-data-api="SAVE_DATA_MEASUREMENT_UNITS"
                 @update-data-api="UPDATE_DATA_MEASUREMENT_UNITS"
@@ -134,7 +141,8 @@
                 :name-title="$ml.get('word.nameElements')"
                 :title_two="$ml.get('word.mark')"
                 :load-status="LOAD_SAVE.paramName"
-                :data-list="ADDITIONAL_DATA.parameterName"
+                :data-list="DATA_PAGE.parameterName"
+                @load-data="GET_PARAM_NAME_PAGINATION"
                 @import-data-api="IMPORT_PARAM_NAME"
                 @save-data-api="SAVE_PARAM_NAME"
                 @update-data-api="UPDATE_PARAM_NAME"
@@ -148,7 +156,8 @@
                 :name-title="$ml.get('word.paramSizeName')"
                 :title_two="$ml.get('word.mark')"
                 :load-status="LOAD_SAVE.paramName"
-                :data-list="ADDITIONAL_DATA.parameterSizeName"
+                :data-list="DATA_PAGE.parameterSizeName"
+                @load-data="GET_PARAM_NAME_SIZE_PAGINATION"
                 @import-data-api="IMPORT_PARAM_NAME"
                 @save-data-api="SAVE_PARAM_NAME"
                 @delete-data-api="DELETE_PARAM_NAME"
@@ -182,6 +191,7 @@ export default {
       'LOAD_SAVE',
       'STARTPARAM',
       'ADDITIONAL_DATA',
+      'DATA_PAGE',
       'LOAD_ADDITIONAL_DATA',
       'SAVE_STATUS',
       'LOAD_UPLOAD'
@@ -235,6 +245,7 @@ export default {
       'DELETE_AUTO_MODEL',
       'DELETE_ENGINE',
       'DELETE_AUTO_ENGINE',
+      'GET_PARAM_NAME_SIZE_PAGINATION',
       'DELETE_MEASUREMENT_UNITS',
       'DELETE_CYLINDERS',
       'DELETE_FUEL_TYPE',
@@ -242,6 +253,16 @@ export default {
       'DELETE_AUTO_MANUFACTURE',
       'DELETE_FILE_STORAGE',
       'DELETE_SUPERCHARGED',
+      'GET_AUTO_ENG_PAGINATION',
+      'GET_ENG_PAGINATION',
+      'GET_PARAM_NAME_PAGINATION',
+      'GET_CYLINDERS_PAGINATION',
+      'GET_SUPERCHARGE_PAGINATION',
+      'GET_FUEL_TYPE_PAGINATION',
+      'GET_MEASUREMENT_UNITS_PAGINATION',
+      'GET_AUTO_MODEL_PAGINATION',
+      'GET_ENGINE_MANUF_PAGINATION',
+      'GET_AUTO_MANUF_PAGINATION',
       'GET_PARAM_NAME'
     ]),
   },
@@ -250,8 +271,15 @@ export default {
     document.body.oncontextmenu = function () {
       return true;
     };
+    let pageSetting = {
+      initRecordFrom: 1,
+      pageSize: 100,
+      data: ''
+    };
+    this.GET_AUTO_ENG_PAGINATION(pageSetting)
+    this.GET_ENG_PAGINATION(pageSetting)
     this.GET_PARAM_NAME();
-    this.GET_ALL_ADDITIONAL_DATA();
+  //  this.GET_ALL_ADDITIONAL_DATA();
     this.GET_START_PARAM();
 
 

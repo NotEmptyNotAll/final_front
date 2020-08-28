@@ -7,7 +7,20 @@
           <div class="title-bord col-md-2">
             <h4> {{ nameTitle }}</h4>
           </div>
-          <div class="col-md-2">
+          <div class=" col-md-2 fix-position ">
+            <el-dropdown @command="changePageSize" style="width: 100%;">
+              <el-button size="medium" type="warning" style="width: 100%; font-size: 16px">
+                {{ $ml.get('word.numRowOnPage') }}{{ pageSetting.pageSize }}
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="15"> 15 {{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="30"> 30{{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="50"> 50{{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="75"> 75{{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="100"> 100{{ $ml.get('word.rows') }}</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </div>
           <div class="col-md-2">
             <el-button plain type="info" style="width: 100%; font-size: 16px" v-on:click="onexport">
@@ -31,9 +44,9 @@
             </el-dropdown>
           </div>
           <div class="input-group col-md-4">
-            <el-input :placeholder="$ml.get('word.search')" v-model="search"
-                      v-on:input="onChange"
-                      v-on:click="onChange" class="input-with-select" clearable>
+            <el-input :placeholder="$ml.get('word.search')"  v-model="pageSetting.data"
+                      v-on:change="onChange"
+                     class="input-with-select" clearable>
               <el-button slot="prepend" icon="el-icon-search"></el-button>
             </el-input>
           </div>
@@ -42,10 +55,10 @@
             v-loading="LOAD_ADDITIONAL_DATA"
             id="lol"
             stripe
-            max-height="630"
+            max-height="560"
             :empty-text="$ml.get('word.empty')"
             ref="paramTable"
-            :data="listForSearch.filter(elem=>{return elem.data!=='не задано'})"
+            :data="dataList.data.filter(elem=>{return elem.data!=='не задано'})"
             @row-dblclick="link"
             style="width: 100%"
         >
@@ -123,8 +136,18 @@
              </tr>
              </tbody>
          </table>-->
-        <div v-if="LOAD_ADDITIONAL_DATA" class="lds-dual-ring-black" style="margin-left:47% "></div>
+        <div class="pagin-content">
+        <el-pagination
+            class="pagin-st"
+            @current-change="handleCurrentPage"
+            background
+            :current-page.sync="pageSetting.initRecordFrom"
+            layout="prev, pager, next"
+            :total="dataList.countResults*10">
+        </el-pagination>
+      </div>
       </el-tab-pane>
+
       <el-tab-pane :label="$ml.get('word.save')" name="1">
         <br/>
         <div class="title-bord col-md-2">
@@ -184,11 +207,11 @@
           <vue-datalist
               class="col-md-3"
               :title-input="$ml.get('word.dataChange')"
-              :items="dataList"
+              :items="dataList.data"
               :update-obj="updateDataObj"
               index="objToBeChanged"
               :clean-search="cleanInputList"
-              :holderNum="updateDataObj.objToBeChanged!==0?dataList.find(elem=>elem.id===updateDataObj.objToBeChanged).id:0"
+              :holderNum="updateDataObj.objToBeChanged!==0?dataList.data.find(elem=>elem.id===updateDataObj.objToBeChanged).id:0"
               @change-meth="changeUpdateValue"
 
           />
@@ -371,6 +394,11 @@ export default {
     isIndeterminate: true,
     checkAll: false,
     tableColumns: [],
+    pageSetting: {
+      initRecordFrom: 1,
+      pageSize: 50,
+      data:null
+    },
     allTableColumns: []
   }),
 
@@ -399,7 +427,7 @@ export default {
     ]),
     // eslint-disable-next-line no-unused-vars
     tableRowClassName({row, rowIndex}) {
-      let temp = this.dataList.find(item =>
+      let temp = this.dataList.data.find(item =>
           item.data === row.data
       );
       if (temp !== undefined) {
@@ -408,12 +436,17 @@ export default {
         return 'success-row';
       }
     },
+    changePageSize(value) {
+      this.pageSetting.pageSize = value
+      this.pageSetting.initRecordFrom = 1
+      this.$emit("load-data", this.pageSetting)
+    },
     onexport() { // On Click Excel download button
 
       // export json to Worksheet of Excel
       // only array possible
       let arr = []
-      this.dataList.map(elem => {
+      this.dataList.data.map(elem => {
         let obj = {}
         if (elem.data !== "не задано") {
           obj['№'] = elem.id
@@ -482,7 +515,7 @@ export default {
     async importFile() {
       let importList = [];
       await this.da.forEach(v => {
-            let temp = this.dataList.find(item =>
+            let temp = this.dataList.data.find(item =>
                 item.data === v.data
             );
             if (temp === undefined) {
@@ -490,7 +523,7 @@ export default {
               obj.saveData_primary = v['data']
               obj.saveData_secondary = v['secondary_data']
               obj.status = this.PARAM_NAME_AND_UNITS.status.find(item => item.data === v.status).id
-              this.dataList.push(v)
+              this.dataList.data.push(v)
               importList.push(obj)
             }
           }
@@ -595,17 +628,22 @@ export default {
       this.tempUpdateObj = this.updateDataObj;
       console.log(number)
     },
+    handleCurrentPage(val) {
+      this.pageSetting.initRecordFrom = val
+      this.$emit("load-data", this.pageSetting)
+    },
     onChange() {
-      this.filterResults();
+      this.$emit("load-data", this.pageSetting)
+      // this.filterResults();
     },
     filterResults() {
       // first uncapitalize all the things
-      this.listForSearch = this.dataList.filter((item) => {
+      this.listForSearch = this.dataList.data.filter((item) => {
         return (item.data.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
       });
     },
     setDataList(tempList) {
-      this.dataList = tempList;
+      this.dataList.data = tempList;
     },
     async link(record) {
       this.activeName = '2'
@@ -616,7 +654,7 @@ export default {
     },
     async save(number) {
 
-      let temp = this.dataList.find(item =>
+      let temp = this.dataList.data.find(item =>
           item.data === this.saveDataObj.saveData_primary
       );
 
@@ -679,7 +717,7 @@ export default {
     },
     async update(number) {
       if (this.updateDataObj.objToBeChanged != null) {
-        if (this.dataList.find(item =>
+        if (this.dataList.data.find(item =>
             item.data === this.updateDataObj.saveData_primary &&
             item.status === this.updateDataObj.status) !== undefined) {
           this.$message({
@@ -698,11 +736,11 @@ export default {
             message: this.$ml.get('word.dataAddSuccess'),
             type: 'success'
           });
-          let temp = this.dataList.find(item => item.id === this.updateDataObj.objToBeChanged);
+          let temp = this.dataList.data.find(item => item.id === this.updateDataObj.objToBeChanged);
           temp.status = this.PARAM_NAME_AND_UNITS.status.find(item => item.id === this.updateDataObj.status).data;
           temp.data = this.updateDataObj.saveData_primary;
           temp.secondary_data = this.updateDataObj.saveData_secondary;
-          this.listForSearch = this.dataList;
+          this.listForSearch = this.dataList.data;
           this.cancel()
         }
       }
@@ -712,7 +750,7 @@ export default {
   watch: {
     dataList: function (val) {
       if (val !== null || val !== undefined)
-        this.listForSearch = this.dataList;
+        this.listForSearch = this.dataList.data;
     },
     DELETE_RESPONSE: function (val) {
       if (this.deleteLoadId !== -1) {
@@ -737,7 +775,7 @@ export default {
 
   },
   mounted() {
-    this.listForSearch = this.dataList;
+    this.$emit("load-data", this.pageSetting)
     this.checkedColumns = ['№', this.$ml.get('word.fullName'), this.$ml.get('word.shortName'), this.$ml.get('word.status')];
     this.columns = ['№', this.$ml.get('word.fullName'), this.$ml.get('word.shortName'), this.$ml.get('word.status')];
     this.columnOptions = ['№', this.$ml.get('word.fullName'), this.$ml.get('word.shortName'), this.$ml.get('word.status')];
@@ -771,7 +809,20 @@ a {
   color: #272e38;
   font-weight: bold;
 }
+.pagin-st {
+  position: relative;
+  top: 15px;
+}
 
+.pagin-content {
+  padding-bottom: 10px;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .title-bord {
   text-align: center;
   position: relative;

@@ -15,6 +15,40 @@ export default {
         state.loadListUrl = loadListUrl;
     },
 
+    SET_DATA_PAGE_AUTO_ENGINE: (state, data) => {
+        state.addPageData.automobileEngine=data
+    },
+
+    SET_DATA_PAGE_ENGINE: (state, data) => {
+        state.addPageData.engine=data
+    },
+    SET_DATA_PAGE_AUTO_MODEL: (state, data) => {
+        state.addPageData.autoModel=data
+    },
+    SET_DATA_PAGE_CYLINDERS: (state, data) => {
+        state.addPageData.cylinders=data
+    },
+    SET_DATA_PAGE_PARAM_NAME: (state, data) => {
+        state.addPageData.parameterName=data
+    },
+    SET_DATA_PAGE_PARAM_NAME_SIZE: (state, data) => {
+        state.addPageData.parameterSizeName=data
+    },
+    SET_DATA_PAGE_SUPERCHARGE: (state, data) => {
+        state.addPageData.superchargedType=data
+    },
+    SET_DATA_PAGE_ENGINE_MANUF: (state, data) => {
+        state.addPageData.engineManufacture=data
+    },
+    SET_DATA_PAGE_AUTO_MANUF: (state, data) => {
+        state.addPageData.autoManufacturer=data
+    },
+    SET_DATA_PAGE_FUEL_TYPE: (state, data) => {
+        state.addPageData.fuelType=data
+    },
+    SET_DATA_PAGE_MEASUREMENT_UNITS: (state, data) => {
+        state.addPageData.measurementUnits=data
+    },
     SET_LOAD_ALL_AUTO_ENG: (state, loadAllAutoEng) => {
         state.loadAllAutoEng = loadAllAutoEng;
     },

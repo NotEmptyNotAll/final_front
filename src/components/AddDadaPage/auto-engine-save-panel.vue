@@ -6,7 +6,20 @@
           <div class="title-bord col-md-2">
             <h4> {{ nameTitle }}</h4>
           </div>
-          <div class="col-md-2">
+          <div class=" col-md-2 fix-position ">
+            <el-dropdown @command="changePageSize" style="width: 100%;">
+              <el-button size="medium" type="warning" style="width: 100%; font-size: 16px">
+                {{ $ml.get('word.numRowOnPage') }}{{ pageSetting.pageSize }}
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="15"> 15 {{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="30"> 30{{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="50"> 50{{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="75"> 75{{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="100"> 100{{ $ml.get('word.rows') }}</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </div>
           <div class="col-md-2">
             <el-button plain type="info" style="width: 100%; font-size: 16px" v-on:click="onexport">
@@ -30,9 +43,9 @@
             </el-dropdown>
           </div>
           <div class="input-group col-md-4">
-            <el-input :placeholder="$ml.get('word.search')" v-model="search"
-                      v-on:input="onChange"
-                      v-on:click="onChange" class="input-with-select" clearable>
+            <el-input :placeholder="$ml.get('word.search')" v-model="pageSetting.data"
+                      v-on:change="onChange"
+                      class="input-with-select" clearable>
               <el-button slot="prepend" icon="el-icon-search"></el-button>
             </el-input>
           </div>
@@ -43,8 +56,8 @@
             stripe
             :empty-text="$ml.get('word.empty')"
             ref="paramTable"
-            :data="dataList"
-            max-height="630"
+            :data="DATA_PAGE.automobileEngine.data"
+            max-height="570"
             @row-dblclick="link"
 
             style="width: 100%"
@@ -129,7 +142,18 @@
                  <div v-if="LOAD_ADDITIONAL_DATA" class="lds-dual-ring-black" style="margin-left:47% "></div>
 
          -->
+        <div class="pagin-content">
+        <el-pagination
+            class="pagin-st"
+            @current-change="handleCurrentPage"
+            background
+            :current-page.sync="pageSetting.initRecordFrom"
+            layout="prev, pager, next"
+            :total="DATA_PAGE.automobileEngine.countResults*10">
+        </el-pagination>
+      </div>
       </el-tab-pane>
+
       <el-tab-pane :label="$ml.get('word.save')" name="1">
         <br/>
         <div class="title-bord col-md-2">
@@ -490,6 +514,11 @@ export default {
     testlist: [],
     checkedColumns: [],
     isIndeterminate: true,
+    pageSetting: {
+      initRecordFrom: 1,
+      pageSize: 50,
+      data:null
+    },
     checkAll: false,
     tableColumns: [],
     allTableColumns: []
@@ -505,6 +534,7 @@ export default {
       'ADDITIONAL_DATA',
       'AUTO_ENGINE_LOAD',
       'DELETE_RESPONSE',
+      'DATA_PAGE',
       'AUTO_ENGINE',
       'LOAD_SAVE_AUTOMOBILE_ENGINE',
       'LOAD_ADDITIONAL_DATA',
@@ -515,6 +545,7 @@ export default {
   methods: {
     ...mapActions([
       'GET_AUTOENG_BY_ID',
+      'GET_AUTO_ENG_PAGINATION',
       'SAVE_DATA_AUTOMOBILE_ENGINE',
       'GET_AUTOENG_BY_PARAM_UPDATE',
       'SAVE_DATA_ENGINE_NUMBER',
@@ -522,6 +553,14 @@ export default {
       'GET_ALL_ADDITIONAL_DATA'
 
     ]),
+    handleCurrentPage(val) {
+      this.pageSetting.initRecordFrom = val
+      this.GET_AUTO_ENG_PAGINATION(this.pageSetting)
+    },
+    onChange() {
+      this.GET_AUTO_ENG_PAGINATION(this.pageSetting)
+      // this.filterResults();
+    },
     handleDeleteRow(index, row) {
       console.log(index, row);
     },
@@ -530,9 +569,9 @@ export default {
       this.cancelSave()
     },
     setConfirmText() {
-      this.confirmText=  this.$ml.get('msg.deleteConfirm')
-      this.confirmOk=  this.$ml.get('word.confirm')
-      this.confirmNo=  this.$ml.get('word.cancel')
+      this.confirmText = this.$ml.get('msg.deleteConfirm')
+      this.confirmOk = this.$ml.get('word.confirm')
+      this.confirmNo = this.$ml.get('word.cancel')
     },
     // eslint-disable-next-line no-unused-vars
     tableRowClassName({row, rowIndex}) {
@@ -744,11 +783,7 @@ export default {
       this.saveDataObj.releaseYearFrom = '';
       this.saveDataObj.releaseYearBy = '';
     },
-    onChange() {
-      this.filterResults();
-
-
-    }, filterResults() {
+   filterResults() {
       if (this.mainDataList === undefined) {
         this.mainDataList = this.ADDITIONAL_DATA.autoEng;
       }
@@ -819,6 +854,11 @@ export default {
       this.GET_AUTOENG_BY_ID({id: record.id});
       console.log(1)
     },
+    changePageSize(value) {
+      this.pageSetting.pageSize = value
+      this.pageSetting.initRecordFrom = 1
+      this.GET_AUTO_ENG_PAGINATION(this.pageSetting)
+    },
     updateOldParam(current) {
       let tempObj = this.updateListParam.find(param => param.id === current.id);
       if (tempObj !== undefined) {
@@ -847,6 +887,7 @@ export default {
     }
   },
   watch: {
+
     DELETE_RESPONSE: function (val) {
       if (this.deleteLoadId !== -1) {
         if (val.resp) {
@@ -889,7 +930,6 @@ export default {
       {key: 'autoModelFk', label: this.$ml.get('word.autoModel'), sortable: true},
       {key: 'releaseYearFrom', label: this.$ml.get('word.releaseYearFrom'), sortable: true},
       {key: 'releaseYearBy', label: this.$ml.get('word.releaseYearBy'), sortable: true}];
-    this.mainDataList = this.ADDITIONAL_DATA.autoEng
     this.test()
   }
 }
@@ -907,6 +947,20 @@ export default {
   border-style: solid;
   border-color: lightgray;
   border-width: 0px 2px 0px 0px;
+}
+
+.pagin-st {
+  position: relative;
+  top: 15px;
+}
+
+.pagin-content {
+  padding-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 a {

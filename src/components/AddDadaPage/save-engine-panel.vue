@@ -6,7 +6,20 @@
           <div class="title-bord col-md-2">
             <h4> {{ nameTitle }}</h4>
           </div>
-          <div class="col-md-2">
+          <div class=" col-md-2 fix-position ">
+            <el-dropdown @command="changePageSize" style="width: 100%;">
+              <el-button size="medium" type="warning" style="width: 100%; font-size: 16px">
+                {{ $ml.get('word.numRowOnPage') }}{{ pageSetting.pageSize }}
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="15"> 15 {{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="30"> 30{{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="50"> 50{{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="75"> 75{{ $ml.get('word.rows') }}</el-dropdown-item>
+                <el-dropdown-item command="100"> 100{{ $ml.get('word.rows') }}</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </div>
           <div class="col-md-2">
             <el-button plain type="info" style="width: 100%; font-size: 16px" v-on:click="onexport">
@@ -30,9 +43,9 @@
             </el-dropdown>
           </div>
           <div class="input-group col-md-4">
-            <el-input :placeholder="$ml.get('word.search')" v-model="search"
+            <el-input :placeholder="$ml.get('word.search')" v-model="pageSetting.data"
                       v-on:input="onChange"
-                      v-on:click="onChange" class="input-with-select" clearable>
+                      class="input-with-select" clearable>
               <el-button slot="prepend" icon="el-icon-search"></el-button>
             </el-input>
           </div>
@@ -44,8 +57,8 @@
             stripe
             :empty-text="$ml.get('word.empty')"
             ref="paramTable"
-            :data="dataList"
-            max-height="630"
+            :data="DATA_PAGE.engine.data"
+            max-height="570"
             @row-dblclick="link"
             style="width: 100%"
         >
@@ -89,6 +102,7 @@
           </el-table-column>
 
         </el-table>
+
         <!--   <b-table class="my-table-scroll" no-border-collapse hover
                  sticky-header="650px" :items="dataList"
                  @row-dblclicked="(item) => link( item)"
@@ -144,7 +158,18 @@
         </tbody>
         </table>
         <div v-if="LOAD_ADDITIONAL_DATA" class="lds-dual-ring-black" style="margin-left:47% "></div>-->
+        <div class="pagin-content">
+          <el-pagination
+              class="pagin-st"
+              @current-change="handleCurrentPage"
+              background
+              :current-page.sync="pageSetting.initRecordFrom"
+              layout="prev, pager, next"
+              :total="DATA_PAGE.engine.countResults*10">
+          </el-pagination>
+        </div>
       </el-tab-pane>
+
       <el-tab-pane :label="$ml.get('word.save')" name="1">
         <br/>
         <div class="title-bord col-md-2">
@@ -608,6 +633,12 @@ export default {
     confirmText: '',
     confirmOk: '',
     confirmNo: '',
+    pageSetting: {
+      initRecordFrom: 1,
+      pageSize: 50,
+      data: ''
+    },
+
     saveDataObj: {
       engineType: null,
       engineManufacturerFk: null,
@@ -620,6 +651,7 @@ export default {
       pistonStroke: null,
       engineCapacity: null,
       powerKwt: null,
+
       degreeCompression: null,
       activeName: '0',
       releaseYearFrom: null,
@@ -696,6 +728,7 @@ export default {
       'ADDITIONAL_DATA',
       'UPDATE_ENGINE',
       'DELETE_RESPONSE',
+      'DATA_PAGE',
       'ENGINE',
       'PARAM_NAME_AND_UNITS',
       'LOAD_ADDITIONAL_DATA'
@@ -707,11 +740,16 @@ export default {
   methods: {
     ...mapActions([
       'GET_ENG',
+      'GET_ENG_PAGINATION',
       'GET_ALL_ADDITIONAL_DATA'
     ]),
     ...mapMutations({
       cylindersPlacementFk: 'SET_UPDATE_CYLINDERS'
     }),
+    handleCurrentPage(val) {
+      this.pageSetting.initRecordFrom = val
+      this.GET_ENG_PAGINATION(this.pageSetting)
+    },
     handleTabsClick() {
       this.cancel()
       this.cancelSave()
@@ -958,8 +996,11 @@ export default {
       this.filterResults();
     },
     onChange() {
-      this.filterResults();
-    }, filterResults() {
+      this.GET_ENG_PAGINATION(this.pageSetting)
+
+//      this.filterResults();
+    },
+    filterResults() {
       if (this.mainDataList === null) {
         this.mainDataList = this.ADDITIONAL_DATA.engine;
       }
@@ -1123,6 +1164,11 @@ export default {
       }
       console.log(number)
     },
+    changePageSize(value) {
+      this.pageSetting.pageSize = value
+      this.pageSetting.initRecordFrom = 1
+      this.GET_ENG_PAGINATION(this.pageSetting)
+    },
     async update(number) {
       if (this.updateDataObj.status === null) {
         this.updateDataObj.status = this.tempData.status;
@@ -1239,6 +1285,22 @@ export default {
 .my-table-scroll::-webkit-scrollbar {
   width: 0px;
 }
+
+.pagin-st {
+  position: relative;
+  top: 15px;
+}
+
+.pagin-content {
+  padding-bottom: 10px;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 
 a {
   padding-left: 3vw;

@@ -49,6 +49,19 @@ let store = new Vuex.Store({
         treeRootNames: [],
         loadParam: false,
         allAdditionalData: [],
+        addPageData:{
+            measurementUnits: null,
+            cylinders: null,
+            parameterSizeName: null,
+            parameterName: null,
+            engineManufacture: null,
+            autoManufacturer: null,
+            autoModel: null,
+            fuelType: null,
+            engine: null,
+            automobileEngine: null,
+            superchargedType: null
+        },
         allAdditionalDataLoad: false,
         loadSave: {
             paramName:false,
