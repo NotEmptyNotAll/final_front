@@ -273,7 +273,7 @@ export default {
     };
     let pageSetting = {
       initRecordFrom: 1,
-      pageSize: 100,
+      pageSize: 50,
       data: ''
     };
     this.GET_AUTO_ENG_PAGINATION(pageSetting)
