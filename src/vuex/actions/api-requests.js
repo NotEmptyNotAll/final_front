@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//let urlApi = 'https://enginefinal.herokuapp.com/';
-let urlApi = 'http://localhost:5050/';
+let urlApi = 'https://enginefinal.herokuapp.com/';
+//let urlApi = 'http://localhost:5050/';
 
 export default {
     async GET_AUTO_ENG_PAGINATION({commit}, request) {
