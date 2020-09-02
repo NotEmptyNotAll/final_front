@@ -32,14 +32,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c064916-4a6b-4e88-93a1-d4463136ec2b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vuex/actions/api-delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vuex/actions/api-delete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vuex/actions/api-import.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vuex/actions/api-import.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vuex/actions/api-requests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vuex/actions/api-requests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vuex/actions/api-save-requests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vuex/actions/api-save-requests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vuex/actions/api-update-request.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vuex/actions/api-update-request.js" afterDir="false" />
-    </list>
+    <list default="true" id="6c064916-4a6b-4e88-93a1-d4463136ec2b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -164,7 +157,7 @@
       <workItem from="1598659221962" duration="473000" />
       <workItem from="1598896577041" duration="2198000" />
       <workItem from="1598960132241" duration="1761000" />
-      <workItem from="1598968696074" duration="1727000" />
+      <workItem from="1598968696074" duration="2327000" />
     </task>
     <servers />
   </component>
